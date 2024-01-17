@@ -18,7 +18,7 @@ import DashboardView from "../views/DashboardView.vue";
 import FacebookSignUp from "../pages/FacebookSignUp.vue";
 import FacebookLogin from "../pages/FacebookLogin.vue";
 import MyItinerarys from "../pages/MyItinerarys.vue";
-import Itinerary from "../pages/Itinerary.vue";
+import Itinerary from "../pages/Itinerary2.vue";
 
 const routes = [
   {

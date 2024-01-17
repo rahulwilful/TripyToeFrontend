@@ -80,6 +80,13 @@ export default {
     };
   },
 
+  beforeCreate() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.$router.push("/home");
+    }
+  },
+
   methods: {
     async handleGoogleLogin(response) {
       const user = decodeCredential(response.credential);

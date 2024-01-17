@@ -12,7 +12,7 @@
 </style>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-transparent fixed-top border border-light" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg bg-transparent fixed-top" data-bs-theme="dark">
     <div class="container-fluid navbar-container">
       <router-link class="navbar-brand" to="/home">
         <img src="../assets/LOGO.png" alt="" style="width: 150px; height: auto" />

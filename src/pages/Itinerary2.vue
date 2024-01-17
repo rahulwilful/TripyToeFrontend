@@ -9,7 +9,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#642bff, #ff22e6);
+  background: linear-gradient(#2860fc, #42aaff);
   border-radius: 5px;
 }
 
@@ -83,53 +83,52 @@
 </style>
 
 <template>
-  <div class="main">
+  <div class="main bg-body-secondary">
     <div>
       <div>
-        <div class="container">
-          <!-- <h1 class="d-flex justify-content-center align-items-center">Itineray</h1> -->
+        <div class="container container-sm container-md container-lg container-xl container-xxl" style="margin-top: 11vh">
           <div class="d-flex justify-content-center align-items-center">
-            <div class="preview">
-              <div class="preview-2 pt-1">
-                <div class="row mb-3">
-                  <div class="col d-flex justify-content-center align-items-center">
-                    <strong class="text-light">Destination: {{ destination }}</strong>
-                  </div>
-                  <div class="col d-flex justify-content-center align-items-center">
-                    <strong class="text-light">Days: {{ no_of_days }}</strong>
-                  </div>
-                  <div class="col d-flex justify-content-center align-items-center">
-                    <strong class="text-light">Start Date: {{ start_date }}</strong>
-                  </div>
+            <span class="border border-dark rounded bg-info shadow-lg">
+              <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-2 pt-sm-2 pt-md-2 pt-lg-2 pt-xl-3 pt-xxl-3 px-2 px-sm-2 px-md-2 px-lg-2 px-xl-3 px-xxl-3">
+                <div class="col">
+                  <input class="form-control form-control-sm border border-primary" disabled v-model="destination" type="text" placeholder="Place" aria-label=".form-control-sm example" />
                 </div>
-                <div class="row">
-                  <div class="col d-flex justify-content-center align-items-center">
-                    <span
-                      ><strong class="text-light">People: {{ no_of_ppl }}</strong></span
-                    >
-                  </div>
-                  <div class="col d-flex justify-content-center align-items-center">
-                    <strong class="text-light">Preference: {{ preference }}</strong>
-                  </div>
-                  <div class="col d-flex justify-content-center align-items-center">
-                    <strong class="text-light">Budget: {{ budget }}</strong>
-                  </div>
+                <div class="col">
+                  <input class="form-control form-control-sm border border-primary" disabled v-model="no_of_ppl" type="number" placeholder="People" aria-label=".form-control-sm example" />
+                </div>
+                <div class="col">
+                  <input class="form-control form-control-sm border border-primary" disabled v-model="start_date" type="date" placeholder="Start Date" aria-label=".form-control-sm example" />
                 </div>
               </div>
-            </div>
+              <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 py-2 py-sm-2 py-md-2 py-lg-2 py-xl-3 py-xxl-3 px-2 px-sm-2 px-md-2 px-lg-2 px-xl-3 px-xxl-3">
+                <div class="col">
+                  <input class="form-control form-control-sm border border-primary" disabled v-model="no_of_days" type="number" placeholder="Days" aria-label=".form-control-sm example" />
+                </div>
+                <div class="col">
+                  <input class="form-control form-control-sm border border-primary" disabled v-model="budget" type="number" placeholder="Budget" aria-label=".form-control-sm example" />
+                </div>
+                <div class="col">
+                  <input class="form-control form-control-sm border border-primary" disabled v-model="preference" type="text" placeholder="Budget" aria-label=".form-control-sm example" />
+                </div>
+              </div>
+              <!-- Go Button -->
+            </span>
           </div>
-
-          <div class="container bg-transparent">
-            <div id="card1" class="card bg-transparent border border-0">
-              <div class="card-body bg-transparent">
-                <div class="container3 justify-content-center align-items-center p-3" style="backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.5)">
-                  <ol class="" style="max-height: 350px; overflow-y: auto">
-                    <li v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="bg-transparent text-light mb-2" style="background-color: rgba(255, 255, 255, 0.7); border-radius: 8px">
+          <!-- Itinerary -->
+          <div class="mt-3">
+            <!-- Back button -->
+            <div class="border border-dark rounded-3 shadow-lg bg-light p-2 p-sm-2 p-md-2 p-lg-2 p-xl-3 p-xxl-3">
+              <div class="itinerary overflow-auto" style="height: 50vh">
+                <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2">
+                  <ol class="" style="overflow-y: auto">
+                    <li v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="bg-transparent text-dark mb-2">
                       <!-- Use another v-for to iterate over the lines within each day -->
                       <div v-for="(line, lineIndex) in day" :key="lineIndex" class="bg-transparent">
-                        <!-- {{ line }} -->
+                        <!-- Highlight entities in the line -->
                         <span v-html="highlightEntities(line)"></span>
+                        <!-- {{ line }} -->
                       </div>
+                      <hr class="divider" />
                     </li>
                   </ol>
                 </div>
@@ -138,43 +137,47 @@
           </div>
           <div>
             <div>
-              <div class="mb-3">
+              <div class="my-3">
                 <!-- <div class="container w-auto mt-3 mb-3">
-                  <div class="d-flex overflow-hidden">
-                    <div id="list" class="carousel" ref="nameEntityCarousel">
-                      <ol class="d-flex mb-3">
-                        <li v-for="name in name_entity" :key="name" class="d-flex">
+                        <div class="d-flex overflow-hidden">
+                          <div id="list" class="carousel" ref="nameEntityCarousel">
+                            <ol class="d-flex mb-3">
+                              <li v-for="name in name_entity" :key="name" class="d-flex">
+                                <div class="card text-bg-dark" style="width: 15rem; height: 10rem; position: relative; overflow: hidden">
+                                  <img :src="img + name" class="card-img" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+                                  <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
+                                    <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
+                                      <p class="card-text" style="overflow: hidden">{{ name }}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div> -->
+                <div class="">
+                  <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
+                    <Slide v-for="name in name_entity" :key="name" class="pe-auto">
+                      <router-link to="#" class="">
+                        <div class="carousel__item">
                           <div class="card text-bg-dark" style="width: 15rem; height: 10rem; position: relative; overflow: hidden">
-                            <img :src="img + name" class="card-img" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+                            <img :src="imgSource + name" class="card-img img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
                             <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
                               <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
                                 <p class="card-text" style="overflow: hidden">{{ name }}</p>
                               </div>
                             </div>
                           </div>
-                        </li>
-                      </ol>
-                    </div>
-                  </div>
-                </div> -->
-                <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
-                  <Slide v-for="name in name_entity" :key="name">
-                    <div class="carousel__item">
-                      <div class="card text-bg-dark" style="width: 15rem; height: 10rem; position: relative; overflow: hidden">
-                        <img :src="img + name" class="card-img" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
-                        <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
-                          <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
-                            <p class="card-text" style="overflow: hidden">{{ name }}</p>
-                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </Slide>
+                      </router-link>
+                    </Slide>
 
-                  <template #addons>
-                    <Navigation />
-                  </template>
-                </Carousel>
+                    <template #addons>
+                      <Navigation />
+                    </template>
+                  </Carousel>
+                </div>
               </div>
             </div>
           </div>
@@ -209,7 +212,7 @@ export default {
       budget: null,
       itinerary: [],
       name_entity: ["Arambol Beach", "Pandava caves ", "Anjuna Flea Market", "Mandovi River", "Chapora river", "Dudhsagar Falls", "panaji", "margao", "mapusa", "bicholim", "calangut", "baga", "vaghature", "anjuna"],
-      img: "https://source.unsplash.com/1400x720/?goa,white",
+      imgSource: "https://source.unsplash.com/1400x720/?goa,white",
 
       settings: {
         itemsToShow: 1,
@@ -258,7 +261,7 @@ export default {
       const response = await axiosClient.get(`user/getitinerarybyid/${this.id}/${this.itineraryid}`);
       console.log(response);
       this.destination = response.data.result.itinerarys[0].destination;
-      this.start_date = response.data.result.itinerarys[0].start_date;
+      const date = response.data.result.itinerarys[0].start_date;
       this.no_of_days = response.data.result.itinerarys[0].no_of_days;
       this.no_of_ppl = response.data.result.itinerarys[0].no_of_ppl;
       this.preference = response.data.result.itinerarys[0].preference;
@@ -267,10 +270,10 @@ export default {
 
       const rawDate = response.data.result.itinerarys[0].start_date;
       const formattedDate = new Date(rawDate).toLocaleDateString();
-      this.start_date = formattedDate;
+      this.start_date = date.slice(0, 10);
 
       const itineraryArray = itineraryString.split("\\n\\n");
-
+      console.log("start date", this.start_date);
       this.itinerary = [];
       for (const day of itineraryArray) {
         // Remove extra spaces and format with line breaks and numbering
@@ -311,7 +314,7 @@ export default {
       // Highlight entities in the line using name_entity array
       for (const entity of this.name_entity) {
         const regex = new RegExp(`\\b${entity}\\b`, "gi");
-        line = line.replace(regex, `<span style="color: yellow">${entity}</span>`);
+        line = line.replace(regex, `<span style="color: blue">${entity}</span>`);
       }
       return line;
     },

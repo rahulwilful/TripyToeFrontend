@@ -99,7 +99,12 @@ export default {
     };
   },
 
-  async created() {},
+  beforeCreate() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.$router.push("/home");
+    }
+  },
 
   methods: {
     async handleSubmit() {

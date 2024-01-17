@@ -34,6 +34,20 @@
   width: 100%;
   height: 100%;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d1e5ff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#2860fc, #42aaff);
+  border-radius: 5px;
+}
 </style>
 
 <template>
@@ -133,14 +147,14 @@
 
                 <div class="border border-dark rounded-3 shadow-lg bg-light p-2 p-sm-2 p-md-2 p-lg-2 p-xl-3 p-xxl-3">
                   <div class="itinerary overflow-auto" style="height: 50vh">
-                    <div class="p-1 p-sm-1 p-md-1 p-lg-1 p-xl-2 p-xxl-2">
+                    <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2">
                       <ol class="" style="max-height: 250px; overflow-y: auto">
                         <li v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="bg-transparent text-dark mb-2">
                           <!-- Use another v-for to iterate over the lines within each day -->
                           <div v-for="(line, lineIndex) in day" :key="lineIndex" class="bg-transparent">
                             <!-- Highlight entities in the line -->
                             <span v-html="highlightEntities(line)"></span>
-                            {{ line }}
+                            <!-- {{ line }} -->
                           </div>
                           <hr class="divider" />
                         </li>
@@ -149,7 +163,7 @@
                   </div>
                   <div>
                     <div class="d-flex justify-content-end">
-                      <button type="button" @click="saveToItinerarys" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 mt-2 mt-sm-2 mt-md-2 mt-lg-2 mt-xl-3 mt-xxl-3">
+                      <button type="button" @click="saveToItinerarys" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3">
                         <span class="px-1"> Save </span>
                       </button>
                     </div>
@@ -177,19 +191,21 @@
                           </div>
                         </div>
                       </div> -->
-                    <div class="container">
+                    <div class="">
                       <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
-                        <Slide v-for="name in name_entity" :key="name">
-                          <div class="carousel__item">
-                            <div class="card text-bg-dark" style="width: 15rem; height: 10rem; position: relative; overflow: hidden">
-                              <img :src="imgSource + name" class="card-img img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
-                              <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
-                                <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
-                                  <p class="card-text" style="overflow: hidden">{{ name }}</p>
+                        <Slide v-for="name in name_entity" :key="name" class="pe-auto">
+                          <router-link to="#" class="">
+                            <div class="carousel__item">
+                              <div class="card text-bg-dark" style="width: 15rem; height: 10rem; position: relative; overflow: hidden">
+                                <img :src="imgSource + name" class="card-img img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+                                <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
+                                  <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
+                                    <p class="card-text" style="overflow: hidden">{{ name }}</p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </router-link>
                         </Slide>
 
                         <template #addons>
@@ -260,7 +276,7 @@ export default {
         plan: "",
       },
       id: "",
-      imgSource: "https://source.unsplash.com/1400x720/?beach,goa",
+      imgSource: "https://source.unsplash.com/1400x720/?white sand,beach,goa",
       loadingPercentage: 0,
       activeIndex: 0,
       progressBars: [0, 0, 0, 0],
@@ -435,7 +451,7 @@ export default {
 
     startProgress() {
       setInterval(() => {
-        console.log("Active Index", this.activeIndex);
+        //console.log("Active Index", this.activeIndex);
         this.loadingPercentage += 5;
         this.progressBars[this.activeIndex] = this.loadingPercentage;
         if (this.loadingPercentage > 105) {
