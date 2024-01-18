@@ -4,25 +4,18 @@
 }
 
 .card {
-  background: linear-gradient(to right, #575757, #a0a0a0);
+  background: rgb(125, 192, 255);
   width: 50rem;
 }
 
 .list {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
   height: 3rem;
   border-radius: 5px;
 }
 
-@media (max-width: 576px) {
-  .main {
-    height: auto; /* Adjust height for small screens */
-  }
-  .card {
-    background: linear-gradient(to right, #713ffa, #2289ff);
-    width: 25rem;
-  }
+#list:hover {
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(-5px);
 }
 </style>
 
@@ -39,20 +32,54 @@
                   <div class="bg-transparent">
                     <div class="bg-transparent">
                       <ol class="list-group bg-transparent">
-                        <li @click="getItinerary(item._id)" v-for="item in itinerarys" :key="item" class="list-group-item bg-transparent border border-0 align-middle">
+                        <li class="list-group-item bg-transparent border border-secondary mb-2 align-middle">
                           <div class="list">
                             <div class="row bg-transparent" style="height: 100%; align-items: center">
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
-                                <h5 class="mb-1 text-light bg-transparent d-flex"><strong>Name:</strong> {{ item.destination }}</h5>
+                                <h5 class="mb-1 text-dark bg-transparent d-flex">
+                                  <strong><i class="bi bi-geo-alt-fill"></i> Destination</strong>
+                                </h5>
                               </div>
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
-                                <p class="mb-1 text-light d-flex bg-transparent"><strong>Department:</strong> {{ item.no_of_days }}</p>
+                                <p class="mb-1 text-dark d-flex bg-transparent">
+                                  <strong><i class="bi bi-people-fill"></i> Peaple</strong>
+                                </p>
                               </div>
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
-                                <p class="mb-1 text-light d-flex bg-transparent"><strong>Role:</strong> {{ item.no_of_ppl }}</p>
+                                <p class="mb-1 text-dark d-flex bg-transparent">
+                                  <strong><i class="bi bi-calendar-week-fill"> </i> Days</strong>
+                                </p>
                               </div>
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
-                                <p class="mb-1 text-light d-flex bg-transparent"><strong>Role:</strong> {{ item.budget }}</p>
+                                <p class="mb-1 text-dark d-flex bg-transparent">
+                                  <strong><i class="bi bi-cash-coin"></i> Budget</strong>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li id="list" @click="getItinerary(item._id)" v-for="item in itinerarys" :key="item" class="list-group-item bg-transparent border border-secondary mb-2 align-middle">
+                          <div class="list">
+                            <div class="row bg-transparent" style="height: 100%; align-items: center">
+                              <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
+                                <h5 class="mb-1 text-dark bg-transparent d-flex">
+                                  <span> {{ item.destination }}</span>
+                                </h5>
+                              </div>
+                              <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
+                                <p class="mb-1 text-dark d-flex bg-transparent">
+                                  <span> {{ item.no_of_days }}</span>
+                                </p>
+                              </div>
+                              <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
+                                <p class="mb-1 text-dark d-flex bg-transparent">
+                                  <span> {{ item.no_of_ppl }}</span>
+                                </p>
+                              </div>
+                              <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
+                                <p class="mb-1 text-dark d-flex bg-transparent">
+                                  <span> {{ item.budget }}</span>
+                                </p>
                               </div>
                             </div>
                           </div>
