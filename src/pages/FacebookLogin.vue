@@ -88,6 +88,9 @@ export default {
             autoClose: 1500,
           });
         }
+        setTimeout(() => {
+          this.$router.push("/login");
+        }, 1500);
       }
     },
 

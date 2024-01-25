@@ -16,7 +16,7 @@
       <div class="row vh-100">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-          <div class="card justify-content-center align-content-center mt-4 shadow-lg border-light">
+          <div class="card justify-content-center align-content-center mt-4 shadow-lg border-light px-2">
             <h1 class="text-center mt-2">LogIn</h1>
             <form class="my-3 mt-2 mx-2">
               <div class="mb-3">
@@ -80,47 +80,28 @@ export default {
     };
   },
 
-  beforeCreate() {
-    const token = localStorage.getItem("token");
+  async beforeCreate() {
+    /* const token = localStorage.getItem("token");
     if (token) {
       this.$router.push("/home");
+    } */
+    try {
+      const token = await axiosClient.get("user/getcurrentuser/");
+      console.log(token);
+      if (token) {
+        this.$router.push("/home");
+      }
+
+      // Log the state of items after initialization
+      console.log("Initialized items:", this.items);
+    } catch (err) {
+      if (err.response.status == 401) {
+      }
+      console.log("error: ", err);
     }
   },
 
   methods: {
-    async handleGoogleLogin(response) {
-      const user = decodeCredential(response.credential);
-      console.log(user.email);
-      this.form.email = user.email;
-
-      const googleResponse = await axiosClient.post("user/googlelogin", this.form).catch((err) => {
-        console.log(err);
-        if (err.response.status == 404) {
-          toast.error("User does not exist", {
-            autoClose: 1500,
-          });
-        } else if (err.response.status == 400) {
-          toast.error("User approvel is pending", {
-            autoClose: 1500,
-          });
-        } else {
-          console.error("Error , cannot loggin", err);
-          toast.error("Somthing Went wrong", {
-            autoClose: 1500,
-          });
-        }
-      });
-      console.log("User loggedin successfully", googleResponse.data);
-      console.log("User loggedin successfully", googleResponse.data.token);
-      localStorage.setItem("token", googleResponse.data.token);
-      toast.success("Log In Successfull", {
-        autoClose: 1500,
-      });
-      setTimeout(() => {
-        this.$router.push("/home");
-      }, 1500);
-    },
-
     async handleSubmit(e) {
       this.error = [];
       for (const item in this.form) {

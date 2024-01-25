@@ -1,3 +1,26 @@
+<div class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="number" placeholder="No Of People" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.start_date" type="date" placeholder="Start Date" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="No Of Days" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="number" placeholder="Budget" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <div>
+                        <select class="form-select form-select-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
+                          <option class="bg-dark" value="0">Preference</option>
+                          <option class="bg-dark" :value="item" v-for="item in preference" :key="item">{{ item }}</option>
+                        </select>
+                      </div>
+                    </div>
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
    /* for (const day of itineraryArray) {
             // Remove extra spaces and format with line breaks and numbering
             const formattedDay = day

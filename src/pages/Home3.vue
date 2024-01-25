@@ -73,25 +73,23 @@
             <div v-if="!searched" class="container container-sm container-md container-lg container-xl container-xxl d-flex justify-content-center align-items-center" style="height: calc(100vh - 20px)">
               <div class="d-flex justify-content-center align-items-center">
                 <span class="border border-dark rounded bg-info shadow-lg">
-                  <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-2 pt-sm-2 pt-md-2 pt-lg-2 pt-xl-3 pt-xxl-3 px-2 px-sm-2 px-md-2 px-lg-2 px-xl-3 px-xxl-3">
-                    <div class="col">
+                  <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-3 pt-sm-3 pt-md-3 pt-lg-2 pt-xl-3 pt-xxl-3 px-3 px-sm-3 px-md-3 px-lg-2 px-xl-3 px-xxl-3">
+                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg col-xl col-xxl">
                       <input class="form-control form-control-sm border border-primary" v-model="form.destination" type="text" placeholder="Place" aria-label=".form-control-sm example" />
                     </div>
-                    <div class="col">
+                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg col-xl col-xxl">
                       <input class="form-control form-control-sm border border-primary" v-model="form.no_of_ppl" type="number" placeholder="People" aria-label=".form-control-sm example" />
                     </div>
-                    <div class="col">
+                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg col-xl col-xxl">
                       <input class="form-control form-control-sm border border-primary" v-model="form.start_date" type="date" placeholder="Start Date" aria-label=".form-control-sm example" />
                     </div>
-                  </div>
-                  <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 py-2 py-sm-2 py-md-2 py-lg-2 py-xl-3 py-xxl-3 px-2 px-sm-2 px-md-2 px-lg-2 px-xl-3 px-xxl-3">
-                    <div class="col">
+                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg col-xl col-xxl">
                       <input class="form-control form-control-sm border border-primary" v-model="form.no_of_days" type="number" placeholder="Days" aria-label=".form-control-sm example" />
                     </div>
-                    <div class="col">
+                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg col-xl col-xxl">
                       <input class="form-control form-control-sm border border-primary" v-model="form.budget" type="number" placeholder="Budget" aria-label=".form-control-sm example" />
                     </div>
-                    <div class="col">
+                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg col-xl col-xxl">
                       <div>
                         <select class="form-select form-select-sm border border-primary" v-model="form.preference">
                           <!-- <option class="bg-light" selected>select preference</option> -->
@@ -101,7 +99,7 @@
                     </div>
                   </div>
                   <!-- Go Button -->
-                  <button type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 mb-2 mb-sm-2 mb-md-2 mb-lg-2 mb-xl-3 mb-xxl-3">Go <i class="bi bi-arrow-right"></i></button>
+                  <button type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3">Go <i class="bi bi-arrow-right"></i></button>
                 </span>
               </div>
             </div>
@@ -147,8 +145,8 @@
 
                 <div class="border border-dark rounded-3 shadow-lg bg-light p-2 p-sm-2 p-md-2 p-lg-2 p-xl-3 p-xxl-3">
                   <div class="itinerary overflow-auto" style="height: 50vh">
-                    <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2">
-                      <ol class="" style="max-height: 250px; overflow-y: auto">
+                    <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2 px-2">
+                      <ol class="" style="overflow-y: auto">
                         <li v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="bg-transparent text-dark mb-2">
                           <!-- Use another v-for to iterate over the lines within each day -->
                           <div v-for="(line, lineIndex) in day" :key="lineIndex" class="bg-transparent">
@@ -162,7 +160,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end mt-2">
                       <button type="button" @click="saveToItinerarys" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3">
                         <span class="px-1"> Save </span>
                       </button>
@@ -200,7 +198,7 @@
                                 <img :src="imgSource + name" class="card-img img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
                                 <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
                                   <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
-                                    <p class="card-text" style="overflow: hidden">{{ name }}</p>
+                                    <p class="card-text" style="overflow: hidden; text-transform: capitalize">{{ name }}</p>
                                   </div>
                                 </div>
                               </div>
@@ -253,7 +251,7 @@ import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 export default {
-  name: "HomeTrial",
+  name: "Home3",
   components: {
     Carousel,
     Slide,
@@ -276,7 +274,7 @@ export default {
         plan: "",
       },
       id: "",
-      imgSource: "https://source.unsplash.com/1400x720/?white sand,beach,goa",
+      imgSource: "https://source.unsplash.com/1400x720/?beach,goa",
       loadingPercentage: 0,
       activeIndex: 0,
       progressBars: [0, 0, 0, 0],

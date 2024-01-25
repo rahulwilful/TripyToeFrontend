@@ -1,38 +1,97 @@
 <style scoped>
 .main {
   padding-top: 5rem;
+  height: 100vh;
 }
 
 .card {
-  background: rgb(125, 192, 255);
-  width: 50rem;
+  background: #5bc0de;
+  width: 70vw;
+  max-width: 1000px;
 }
 
 .list {
-  height: 3rem;
+  height: 7vh;
   border-radius: 5px;
 }
 
 #list:hover {
   transition: transform 0.3s ease-in-out;
   transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 900px) {
+  .card {
+    background: #5bc0de;
+    width: 90vw;
+  }
+  strong {
+    font-size: 3vw;
+  }
+  i {
+    display: none;
+  }
+  span {
+    font-size: 3vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    background: #5bc0de;
+    width: 90vw;
+  }
+  strong {
+    font-size: 3vw;
+  }
+  i {
+    display: none;
+  }
+  span {
+    font-size: 3vw;
+  }
+  .list {
+    height: 5vh;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    background: #5bc0de;
+    width: 90vw;
+  }
+  strong {
+    font-size: 3.3vw;
+  }
+  i {
+    display: none;
+  }
+  span {
+    font-size: 3.3vw;
+  }
+  .list {
+    height: 4vh;
+    border-radius: 5px;
+  }
 }
 </style>
 
 <template>
-  <div class="main">
-    <div class="d-flex justify-content-center align-items-center">
+  <div class="main bg-body-secondary">
+    <div v-if="itineraryFlag" class="d-flex justify-content-center align-items-center">
       <div>
         <div>
           <div>
-            <h1 class="d-flex justify-content-center align-items-center">My Itinerarys</h1>
-            <div class="pt-3">
-              <div class="card">
+            <div class="">
+              <div class="card border border-primary shadow-lg">
+                <h1 class="d-flex justify-content-center align-items-center my-3" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">My Itinerarys</h1>
                 <div class="card-body bg-transparent">
                   <div class="bg-transparent">
                     <div class="bg-transparent">
                       <ol class="list-group bg-transparent">
-                        <li class="list-group-item bg-transparent border border-secondary mb-2 align-middle">
+                        <li class="list-group-item bg-transparent border border-primary mb-2 align-middle">
                           <div class="list">
                             <div class="row bg-transparent" style="height: 100%; align-items: center">
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
@@ -58,7 +117,7 @@
                             </div>
                           </div>
                         </li>
-                        <li id="list" @click="getItinerary(item._id)" v-for="item in itinerarys" :key="item" class="list-group-item bg-transparent border border-secondary mb-2 align-middle">
+                        <li id="list" @click="getItinerary(item._id)" v-for="item in itinerarys" :key="item" class="list-group-item bg-transparent border border-primary mb-2 align-middle">
                           <div class="list">
                             <div class="row bg-transparent" style="height: 100%; align-items: center">
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
@@ -94,6 +153,9 @@
         </div>
       </div>
     </div>
+    <div v-if="!itineraryFlag" class="d-flex justify-content-center align-items-center" style="height: 100%">
+      <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">No Saved Itinerarys</h1>
+    </div>
   </div>
 </template>
 
@@ -114,6 +176,7 @@ export default {
       no_of_ppl: 0,
       preference: "",
       budget: 0,
+      itineraryFlag: true,
     };
   },
   async created() {
@@ -126,11 +189,14 @@ export default {
       });
       console.log("token", token);
       this.id = token.data.data._id;
-
       const response = await axiosClient.get(`user/getitinerarys/${this.id}`);
       console.log(response);
       this.itinerarys = response.data.result;
+      if (this.itinerarys.length == 0) {
+        this.itineraryFlag = false;
+      }
       console.log(this.itinerarys);
+      console.log("itineraryFlag : ", this.itineraryFlag);
     } catch (e) {
       console.log("error: ", e);
       this.$router.push("/login");

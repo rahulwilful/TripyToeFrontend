@@ -15,24 +15,7 @@
 
 .main {
   padding-top: 5rem;
-}
-
-.preview {
-  width: 70%;
-  padding-bottom: 2rem;
-  height: 5rem;
-  border: 1px solid;
-  border-image: linear-gradient(to right, #642bff, #ff22e6);
-
-  border-image-slice: 1;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-}
-.container3 {
-  border-width: 1px;
-  border-style: solid;
-  border-image: linear-gradient(to right, #642bff, #ff22e6);
-  border-image-slice: 1;
+  height: 100%;
 }
 
 #card1 {
@@ -42,23 +25,6 @@
 /* .d-flex.overflow-hidden {
   overflow-x: hidden;
 } */
-
-.carousel {
-  display: flex;
-  overflow-x: auto; /* Make the carousel scrollable horizontally */
-  transition: transform 0.5s ease;
-}
-
-.carousel ol {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.carousel li {
-  margin-right: 15px; /* Adjust the margin between items as needed */
-}
 
 /* .card {
   transition: transform 0.5s ease; 
@@ -84,7 +50,7 @@
 
 <template>
   <div class="main bg-body-secondary">
-    <div>
+    <div class="">
       <div>
         <div class="container container-sm container-md container-lg container-xl container-xxl" style="margin-top: 11vh">
           <div class="d-flex justify-content-center align-items-center">
@@ -119,25 +85,25 @@
             <!-- Back button -->
             <div class="border border-dark rounded-3 shadow-lg bg-light p-2 p-sm-2 p-md-2 p-lg-2 p-xl-3 p-xxl-3">
               <div class="itinerary overflow-auto" style="height: 50vh">
-                <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2">
-                  <ol class="" style="overflow-y: auto">
+                <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2 px-2">
+                  <ul class="" style="overflow-y: auto">
                     <li v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="bg-transparent text-dark mb-2">
                       <!-- Use another v-for to iterate over the lines within each day -->
-                      <div v-for="(line, lineIndex) in day" :key="lineIndex" class="bg-transparent">
+                      <div v-for="(line, lineIndex) in day" :key="lineIndex" class="bg-transparent mt-3">
                         <!-- Highlight entities in the line -->
                         <span v-html="highlightEntities(line)"></span>
                         <!-- {{ line }} -->
                       </div>
                       <hr class="divider" />
                     </li>
-                  </ol>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
           <div>
             <div>
-              <div class="my-3">
+              <div class="py-3">
                 <!-- <div class="container w-auto mt-3 mb-3">
                         <div class="d-flex overflow-hidden">
                           <div id="list" class="carousel" ref="nameEntityCarousel">
@@ -165,7 +131,7 @@
                             <img :src="imgSource + name" class="card-img img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
                             <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
                               <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
-                                <p class="card-text" style="overflow: hidden">{{ name }}</p>
+                                <p class="card-text" style="overflow: hidden; text-transform: capitalize">{{ name }}</p>
                               </div>
                             </div>
                           </div>
@@ -222,7 +188,7 @@ export default {
       // any settings not specified will fallback to the carousel settings
       breakpoints: {
         // 300px and up
-        300: {
+        0: {
           itemsToShow: 1,
           snapAlign: "center",
         },
@@ -231,13 +197,33 @@ export default {
           itemsToShow: 1,
           snapAlign: "center",
         },
-        700: {
-          itemsToShow: 3.5,
+        500: {
+          itemsToShow: 2,
+          snapAlign: "center",
+        },
+        600: {
+          itemsToShow: 2,
+          snapAlign: "center",
+        },
+        768: {
+          itemsToShow: 2.5,
           snapAlign: "center",
         },
         // 1024 and up
-        1024: {
+        992: {
+          itemsToShow: 3,
+          snapAlign: "start",
+        },
+        1100: {
+          itemsToShow: 3.5,
+          snapAlign: "center",
+        },
+        1250: {
           itemsToShow: 4.5,
+          snapAlign: "center",
+        },
+        2000: {
+          itemsToShow: 5,
           snapAlign: "start",
         },
       },

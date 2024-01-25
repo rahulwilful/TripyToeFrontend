@@ -1,8 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
-import Home from "../pages/Home3.vue";
-import MyAccount from "../pages/MyAccount.vue";
+import Home from "../pages/Home4.vue";
+import MyAccount from "../pages/MyAccount2.vue";
 import UserEdit from "../pages/UserEdit.vue";
 import NotFound from "../pages/NotFound.vue";
 import ManageUsers from "../pages/ManageUsers.vue";

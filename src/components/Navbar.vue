@@ -1,9 +1,11 @@
 <style scoped>
-.my-profile {
-  right: 20px;
-}
 #dropdown-button {
   border: none;
+}
+
+nav {
+  padding-right: 1vw;
+  padding-left: 1vw;
 }
 
 .custom-dropdown-menu {
@@ -20,25 +22,22 @@
       <div class="my-profile">
         <div class="dropdown dropstart">
           <button class="btn btn-secondary dropdown-toggle bg-transparent border-transparent" id="dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 33px; height: 33px" />
+            <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 33px; height: 33px; object-fit: cover" />
             <img v-else src="../assets/profile-circle copy.svg" />
           </button>
-          <ul class="dropdown-menu narrow-dropdown">
+          <ul class="dropdown-menu narrow-dropdown px-2 bg-dark bg-opacity-75 border border-dark">
             <li class="nav-item justify-content-between">
-              <div class="d-flex justify-content-center align-items-center">
+              <div class="px-2 px-sm-2 px-md-2 px-lg-2 px-xl-2 px-xxl-2">
                 <router-link class="nav-link" to="/myaccount">My Account</router-link>
               </div>
-              <div class="d-flex justify-content-center align-items-center">
+              <div class="px-2 px-sm-2 px-md-2 px-lg-2 px-xl-2 px-xxl-2">
                 <router-link class="nav-link" to="/myitinerarys">My Itinerarys</router-link>
               </div>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <div class="d-flex justify-content-center align-items-center">
-                <button class="btn btn-danger me-md-3 mr-1" v-on:click="logout">
-                  <i class="bi bi-box-arrow-right"></i>
-                  Logout
-                </button>
+              <div class="px-2 px-sm-2 px-md-2 px-lg-2 px-xl-2 px-xxl-2">
+                <button class="btn btn-danger me-md-3 mr-1" v-on:click="logout"><i class="bi bi-box-arrow-right"></i>Logout</button>
               </div>
             </li>
           </ul>
@@ -155,10 +154,6 @@ export default {
   width: 100%;
   z-index: 1000;
   border: none;
-}
-
-.text-white {
-  color: white;
 }
 
 .navbar-container::before {

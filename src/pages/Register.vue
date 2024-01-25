@@ -20,7 +20,7 @@
               <div class="col-6 border-end">
                 <div class="mb-4">
                   <label for="form.name" class="form-label">Name*</label>
-                  <input type="text" class="form-control" id="form.name" v-model="form.name" />
+                  <input type="text" class="form-control" id="form.name" v-model="form.name" style="text-transform: capitalize" />
                 </div>
                 <div class="mb-4">
                   <label for="form.mobile_no" class="form-label"> Mobile Number*</label>
@@ -108,6 +108,7 @@ export default {
 
   methods: {
     async handleSubmit() {
+      this.form.name = this.capitalize(this.form.name);
       console.log(this.form);
       this.error = [];
       for (const item in this.form) {
@@ -156,6 +157,11 @@ export default {
         console.log("Form Values Are ", this.form, this.error);
       }
     },
+
+    capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+
     //funtion for email verification and redirect if verification email sent successfully
     async varifyEmail() {
       //function to invoke emailjs

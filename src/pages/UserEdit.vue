@@ -16,7 +16,7 @@
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
               <!-- Profile picture image-->
-              <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 270px; height: 300px" />
+              <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 300px; height: 300px; object-fit: cover" />
               <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
 
               <!-- Profile picture help block-->

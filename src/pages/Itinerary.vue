@@ -219,22 +219,30 @@ export default {
       // any settings not specified will fallback to the carousel settings
       breakpoints: {
         // 300px and up
-        300: {
+        0: {
           itemsToShow: 1,
           snapAlign: "center",
         },
         // 400px and up
         400: {
-          itemsToShow: 1,
+          itemsToShow: 1.5,
           snapAlign: "center",
         },
-        700: {
-          itemsToShow: 3.5,
+        600: {
+          itemsToShow: 2,
+          snapAlign: "center",
+        },
+        900: {
+          itemsToShow: 3,
           snapAlign: "center",
         },
         // 1024 and up
-        1024: {
-          itemsToShow: 4.5,
+        1100: {
+          itemsToShow: 4.3,
+          snapAlign: "start",
+        },
+        2000: {
+          itemsToShow: 5,
           snapAlign: "start",
         },
       },

@@ -67,9 +67,9 @@ export default {
   methods: {
     async handleGoogleLogin(response) {
       const user = decodeCredential(response.credential);
-      console.log(user.email);
-      this.form.email = user.email;
 
+      this.form.googleId = user.sub;
+      console.log(this.form.googleId);
       const googleResponse = await axiosClient.post("user/googlelogin", this.form).catch((err) => {
         console.log(err);
         if (err.response.status == 404) {
@@ -86,6 +86,9 @@ export default {
             autoClose: 1500,
           });
         }
+        setTimeout(() => {
+          this.$router.push("/login");
+        }, 1500);
       });
       console.log("User loggedin successfully", googleResponse.data);
       console.log("User loggedin successfully", googleResponse.data.token);
