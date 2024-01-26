@@ -3,6 +3,34 @@
   margin-top: 5rem;
 }
 
+.profile-image {
+  width: 20vw;
+  height: 20vw;
+  object-fit: cover;
+}
+@media (max-width: 1199px) {
+  .profile-image {
+    width: 30vw;
+    height: 30vw;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-image {
+    width: 40vw;
+    height: 40vw;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile-image {
+    width: 60vw;
+    height: 60vw;
+    object-fit: cover;
+  }
+}
 /* Add your responsive styling here */
 </style>
 
@@ -16,7 +44,7 @@
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
               <!-- Profile picture image-->
-              <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 300px; height: 300px; object-fit: cover" />
+              <img v-if="form.profile" class="img-account-profile profile-image rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" />
               <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
 
               <!-- Profile picture help block-->

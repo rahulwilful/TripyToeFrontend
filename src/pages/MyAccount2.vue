@@ -13,6 +13,35 @@
   color: white;
   border-radius: 5px;
 }
+
+.profile-image {
+  width: 20vw;
+  height: 20vw;
+  object-fit: cover;
+}
+@media (max-width: 1199px) {
+  .profile-image {
+    width: 30vw;
+    height: 30vw;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-image {
+    width: 40vw;
+    height: 40vw;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile-image {
+    width: 60vw;
+    height: 60vw;
+    object-fit: cover;
+  }
+}
 </style>
 
 <template>
@@ -25,7 +54,7 @@
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
               <!-- Profile picture image-->
-              <img v-if="profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + profile" alt="Profile Picture" style="width: 300px; height: 300px; object-fit: cover" />
+              <img v-if="profile" class="img-account-profile profile-image rounded-circle mb-2" :src="profile_url + profile" alt="Profile Picture" />
               <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
 
               <!-- Profile picture help block-->
@@ -61,11 +90,11 @@
                           </div>
                         </div> -->
                         <div class="col-6">
-                          <div v-if="emailVerified">
+                          <div class="float-end px-2" v-if="emailVerified">
                             <i class="bi bi-patch-check-fill" style="color: blue"></i>
                             <span style="color: rgb(167, 167, 167); font-size: small"> Email Varified</span>
                           </div>
-                          <div v-else>
+                          <div class="float-end px-2" v-else>
                             <span class="varify-button">
                               <button @click="varifyEmail" style="border: none; background-color: transparent; border-radius: 5px">
                                 <i class="bi bi-patch-check-fill" style="color: red"></i>

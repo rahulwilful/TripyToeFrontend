@@ -25,18 +25,20 @@ nav {
             <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 33px; height: 33px; object-fit: cover" />
             <img v-else src="../assets/profile-circle copy.svg" />
           </button>
-          <ul class="dropdown-menu narrow-dropdown px-2 bg-dark border border-dark">
-            <li class="nav-item justify-content-between">
-              <div class="px-2 px-sm-2 px-md-2 px-lg-2 px-xl-2 px-xxl-2">
-                <router-link class="nav-link" to="/myaccount">My Account</router-link>
+          <ul class="dropdown-menu dropdown-menu-dark border border-dark">
+            <li>
+              <div class="">
+                <router-link class="dropdown-item" to="/myaccount">My Account</router-link>
               </div>
-              <div class="px-2 px-sm-2 px-md-2 px-lg-2 px-xl-2 px-xxl-2">
-                <router-link class="nav-link" to="/myitinerarys">My Itinerarys</router-link>
+            </li>
+            <li>
+              <div class="">
+                <router-link class="dropdown-item" to="/myitinerarys">My Itinerarys</router-link>
               </div>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <div class="px-2 px-sm-2 px-md-2 px-lg-2 px-xl-2 px-xxl-2">
+              <div class="dropdown-item">
                 <button class="btn btn-danger me-md-3 mr-1" v-on:click="logout"><i class="bi bi-box-arrow-right"></i>Logout</button>
               </div>
             </li>

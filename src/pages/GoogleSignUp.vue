@@ -77,6 +77,7 @@ export default {
     },
 
     async handleSubmit() {
+      this.form.name = this.capitalize(this.form.name);
       this.error = [];
       for (const item in this.form) {
         if (this.form[item] === "" || this.form[item].length === 0) {
@@ -119,6 +120,10 @@ export default {
       } else {
         console.log("Form Values Are ", this.error);
       }
+    },
+
+    capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     },
 
     //funtion for email verification and redirect if verification email sent successfully

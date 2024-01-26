@@ -57,39 +57,6 @@ export default {
   },
 
   methods: {
-    async handleFacebookRegistration() {
-      console.log("handleFacebookRegistration called");
-      console.log("form.id:- ", this.facebookId);
-      console.log("form.name:- ", this.name);
-
-      const formData = {
-        facebookId: this.facebookId,
-        name: this.name,
-      };
-
-      try {
-        const response = await axiosClient.post(`user/facebooksignup`, formData);
-        toast.success("Registered successfully", {
-          autoClose: 1500,
-        });
-        console.log("response", response);
-        setTimeout(() => {
-          this.$router.push(`/login`);
-        }, 1500);
-      } catch (error) {
-        console.error("Error registering user", error);
-        if (error.response.status == 400) {
-          toast.error("User already exists", {
-            autoClose: 1500,
-          });
-        } else {
-          toast.error("Something went wrong", {
-            autoClose: 1500,
-          });
-        }
-      }
-    },
-
     async logInWithFacebook() {
       console.log("Facebook Login Called");
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
@@ -137,6 +104,44 @@ export default {
       js.id = id;
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
+    },
+
+    async handleFacebookRegistration() {
+      this.name = this.capitalize(this.name);
+      console.log("handleFacebookRegistration called");
+      console.log("form.id:- ", this.facebookId);
+      console.log("form.name:- ", this.name);
+
+      const formData = {
+        facebookId: this.facebookId,
+        name: this.name,
+      };
+
+      try {
+        const response = await axiosClient.post(`user/facebooksignup`, formData);
+        toast.success("Registered successfully", {
+          autoClose: 1500,
+        });
+        console.log("response", response);
+        setTimeout(() => {
+          this.$router.push(`/login`);
+        }, 1500);
+      } catch (error) {
+        console.error("Error registering user", error);
+        if (error.response.status == 400) {
+          toast.error("User already exists", {
+            autoClose: 1500,
+          });
+        } else {
+          toast.error("Something went wrong", {
+            autoClose: 1500,
+          });
+        }
+      }
+    },
+
+    capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     },
   },
 };

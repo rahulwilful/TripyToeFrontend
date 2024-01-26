@@ -109,6 +109,23 @@ input {
 .lines {
   font-family: Georgia, serif;
 }
+
+/* Zoom Out Zoom In Animation */
+.img-fluid1 {
+  animation: zoom-in-zoom-out 20s ease infinite;
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1.5, 1.5);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1.5, 1.5);
+  }
+}
 </style>
 
 <template>
@@ -137,15 +154,18 @@ input {
                 <span v-if="next > 0" class="form1 border border-dark rounded shadow-lg mx-4 mx-sm-4 mx-md-4 mx-lg-5 mx-xl-5 mx-xxl-5">
                   <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-3 pt-sm-3 pt-md-3 pt-lg-2 pt-xl-3 pt-xxl-3 px-3 px-sm-3 px-md-3 px-lg-2 px-xl-3 px-xxl-3">
                     <div v-if="next == 1" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.destination" type="text" placeholder="Where You Want To Go ?" aria-label=".form-control-sm example" />
+                      <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.destination" type="text" placeholder="Where You Want To Go ?" aria-label=".form-control-sm example" />
                     </div>
                     <div v-if="next == 2" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="number" placeholder=" With How Many People ?" aria-label=".form-control-sm example" />
+                      <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="number" placeholder=" Who Is Going ?" aria-label=".form-control-sm example" />
                     </div>
-                    <div v-if="next == 3" class="d-flex mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <div v-if="next == 3" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="For How Many Days ?" aria-label=".form-control-sm example" />
+                    </div>
+                    <div v-if="next == 4" class="d-flex mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <input
                         placeholder="From When You Want To Start ?"
-                        class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent textbox-n"
+                        class="form-control text-light border-0 border-secondary border-bottom bg-transparent textbox-n"
                         type="text"
                         onfocus="(this.type='date')"
                         onblur="(this.type='text')"
@@ -154,15 +174,13 @@ input {
                         aria-label=".form-control-sm example"
                       />
                     </div>
-                    <div v-if="next == 4" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="For How Many Days ?" aria-label=".form-control-sm example" />
-                    </div>
+
                     <div v-if="next == 5" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="number" placeholder="Please Enter Your Budget" aria-label=".form-control-sm example" />
+                      <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="number" placeholder="Please Enter Your Budget" aria-label=".form-control-sm example" />
                     </div>
                     <div v-if="next == 6" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <div>
-                        <select class="form-select form-select-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
+                        <select class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
                           <option class="bg-dark" value="0">Please Select Your Preference</option>
                           <option class="bg-dark" :value="item" v-for="item in preference" :key="item">{{ item }}</option>
                         </select>
@@ -170,10 +188,18 @@ input {
                     </div>
                   </div>
 
+                  <!-- Next Button -->
                   <button v-if="next < 6" type="button" @click="handleNext" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
 
                   <!-- Go Button -->
-                  <button v-if="next == 6" type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Go <i class="bi bi-arrow-right"></i></button>
+                  <button v-if="next == 6" type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">
+                    <span v-if="!loading"> Go <i class="bi bi-arrow-right"></i> </span>
+                    <div v-if="loading" class="mx-2">
+                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      <span class="visually-hidden" role="status">Loading...</span>
+                    </div>
+                  </button>
+                  <!-- Previous Button -->
                   <button v-if="next > 1" type="button" @click="handlePrev" class="btn btn-primary btn-sm float-end my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Prev</button>
                 </span>
               </div>
@@ -208,13 +234,19 @@ input {
                     </div>
                   </div>
                   <!-- Go Button -->
-                  <button type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Go <i class="bi bi-arrow-right"></i></button>
+                  <button type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">
+                    <span v-if="!loading"> Go <i class="bi bi-arrow-right"></i> </span>
+                    <div v-if="loading" class="mx-2b">
+                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      <span class="visually-hidden" role="status">Loading...</span>
+                    </div>
+                  </button>
                 </span>
               </div>
               <!-- Itinerary -->
               <div class="mt-5">
                 <!-- Back button -->
-                <button type="button" @click="searched = false" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 mb-2 mb-sm-2 mb-md-2 mb-lg-2 mb-xl-3 mb-xxl-3 border-0" style="background-color: #a95fe8; display: none">
+                <button type="button" @click="searched = false" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 mb-2 mb-sm-2 mb-md-2 mb-lg-2 mb-xl-3 mb-xxl-3 border-0" style="background-color: #a95fe8">
                   <i class="bi bi-arrow-left px-2 px-sm-2 px-md-2 px-lg-3 px-xl-3 px-xxl-3"></i>
                 </button>
 
@@ -314,20 +346,17 @@ input {
           <div class="carousel-content">
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
-                <div v-if="activeIndex == 0" class="carousel-item active">
-                  <div style="position: relative; overflow: hidden">
-                    <img src="../assets/slideImg5.jpg" class="d-block w-100 img-fluid" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(161, 155, 199, 0.2); transition: background 1s ease-in-out"></div>
-                  </div>
+                <div v-if="activeIndex == 0" class="carousel-item active carousel-images">
+                  <img src="../assets/slideImg5.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
-                <div v-if="activeIndex == 1" class="carousel-item active">
-                  <img src="../assets/slideImg11.jpg" class="d-block w-100 img-fluid" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                <div v-if="activeIndex == 1" class="carousel-item active carousel-images">
+                  <img src="../assets/slideImg11.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
-                <div v-if="activeIndex == 2" class="carousel-item active">
-                  <img src="../assets/slideImg10.jpg" class="d-block w-100 img-fluid" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                <div v-if="activeIndex == 2" class="carousel-item active carousel-images">
+                  <img src="../assets/slideImg10.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
-                <div v-if="activeIndex == 3" class="carousel-item active">
-                  <img src="../assets/slideImg6.webp" class="d-block w-100 img-fluid" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                <div v-if="activeIndex == 3" class="carousel-item active carousel-images">
+                  <img src="../assets/slideImg6.webp" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
               </div>
             </div>
@@ -355,17 +384,18 @@ export default {
   },
   data() {
     return {
+      loading: false,
       searched: false,
       next: 0,
       itinerary: [],
       preference: ["nightlife", "offbeat"],
       form: {
         destination: "",
+        no_of_ppl: "",
         no_of_days: "",
         start_date: "" /* "2024-01-27" */,
-        no_of_ppl: "",
-        preference: "0",
         budget: "",
+        preference: "0",
 
         plan: "",
       },
@@ -450,7 +480,7 @@ export default {
     }
   },
   mounted() {
-    this.startProgress();
+    this.startProgressOfBars();
   },
 
   methods: {
@@ -462,8 +492,8 @@ export default {
       this.next--;
       console.log(this.next);
     },
+
     async handleSubmit() {
-      console.log("handleSubmit called");
       this.error = [];
       for (const item in this.form) {
         if (this.form[item] == "") {
@@ -475,7 +505,16 @@ export default {
       }
 
       if (this.error.length == 0) {
+        if (this.form.budget < 9999) {
+          toast.error(`Budget Cannot Be Less Than 10000 Rs`, {
+            autoClose: 1500,
+          });
+          this.next = 5;
+          return;
+        }
+        console.log("handleSubmit called");
         try {
+          this.loading = true;
           const form = this.form;
           console.log(form);
           //const response = await axios.post(`https://expo-web-service.onrender.com/api/v1/tripytoe/get/itinerary`, this.form);
@@ -526,6 +565,7 @@ export default {
           console.log("Itinerary", this.itinerary);
           this.searched = true;
           this.next = 0;
+          this.loading = false;
         } catch (error) {
           console.error("Somthing went wrong", error);
         }
@@ -538,34 +578,31 @@ export default {
               autoClose: 1500,
             });
             break;
-          }
-          if (item == "no_of_ppl") {
+          } else if (item == "no_of_ppl") {
             this.next = 2;
             toast.error(`Enter Number Of People`, {
               autoClose: 1500,
             });
             break;
-          }
-          if (item == "start_date") {
+          } else if (item == "no_of_days") {
             this.next = 3;
-            toast.error(`Enter Start Date`, {
-              autoClose: 1500,
-            });
-            break;
-          }
-          if (item == "no_of_days") {
-            this.next = 4;
             toast.error(`Enter Number Of Days`, {
               autoClose: 1500,
             });
             break;
-          }
-          if (item == "budget") {
+          } else if (item == "start_date") {
+            this.next = 4;
+            toast.error(`Enter Start Date`, {
+              autoClose: 1500,
+            });
+            break;
+          } else if (item == "budget") {
             this.next = 5;
             toast.error(`Enter Budget`, {
               autoClose: 1500,
             });
             break;
+          } else {
           }
         }
       }
@@ -596,7 +633,7 @@ export default {
       }
     },
 
-    startProgress() {
+    startProgressOfBars() {
       setInterval(() => {
         //console.log("Active Index", this.activeIndex);
         this.loadingPercentage += 5;
