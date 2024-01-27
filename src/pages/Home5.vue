@@ -112,18 +112,18 @@ input {
 
 /* Zoom Out Zoom In Animation */
 .img-fluid1 {
-  animation: zoom-in-zoom-out 20s ease infinite;
+  animation: zoom-in-zoom-out 15s ease infinite;
 }
 
 @keyframes zoom-in-zoom-out {
   0% {
-    transform: scale(1.5, 1.5);
+    transform: scale(1.2, 1.2);
   }
   50% {
     transform: scale(1, 1);
   }
   100% {
-    transform: scale(1.5, 1.5);
+    transform: scale(1.2, 1.2);
   }
 }
 </style>
@@ -156,45 +156,78 @@ input {
                     <div v-if="next == 1" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.destination" type="text" placeholder="Where You Want To Go ?" aria-label=".form-control-sm example" />
                     </div>
-                    <div v-if="next == 2" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <div v-if="next == 2" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <!--  <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="number" placeholder="Who Is Going ?" aria-label=".form-control-sm example" /> -->
-
-                      <div v-if="traveller" class="border-0 border-secondary border-bottom rounded" style="width: 100%">
-                        <button type="button" class="btn btn-secondary dropdown-toggle bg-transparent border-0" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Who Is Going ?</button>
+                      <!-- <div v-if="traveller" class="border-0 border-secondary border-bottom rounded" style="width: 100%">
+                     <button type="button" class="btn btn-secondary dropdown-toggle bg-transparent border-0" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Who Is Going ?</button>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start form1 bg-light">
                           <li><button @click="handleSolo" class="dropdown-item" type="button">Solo</button></li>
                           <li><button @click="handleCouple" class="dropdown-item" type="button">Couple</button></li>
                           <li><button @click="handleFamily" class="dropdown-item" type="button">Family</button></li>
                           <li><button @click="handleFriends" class="dropdown-item" type="button">Freinds</button></li>
-                        </ul>
-                      </div>
-                      <div v-if="family == true">
-                        <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Family Members ?" aria-label=".form-control-sm example" />
-                      </div>
-                      <div v-if="friends == true">
-                        <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Freinds ?" aria-label=".form-control-sm example" />
+                        </ul> 
+                        
+                      </div> -->
+                      <!-- <select v-if="traveller" class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="tempNo_of_ppl">
+                        <option class="bg-dark" value="0">Who Is Going</option>
+                        <option class="bg-dark" :value="item" v-for="item in who_is_going" :key="item">{{ item }}</option>
+                      </select> -->
+                      <div class="">
+                        <p class="d-inline-flex border-0 border-bottom border-secondary rounded bg-transparent text-light px-2 d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="width: 100%">
+                          <span v-if="!form.no_of_ppl"> Who Is Going? </span>
+                          <span v-else>{{ form.no_of_ppl }}</span>
+                          <span><i class="bi bi-chevron-down text-dark"></i></span>
+                        </p>
+                        <div class="collapse" id="collapseExample" style="position: absolute">
+                          <div class="form1 px-2 py-2 rounded bg-dark text-light">
+                            <div @click="handleSolo" style="cursor: pointer">Solo</div>
+                            <div @click="handleCouple" style="cursor: pointer">Couple</div>
+                            <div @click="toogleFamily" style="cursor: pointer">Family</div>
+                            <div v-if="family == true">
+                              <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Family Members ?" aria-label=".form-control-sm example" />
+                            </div>
+                            <div @click="toggleFriends" style="cursor: pointer">Freinds</div>
+                            <div v-if="friends == true">
+                              <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Freinds ?" aria-label=".form-control-sm example" />
+                            </div>
+                            <div class="d-flex justify-content-end">
+                              <button v-if="next > 1" type="button" @click="handlePrev" class="btn btn-primary btn-sm border-0" style="background-color: #a95fe8">Prev</button>
+                              <button v-if="next < 5" type="button" @click="handleNext" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div v-if="next == 3" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="For How Many Days ?" aria-label=".form-control-sm example" />
+                      <div class="row gx-2">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                          <input
+                            placeholder="When You Want To Go ?"
+                            class="form-control text-light border-0 border-secondary border-bottom bg-transparent textbox-n"
+                            type="text"
+                            onfocus="(this.type='date')"
+                            onblur="(this.type='text')"
+                            id="date"
+                            v-model="form.start_date"
+                            aria-label=".form-control-sm example"
+                          />
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                          <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="For How Many Days ?" aria-label=".form-control-sm example" />
+                        </div>
+                      </div>
                     </div>
-                    <div v-if="next == 4" class="d-flex mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input
-                        placeholder="From When You Want To Start ?"
-                        class="form-control text-light border-0 border-secondary border-bottom bg-transparent textbox-n"
-                        type="text"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
-                        id="date"
-                        v-model="form.start_date"
-                        aria-label=".form-control-sm example"
-                      />
+                    <!-- <div v-if="next == 4" class="d-flex mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"></div> -->
+                    <div v-if="next == 4" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                      <!-- <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="number" placeholder="Please Enter Your Budget" aria-label=".form-control-sm example" /> -->
+                      <div>
+                        <select class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget">
+                          <option class="bg-dark" value="0">Please Select Your Budget</option>
+                          <option class="bg-dark" :value="item" v-for="item in budget_plans" :key="item">{{ item }}</option>
+                        </select>
+                      </div>
                     </div>
-
                     <div v-if="next == 5" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="text" placeholder="Please Enter Your Budget" aria-label=".form-control-sm example" />
-                    </div>
-                    <div v-if="next == 6" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <div>
                         <select class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
                           <option class="bg-dark" value="0">Please Select Your Preference</option>
@@ -203,12 +236,10 @@ input {
                       </div>
                     </div>
                   </div>
-
                   <!-- Next Button -->
-                  <button v-if="next < 6" type="button" @click="handleNext" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
-
+                  <button v-if="next < 5" type="button" @click="handleNext" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
                   <!-- Go Button -->
-                  <button v-if="next == 6" type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">
+                  <button v-if="next == 5" type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">
                     <span v-if="!loading"> Go <i class="bi bi-arrow-right"></i> </span>
                     <div v-if="loading" class="mx-2">
                       <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -221,6 +252,8 @@ input {
               </div>
             </div>
 
+            <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
             <div v-if="searched" class="container container-sm container-md container-lg container-xl container-xxl" style="margin-top: 11vh">
               <div class="d-flex justify-content-center align-items-center">
                 <span class="form2 border border-dark rounded shadow-lg mx-4 mx-sm-4 mx-md-4 mx-lg-5 mx-xl-5 mx-xxl-5">
@@ -230,24 +263,59 @@ input {
                     </div>
                     <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                       <!-- <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="text" placeholder="People" aria-label=".form-control-sm example" /> -->
-                      <div v-if="traveller" class="border-0 border-secondary border-bottom rounded" style="width: 100%">
-                        <button type="button" class="btn btn-secondary dropdown-toggle bg-transparent border-0" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                          <span v-if="form.no_of_ppl"> Who Is Going ? </span>
-                          <span v-else>{{ form.no_of_ppl }}</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start form1 bg-light" style="position: absolute">
-                          <li><button @click="handleSolo" class="dropdown-item" type="button">Solo</button></li>
-                          <li><button @click="handleCouple" class="dropdown-item" type="button">Couple</button></li>
-                          <li><button @click="handleFamily" class="dropdown-item" type="button">Family</button></li>
-                          <li><button @click="handleFriends" class="dropdown-item" type="button">Freinds</button></li>
-                        </ul>
-                      </div>
+                      <!-- <select v-if="traveller" class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl">
+                        <option class="bg-dark" value="0">Who Is Going</option>
+                        <option class="bg-dark" :value="item" v-for="item in who_is_going" :key="item">{{ item }}</option>
+                      </select>
                       <div v-if="family == true">
                         <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Family Members ?" aria-label=".form-control-sm example" />
                       </div>
                       <div v-if="friends == true">
                         <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Freinds ?" aria-label=".form-control-sm example" />
-                      </div>
+                      </div> -->
+                      <span class="align-bottom">
+                        <div
+                          class="d-inline-flex align-bottom border-0 border-bottom border-secondary rounded bg-transparent text-light px-2 d-flex justify-content-between"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseExample"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                          style="width: 100%"
+                        >
+                          <span v-if="!form.no_of_ppl"> Who Is Going? </span>
+                          <span v-else>{{ form.no_of_ppl }}</span>
+                          <span><i class="bi bi-chevron-down text-dark"></i></span>
+                        </div>
+                        <div class="collapse" id="collapseExample" style="position: absolute">
+                          <div class="form1 px-2 py-2 rounded bg-dark text-light">
+                            <div @click="handleSolo" style="cursor: pointer">Solo</div>
+                            <div @click="handleCouple" style="cursor: pointer">Couple</div>
+                            <div @click="toogleFamily" style="cursor: pointer">Family</div>
+                            <div v-if="family == true">
+                              <input @change="handleFamily" class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Family Members ?" aria-label=".form-control-sm example" />
+                            </div>
+                            <div @click="toggleFriends" style="cursor: pointer">Freinds</div>
+                            <div v-if="friends == true">
+                              <input @change="handleFriends" class="form-control text-light border-0 border-secondary border-bottom bg-transparent mb-1" v-model="members" type="number" placeholder="Enter Number Of Freinds ?" aria-label=".form-control-sm example" />
+                            </div>
+                            <div class="d-flex justify-content-end">
+                              <button
+                                v-if="next < 5"
+                                type="button"
+                                @click="handleNext"
+                                class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 border-0"
+                                style="background-color: #a95fe8"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample"
+                                aria-expanded="false"
+                                aria-controls="collapseExample"
+                              >
+                                close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </span>
                     </div>
                     <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                       <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.start_date" type="date" placeholder="Start Date" aria-label=".form-control-sm example" />
@@ -256,7 +324,13 @@ input {
                       <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="Days" aria-label=".form-control-sm example" />
                     </div>
                     <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="text" placeholder="Budget" aria-label=".form-control-sm example" />
+                      <!-- <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="text" placeholder="Budget" aria-label=".form-control-sm example" /> -->
+                      <div>
+                        <select class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget">
+                          <option class="bg-dark" value="0">Please Select Your Budget</option>
+                          <option class="bg-dark" :value="item" v-for="item in budget_plans" :key="item">{{ item }}</option>
+                        </select>
+                      </div>
                     </div>
                     <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                       <div>
@@ -418,7 +492,9 @@ export default {
   },
   data() {
     return {
-      who_is_going: ["solo", "couple", "family", "freinds"],
+      budget_plans: ["Balanced", "Luxury", "Flexible"],
+      who_is_going: ["solo", "couple", "family", "friends"],
+      tempNo_of_ppl: "0",
       traveller: true,
       friends: false,
       family: false,
@@ -526,22 +602,30 @@ export default {
     handleNext() {
       if (this.next == 2) {
         if (this.family == true) {
-          this.form.no_of_ppl = this.members + "  " + " Family Members";
-          console.log("no_of_ppl: ", this.form.no_of_ppl);
-        } else if (this.friends == true) {
-          this.form.no_of_ppl = this.members + "  " + "Freinds";
-          console.log("no_of_ppl: ", this.form.no_of_ppl);
-        } else {
-          toast.error(`Please Select Who Is Going`, {
-            autoClose: 1500,
-          });
-          return;
+          this.form.no_of_ppl = this.members + ", Family Members";
+        }
+
+        if (this.friends == true) {
+          this.form.no_of_ppl = this.members + ", Friends";
         }
       }
       this.next++;
       console.log(this.next);
     },
     handlePrev() {
+      /*  if (this.next == 2) {
+        if (this.family == true) {
+          this.family = false;
+          this.traveller = true;
+          return;
+        }
+        if (this.friends == true) {
+          this.friends = false;
+          this.traveller = true;
+          return;
+        }
+      } */
+
       this.next--;
       console.log(this.next);
     },
@@ -554,14 +638,20 @@ export default {
       this.next++;
     },
 
+    toogleFamily() {
+      this.family = !this.family;
+    },
+
+    toggleFriends() {
+      this.friends = !this.friends;
+    },
+
     handleFamily() {
-      this.family = true;
-      this.traveller = false;
+      this.form.no_of_ppl = this.members + ", Family Members";
     },
 
     handleFriends() {
-      this.friends = true;
-      this.traveller = false;
+      this.form.no_of_ppl = this.members + ", Friends";
     },
 
     async handleSubmit() {
@@ -576,8 +666,8 @@ export default {
       }
 
       if (this.error.length == 0) {
-        if (this.form.budget < 9999) {
-          toast.error(`Budget Cannot Be Less Than 10000 Rs`, {
+        if (this.form.budget == "0") {
+          toast.error(`Please Selec Your Budget`, {
             autoClose: 1500,
           });
           this.next = 5;
@@ -586,6 +676,9 @@ export default {
         console.log("handleSubmit called");
         try {
           this.loading = true;
+          this.traveller = true;
+          this.family = false;
+          this.friends = false;
           const form = this.form;
           console.log(form);
           //const response = await axios.post(`https://expo-web-service.onrender.com/api/v1/tripytoe/get/itinerary`, this.form);
@@ -662,13 +755,13 @@ export default {
             });
             break;
           } else if (item == "start_date") {
-            this.next = 4;
+            this.next = 3;
             toast.error(`Enter Start Date`, {
               autoClose: 1500,
             });
             break;
           } else if (item == "budget") {
-            this.next = 5;
+            this.next = 4;
             toast.error(`Enter Budget`, {
               autoClose: 1500,
             });
