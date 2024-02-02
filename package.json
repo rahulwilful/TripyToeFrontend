@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.2",

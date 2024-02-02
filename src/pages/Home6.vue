@@ -7,6 +7,36 @@
 ::placeholder {
   color: rgb(255, 255, 255);
 }
+::-webkit-scrollbar {
+  margin-bottom: 1rem;
+  width: 5px; /* Set the width of the scrollbar */
+  height: 10px; /* Set the height of the scrollbar */
+}
+::-webkit-scrollbar-track {
+  margin-bottom: 1rem;
+  background: #d1e5ff;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #642bff, #ff22e6);
+  border-radius: 5px;
+}
+/* Zoom Out Zoom In Animation */
+.img-fluid1 {
+  animation: zoom-in-zoom-out 15s ease infinite;
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1.2, 1.2);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1.2, 1.2);
+  }
+}
 
 input {
 }
@@ -38,20 +68,6 @@ input {
   position: fixed;
   width: 100%;
   height: 100%;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #d1e5ff;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(rgb(169, 95, 232), #8d1bf1);
-  border-radius: 5px;
 }
 
 .form1 {
@@ -131,24 +147,173 @@ input {
   }
 }
 
-.lines {
-  font-family: Georgia, serif;
+.card {
+  width: 8.5rem;
+  height: 12rem;
+  position: relative;
+  overflow: hidden;
+  /* box-shadow: 0px 20px 20px 10px rgba(0, 0, 0, 0.1); */
+}
+.itinerary-day-box {
+  font-weight: 700;
+  font-family: "__Sora_5b1d51", "__Sora_Fallback_5b1d51";
+  font-size: 0.7rem;
+}
+.day-heading {
+  color: rgb(94, 28, 201);
+  font-weight: 10;
 }
 
-/* Zoom Out Zoom In Animation */
-.img-fluid1 {
-  animation: zoom-in-zoom-out 15s ease infinite;
+.day-heading-subject h4 {
+  color: rgb(94, 28, 201);
+  font-weight: 500;
+}
+.itinerary {
+  width: 57%;
+  height: auto;
+}
+.itinery-box {
+  width: 75%;
+  height: auto;
 }
 
-@keyframes zoom-in-zoom-out {
-  0% {
-    transform: scale(1.2, 1.2);
+.Itinerary-header-info {
+  width: 50%;
+
+  background-color: rgba(111, 72, 170, 0.9);
+  height: 100%;
+}
+
+@media (max-width: 576px) {
+  .itinery-box {
+    width: 95%;
+    height: auto;
   }
-  50% {
-    transform: scale(1, 1);
+  .itinerary {
+    width: 99%;
+    height: auto;
+  }
+  .Itinerary-header-info {
+    width: 95%;
+
+    background-color: rgba(111, 72, 170, 0.9);
+    height: 100%;
+  }
+
+  .day-heading-btn {
+    height: 30%;
+  }
+}
+
+@media (min-width: 576px) {
+  .itinery-box {
+    width: 90%;
+    height: auto;
+  }
+  .itinerary {
+    width: 90%;
+    height: auto;
+  }
+
+  .Itinerary-header-info {
+    width: 90%;
+
+    background-color: rgba(111, 72, 170, 0.9);
+    height: 100%;
+  }
+  .day-heading-btn {
+    height: 40%;
+  }
+}
+
+@media (min-width: 768px) {
+  .itinery-box {
+    width: 90%;
+    height: auto;
+  }
+  .itinerary {
+    width: 80%;
+    height: auto;
+  }
+  .Itinerary-header-info {
+    width: 80%;
+
+    background-color: rgba(111, 72, 170, 0.9);
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .itinery-box {
+    width: 90%;
+    height: auto;
+  }
+  .itinerary {
+    width: 70%;
+    height: auto;
+  }
+  .Itinerary-header-info {
+    width: 70%;
+
+    background-color: rgba(111, 72, 170, 0.9);
+    height: 100%;
+  }
+  .day-heading-btn {
+    height: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .itinery-box {
+    width: 90%;
+    height: auto;
+  }
+  .itinerary {
+    width: 57%;
+    height: auto;
+  }
+  .Itinerary-header-info {
+    width: 50%;
+
+    background-color: rgba(111, 72, 170, 0.9);
+    height: 100%;
+  }
+  .day-heading-btn {
+    height: 50%;
+  }
+}
+
+.itinerarys {
+  animation: fade-in linear;
+
+  /* animation-timeline: view(100% 0%); */
+  animation-timeline: view();
+
+  animation-range-start: cover;
+  animation-range-end: cover;
+}
+
+@keyframes fade-in {
+  /* from {
+    scale: 0.8;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  } */
+
+  0% {
+    scale: 0;
+    opacity: 0;
+  }
+  30% {
+    scale: 1;
+    opacity: 1;
   }
   100% {
-    transform: scale(1.2, 1.2);
+    scale: 1;
+    opacity: 1;
   }
 }
 </style>
@@ -157,8 +322,8 @@ input {
   <div>
     <div class="main">
       <div class="content">
-        <div class="content2">
-          <div class="scroll-container">
+        <div v-auto-animate class="content2">
+          <div v-if="!searched" class="scroll-container">
             <div class="container-fluid">
               <div>
                 <div class="row gx-2" style="position: sticky">
@@ -174,29 +339,14 @@ input {
           <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
           <div class="content-itinerary">
             <div v-if="!searched" class="container container-sm container-md container-lg container-xl container-xxl d-flex justify-content-center align-items-center" style="height: calc(100vh - 20px)">
-              <div class="d-flex justify-content-center align-items-center px-3 px-sm-3 px-md-3 px-lg-5 px-xl-5 px-xxl-5">
+              <div v-auto-animate class="d-flex justify-content-center align-items-center px-3 px-sm-3 px-md-3 px-lg-5 px-xl-5 px-xxl-5">
                 <button class="generate-itinerary rounded border-0 px-3 py-3 shadow-lg text-light fw-semibold" type="button" style="background-color: #a95fe8" v-if="next == 0" @click="handleNext">Generate Itinerary</button>
                 <span v-if="next > 0" class="form1 border border-dark rounded shadow-lg mx-4 mx-sm-4 mx-md-4 mx-lg-5 mx-xl-5 mx-xxl-5">
-                  <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-3 pt-sm-3 pt-md-3 pt-lg-2 pt-xl-3 pt-xxl-3 px-3 px-sm-3 px-md-3 px-lg-2 px-xl-3 px-xxl-3">
+                  <div v-auto-animate class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-3 pt-sm-3 pt-md-3 pt-lg-2 pt-xl-3 pt-xxl-3 px-3 px-sm-3 px-md-3 px-lg-2 px-xl-3 px-xxl-3">
                     <div v-if="next == 1" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.destination" type="text" placeholder="Where You Want To Go ?" aria-label=".form-control-sm example" />
                     </div>
                     <div v-if="next == 2" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <!--  <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="number" placeholder="Who Is Going ?" aria-label=".form-control-sm example" /> -->
-                      <!-- <div v-if="traveller" class="border-0 border-secondary border-bottom rounded" style="width: 100%">
-                     <button type="button" class="btn btn-secondary dropdown-toggle bg-transparent border-0" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Who Is Going ?</button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start form1 bg-light">
-                          <li><button @click="handleSolo" class="dropdown-item" type="button">Solo</button></li>
-                          <li><button @click="handleCouple" class="dropdown-item" type="button">Couple</button></li>
-                          <li><button @click="handleFamily" class="dropdown-item" type="button">Family</button></li>
-                          <li><button @click="handleFriends" class="dropdown-item" type="button">Freinds</button></li>
-                        </ul> 
-                        
-                      </div> -->
-                      <!-- <select v-if="traveller" class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="tempNo_of_ppl">
-                        <option class="bg-dark" value="0">Who Is Going</option>
-                        <option class="bg-dark" :value="item" v-for="item in who_is_going" :key="item">{{ item }}</option>
-                      </select> -->
                       <div class="">
                         <p class="d-inline-flex border-0 border-bottom border-secondary rounded bg-transparent text-light px-2 d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="width: 100%">
                           <span class="" v-if="!form.no_of_ppl"> Who Is Going? </span>
@@ -293,216 +443,198 @@ input {
 
             <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-            <div v-if="searched" class="container container-sm container-md container-lg container-xl container-xxl" style="margin-top: 11vh">
-              <div class="d-flex justify-content-center align-items-center">
-                <span class="form2 border border-dark rounded shadow-lg mx-4 mx-sm-4 mx-md-4 mx-lg-5 mx-xl-5 mx-xxl-5">
-                  <div class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-3 pt-sm-3 pt-md-3 pt-lg-2 pt-xl-3 pt-xxl-3 px-3 px-sm-3 px-md-3 px-lg-2 px-xl-3 px-xxl-3">
-                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.destination" type="text" placeholder="Place" aria-label=".form-control-sm example" />
+            <div v-if="searched">
+              <div class="" style="height: 60vh">
+                <div id="carouselExampleAutoplaying" class="carousel slide" style="height: 100%" data-bs-ride="carousel">
+                  <div v-auto-animate class="carousel-inner" style="height: 100%; position: relative">
+                    <div class="carousel-item active" style="height: 100%">
+                      <img :src="searchedImgSource + form.destination + night" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
                     </div>
-                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 d-flex align-items-end justify-content-evenly">
-                      <!-- <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="text" placeholder="People" aria-label=".form-control-sm example" /> -->
-                      <!-- <select v-if="traveller" class="form-select text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl">
-                        <option class="bg-dark" value="0">Who Is Going</option>
-                        <option class="bg-dark" :value="item" v-for="item in who_is_going" :key="item">{{ item }}</option>
-                      </select>
-                      <div v-if="family == true">
-                        <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Family Members ?" aria-label=".form-control-sm example" />
+                    <div class="carousel-item" style="height: 100%">
+                      <img :src="searchedImgSource + form.destination + morning" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
+                    </div>
+                    <div class="carousel-item" style="height: 100%">
+                      <img :src="searchedImgSource + form.destination + evening" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
+                    </div>
+                    <div class="h-100 w-100 py-3" style="position: absolute">
+                      <div class="w-100 h-50 d-flex justify-content-center align-items-center">
+                        <span v-if="form.no_of_days == 1">
+                          <h2 class="text-light fw-semibold" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); text-transform: capitalize">{{ form.no_of_days }} Day Trip To {{ form.destination }}</h2>
+                        </span>
+                        <span v-else>
+                          <h2 class="text-light fw-semibold" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); text-transform: capitalize">{{ form.no_of_days }} Days Trip To {{ form.destination }}</h2>
+                        </span>
                       </div>
-                      <div v-if="friends == true">
-                        <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="members" type="number" placeholder="Enter Number Of Freinds ?" aria-label=".form-control-sm example" />
-                      </div> -->
-                      <span class="align-bottom w-100">
-                        <div
-                          class="d-inline-flex align-bottom border-0 border-bottom border-secondary rounded bg-transparent text-light px-2 d-flex justify-content-between"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseExample"
-                          aria-expanded="false"
-                          aria-controls="collapseExample"
-                          style="width: 100%"
-                        >
-                          <span class="mt-1" v-if="!form.no_of_ppl"> Who Is Going? </span>
-                          <span class="mt-1" v-else>{{ form.no_of_ppl }}</span>
-                          <span class="mt-1"><i class="bi bi-chevron-down text-dark"></i></span>
-                        </div>
-                        <div class="collapse" id="collapseExample" style="position: absolute">
-                          <div class="collapse-2 px-2 py-2 rounded bg-dark text-light">
-                            <div @click="handleSolo" style="cursor: pointer">Solo</div>
-                            <div @click="handleCouple" style="cursor: pointer">Couple</div>
-                            <div style="cursor: pointer">
-                              <div class="row">
-                                <div @click="toggleFamily" class="col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl">Family</div>
-                                <div class="col-8 col-sm-8 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                                  <div v-if="family == true">
-                                    <input @change="handleFamily" class="form-control form-control-sm text-light border border-secondary bg-transparent" v-model="members" type="number" placeholder="No. Of People" aria-label=".form-control-sm example" />
+                      <div class="h-50">
+                        <div class="d-flex justify-content-center h-100 align-items-center">
+                          <div class="Itinerary-header-info rounded-5 mb-2 h-100 px-4 py-3 shadow-lg">
+                            <div class="h-100">
+                              <div class="w-100 h-25 d-flex justify-content-center text-light align-items-center">
+                                <div v-auto-animate>
+                                  <h2 v-if="card == 0" class="d-flex justify-content-center align-items-center text-light">Location</h2>
+                                  <h2 v-if="card == 1" class="d-flex justify-content-center align-items-center text-light">Wheather</h2>
+                                  <h2 v-if="card == 2" class="d-flex justify-content-center align-items-center text-light">Price</h2>
+                                  <h2 v-if="card == 3" class="d-flex justify-content-center align-items-center text-light">Language</h2>
+                                </div>
+                              </div>
+                              <div class="w-100 h-50 overflow-y-scroll px-2 d-flex justify-content-center text-light align-items-center">
+                                <div v-auto-animate class="">
+                                  <div v-if="card == 0" class="" style="text-align: justify">
+                                    <div>Goa is known for its beautiful beaches, vibrant nightlife, and rich Portuguese heritage. It's a popular tourist destination, so be prepared for crowds, especially during peak season</div>
+                                  </div>
+                                  <div v-if="card == 1" class="" style="text-align: justify">
+                                    <div>
+                                      Goa has a tropical monsoon climate. The weather is hot and humid throughout the year. In the winter (November to February), temperatures range from 70-90°F (20-32°C) with little to no rainfall. In the summer (March to May), temperatures can soar above 100°F
+                                      (38°C) with high humidity. The monsoon season (June to September) brings heavy rainfall.
+                                    </div>
+                                  </div>
+                                  <div v-if="card == 2" class="" style="text-align: justify">
+                                    <div>The currency in Goa is the Indian Rupee (INR). The average cost of a cup of coffee is around 100-150 INR, which is approximately $1.50-2.00 USD.</div>
+                                  </div>
+                                  <div v-if="card == 3" class="" style="text-align: justify">
+                                    <div>The dominant languages spoken in Goa are Konkani and Marathi, but English is widely understood and spoken due to the tourism industry.</div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                              <div class="w-100 h-25 d-flex justify-content-center text-light align-items-center">
+                                <div class="">
+                                  <div class="d-flex">
+                                    <div v-auto-animate>
+                                      <span v-if="card == 0" @click="card = 0" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center bg-light" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-geo-alt-fill text-dark"></i></span>
+                                      <span v-else @click="card = 0" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-geo-alt-fill text-light"></i></span>
+                                    </div>
+                                    <div v-auto-animate>
+                                      <span v-if="card == 1" @click="card = 1" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center bg-light" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-cloud-sun-fill text-dark"></i></span>
+                                      <span v-else @click="card = 1" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-cloud-sun-fill text-light"></i></span>
+                                    </div>
+                                    <div v-auto-animate>
+                                      <span v-if="card == 2" @click="card = 2" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center bg-light" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-currency-dollar text-dark"></i></span>
+                                      <span v-else @click="card = 2" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-currency-dollar text-light"></i></span>
+                                    </div>
+                                    <div v-auto-animate>
+                                      <span v-if="card == 3" @click="card = 3" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center bg-light" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-wechat text-dark"></i></span>
 
-                            <div style="cursor: pointer">
-                              <div class="row">
-                                <div @click="toggleFriends" class="col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl">Friends</div>
-                                <div class="col-8 col-sm-8 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                                  <div v-if="friends == true">
-                                    <input @change="handleFriends" class="form-control form-control-sm mb-1 text-light border border-secondary bg-transparent" v-model="members" type="number" placeholder="Number Of Friends" aria-label=".form-control-sm example" />
+                                      <span v-else @click="card = 3" class="border border-light p-2 mx-2 rounded-circle d-flex justify-content-center align-items-center" style="width: 1.8rem; height: 1.8rem; cursor: pointer"><i class="bi bi-wechat text-light"></i></span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                              <button
-                                @click="members = ''"
-                                type="button"
-                                class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 border-0"
-                                style="background-color: #a95fe8"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseExample"
-                                aria-expanded="false"
-                                aria-controls="collapseExample"
-                              >
-                                close
-                              </button>
                             </div>
                           </div>
                         </div>
-                      </span>
-                    </div>
-                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.start_date" type="date" placeholder="Start Date" aria-label=".form-control-sm example" />
-                    </div>
-                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                      <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_days" type="number" placeholder="Days" aria-label=".form-control-sm example" />
-                    </div>
-                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                      <!-- <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="text" placeholder="Budget" aria-label=".form-control-sm example" /> -->
-                      <div>
-                        <select class="form-select form-select-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget">
-                          <option class="bg-dark" value="0">Please Select Your Budget</option>
-                          <option class="bg-dark" :value="item" v-for="item in budget_plans" :key="item">{{ item }}</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                      <div>
-                        <select class="form-select form-select-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
-                          <option class="bg-dark" value="0">select preference</option>
-                          <option class="bg-dark" :value="item" v-for="item in preference" :key="item">{{ item }}</option>
-                        </select>
                       </div>
                     </div>
                   </div>
-                  <!-- Go Button -->
-                  <button type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">
-                    <span v-if="!loading"> Go <i class="bi bi-arrow-right"></i> </span>
-                    <div v-if="loading" class="mx-2b">
-                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                      <span class="visually-hidden" role="status">Loading...</span>
-                    </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
                   </button>
-                </span>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
               </div>
-              <!-- Itinerary -->
-              <div class="mt-5">
-                <!-- Back button -->
-                <button type="button" @click="searched = false" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 mb-2 mb-sm-2 mb-md-2 mb-lg-2 mb-xl-3 mb-xxl-3 border-0" style="background-color: #a95fe8">
-                  <i class="bi bi-arrow-left px-2 px-sm-2 px-md-2 px-lg-3 px-xl-3 px-xxl-3"></i>
-                </button>
 
-                <div class="itinerary border border-dark rounded-3 shadow-lg py-2 py-sm-2 py-md-2 py-lg-2 py-xl-3 py-xxl-3 pe-2 pe-sm-2 pe-md-2 pe-lg-2 pe-xl-3 pe-xxl-3">
-                  <div class="overflow-auto" style="height: 70vh">
-                    <div class="pt-1 pt-sm-1 pt-md-1 pt-lg-1 pt-xl-2 pt-xxl-2 pe-2 ps-3 ps-sm-3 ps-md-4 ps-lg-4 ps-xl-4 ps-xxl-4">
-                      <div class="" style="overflow-y: auto">
-                        <div v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="bg-transparent text-light">
-                          <!-- Use another v-for to iterate over the lines within each day -->
-                          <div style="text-align: justify" v-for="(line, lineIndex) in day" :key="lineIndex" class="bg-transparent mb-2 mb-sm-2 mb-md-2 mb-lg-3 mb-xl-3 mb-xxl-3">
-                            <!-- Highlight entities in the line -->
-                            <span class="lines" v-html="highlightEntities(line)"></span>
-                            <!-- {{ line }} -->
+              <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="d-flex justify-content-center align-items-center my-3 my-sm-3 my-md-3 my-lg-4 my-xl-5 my-xxl-5 position-relative">
+                <div class="position-absolute start-0">
+                  <button @click="saveToItinerarys()" style="background-color: rgb(123, 84, 163); border: none" type="button" class="px-3 py-2 rounded ms-3 text-light fw-semibold">Save</button>
+                </div>
+                <div>
+                  <h5 class="d-flex justify-content-center">Starting date</h5>
+                  <button style="background-color: rgb(123, 84, 163); border: none" type="button" class="px-3 rounded-pill text-light fw-semibold">{{ form.start_date }} <i class="bi bi-calendar2-week"></i></button>
+                </div>
+              </div>
+
+              <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="" style="">
+                <div>
+                  <div v-for="day in itinerary" :key="day" class="itinerarys">
+                    <div class="itinerary my-3 mb-sm-3 mb-md-3 mb-lg-4 mb-xl-5 mb-xxl-5 container container-sm container-md container-lg container-xl container-xxl rounded-4 d-flex justify-content-center" style="background-color: rgb(238, 233, 248)">
+                      <div class="itinery-box rounded mx-0 mx-sm-1 mx-md-2 mx-lg-4 mx-xl-5 mx-xxl-5">
+                        <div class="itinerary-heading w-100 my-2 my-3">
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
+                              <h1 class="day-heading">{{ day.day_no }}</h1>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
+                              <div class="day-heading-subject">
+                                <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.day_sub }}</h4>
+                                <h6 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.other_detail }}</h6>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-around justify-content-xl-around justify-content-xxl-around align-items-end">
+                              <button type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Modify</button>
+                              <button type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Regenerate</button>
+                            </div>
                           </div>
-                          <hr class="divider" />
+                        </div>
+                        <div class="itinerary-day-box w-100 bg-light rounded-4 my-2 p-3 p-sm-3 p-md-3 p-lg-3 p-xl-4 p-xxl-4 my-3" style="box-shadow: 0px 5px 7px 4px rgba(0, 0, 0, 0.1)">
+                          <div v-for="dayActivities in day.activities" :key="dayActivities" class="w-100 h-100">
+                            <div class="py-1 fs-6" style="text-align: justify">
+                              <span
+                                ><strong class="fw-semibold">{{ dayActivities.activity_time }} : </strong></span
+                              ><span class="fw-normal" v-html="highlightEntities(dayActivities.activity)"> </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="w-100 my-3">
+                          <div class="">
+                            <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
+                              <Slide v-for="name in name_entity" :key="name" class="pe-auto">
+                                <router-link to="#" class="">
+                                  <div class="">
+                                    <div id="card" class="card text-bg-dark">
+                                      <img :src="imgSource + name" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+
+                                      <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
+                                        <div class="position-relative">
+                                          <div class="ratings position-absolute top-0 end-0">
+                                            <span class="px-2 py-1 rounded shadow-lg" style="background-color: #a95fe8">4.4</span>
+                                          </div>
+                                        </div>
+                                        <div class="mb-2" style="width: 100%; position: absolute; bottom: 0">
+                                          <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">{{ name }}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </router-link>
+                              </Slide>
+                              <template #addons>
+                                <Navigation />
+                              </template>
+                            </Carousel>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div>
-                    <div class="d-flex justify-content-end mt-2">
-                      <button type="button" @click="saveToItinerarys" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 border-0" style="background-color: #a95fe8">
-                        <span class="px-1"> Save </span>
-                      </button>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <div>
-                <div>
-                  <div class="my-3">
-                    <!-- <div class="container w-auto mt-3 mb-3">
-                        <div class="d-flex overflow-hidden">
-                          <div id="list" class="carousel" ref="nameEntityCarousel">
-                            <ol class="d-flex mb-3">
-                              <li v-for="name in name_entity" :key="name" class="d-flex">
-                                <div class="card text-bg-dark" style="width: 15rem; height: 10rem; position: relative; overflow: hidden">
-                                  <img :src="img + name" class="card-img" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
-                                  <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
-                                    <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
-                                      <p class="card-text" style="overflow: hidden">{{ name }}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                            </ol>
-                          </div>
-                        </div>
-                      </div> -->
-                    <div class="">
-                      <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
-                        <Slide v-for="name in name_entity" :key="name" class="pe-auto">
-                          <router-link to="#" class="">
-                            <div class="carousel__item">
-                              <div class="card text-bg-dark">
-                                <img :src="imgSource + name" class="img-fluid icon-link-hover" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
 
-                                <div class="card-img-overlay" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
-                                  <div class="position-relative">
-                                    <div class="ratings position-absolute top-0 end-0">
-                                      <span class="px-2 py-1 rounded shadow-lg" style="background-color: #a95fe8">4.4</span>
-                                    </div>
-                                  </div>
-                                  <div class="mb-2 d-flex justify-content-center" style="width: 100%; position: absolute; bottom: 0">
-                                    <p class="card-text" style="overflow: hidden; text-transform: capitalize">{{ name }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </router-link>
-                        </Slide>
-                        <template #addons>
-                          <Navigation />
-                        </template>
-                      </Carousel>
-                    </div>
+                <div class="row mb-3 px-3">
+                  <div class="footer1 mb-2 mb-sm-2 text-center text-sm-center text-md-start text-lg-start text-xl-start text-xxl-start col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                    <span class="" style="color: rgb(123, 84, 163); font-weight: 500; text-shadow: 0 0 20px #000">© 2023 TRIPYTOE</span>
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3 px-3">
-                <div class="footer1 mb-2 mb-sm-2 text-center text-sm-center text-md-start text-lg-start text-xl-start text-xxl-start col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                  <span class="" style="color: rgb(245, 245, 245); font-weight: 500; text-shadow: 0 0 20px #000">© 2023 TRIPYTOE</span>
-                </div>
-                <div class="footer2 text-center text-sm-center text-md-end text-lg-end text-xl-end text-xxl-end col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                  <span class="" style="color: rgb(245, 245, 245); font-weight: 500; text-shadow: 0 0 20px #000">
-                    Made with
-                    <i class="bi bi-heart-fill text-danger" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)"></i>
-                    in GOA</span
-                  >
+                  <div class="footer2 text-center text-sm-center text-md-end text-lg-end text-xl-end text-xxl-end col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                    <span class="" style="color: rgb(123, 84, 163); font-weight: 500; text-shadow: 0 0 20px #000">
+                      Made with
+                      <i class="bi bi-heart-fill text-danger" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)"></i>
+                      in GOA</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
         <div>
-          <div class="carousel-content">
+          <div v-if="!searched" class="carousel-content">
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
                 <div v-if="activeIndex == 0" class="carousel-item active carousel-images">
@@ -534,7 +666,7 @@ import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 export default {
-  name: "Home5",
+  name: "Home6",
   components: {
     Carousel,
     Slide,
@@ -543,6 +675,10 @@ export default {
   },
   data() {
     return {
+      card: 0,
+      night: ",night",
+      morning: ",morning",
+      evening: " ,evening",
       budget_plans: ["Balanced", "Luxury", "Flexible"],
       who_is_going: ["solo", "couple", "family", "friends"],
       tempNo_of_ppl: "0",
@@ -563,10 +699,11 @@ export default {
         budget: "Balanced" /* "0" */,
         preference: "nightlife" /* "0" */,
 
-        plan: "",
+        itineraryDays: "",
       },
       id: "",
       imgSource: "https://source.unsplash.com/1400x720/?beach,goa",
+      searchedImgSource: "https://source.unsplash.com/1400x720/?",
       loadingPercentage: 0,
       activeIndex: 0,
       progressBars: [0, 0, 0, 0],
@@ -582,33 +719,42 @@ export default {
       breakpoints: {
         // 300px and up
         0: {
-          itemsToShow: 1.3,
+          itemsToShow: 1.5,
           snapAlign: "center",
         },
+        280: {
+          itemsToShow: 1.7,
+          snapAlign: "center",
+        },
+        330: {
+          itemsToShow: 2,
+          snapAlign: "center",
+        },
+
         // 400px and up
         400: {
-          itemsToShow: 1.3,
+          itemsToShow: 2.5,
           snapAlign: "center",
         },
         500: {
-          itemsToShow: 2,
+          itemsToShow: 3,
           snapAlign: "center",
         },
         600: {
-          itemsToShow: 2,
+          itemsToShow: 3,
           snapAlign: "center",
         },
         768: {
-          itemsToShow: 2.5,
+          itemsToShow: 3.5,
           snapAlign: "center",
         },
         // 1024 and up
         992: {
-          itemsToShow: 3,
+          itemsToShow: 3.5,
           snapAlign: "start",
         },
         1100: {
-          itemsToShow: 3.5,
+          itemsToShow: 4,
           snapAlign: "center",
         },
         1250: {
@@ -719,7 +865,7 @@ export default {
       this.error = [];
       for (const item in this.form) {
         if (this.form[item] == "") {
-          if (item != "plan") {
+          if (item != "itineraryDays") {
             /* console.log("error", item); */
             this.error.push(item);
           }
@@ -747,44 +893,17 @@ export default {
 
           const response = await axiosClient.post(`destinations/getdestinations/${this.id}`, form);
           console.log(response);
-          // Assuming the response.data contains the itinerary string
-          //const itineraryString = response.data.itinerary;
-          const itineraryString = response.data.result[0].itinerary;
-          this.form.plan = response.data.result[0].itinerary;
-          this.name_entity = response.data.result[0].name_entity;
 
-          // Split the itinerary string into an array based on the day separator
-          //const itineraryArray = itineraryString.split("\n\n");
+          const itineraryString = response.data.result[1].itinerary;
+          this.itinerary = response.data.result[1].itinerary;
 
-          // Update the itinerary array in your data
-          /* this.itinerary = itineraryArray.filter((item) => item.trim() !== ""); */
-          const itineraryArray = itineraryString.split("\\n\\n");
-
-          this.itinerary = [];
-
-          var transformedItinerary = {};
-
-          for (const day of itineraryArray) {
-            // Remove extra spaces and format with line breaks and numbering
-            const formattedDay = day
-              .replace(/\\n/g, "\n")
-              .replace(/\\t/g, "")
-              .replace(/(\d+\.\s+)/g, (match) => match.trim());
-
-            // Split the formatted day into lines
-            let lines = formattedDay.split("\n");
-
-            // If there are no "\n" characters, split lines using full stops
-            if (lines.length === 1) {
-              lines = formattedDay.split(".");
-            }
-
-            // Filter out empty lines
-            const nonEmptyLines = lines.filter((line) => line.trim() !== "");
-
-            // Check if nonEmptyLines is not empty before pushing into the itinerary array
-            if (nonEmptyLines.length > 0) {
-              this.itinerary.push(nonEmptyLines);
+          this.form.itineraryDays = response.data.result[1].itinerary;
+          this.name_entity = response.data.result[1].name_entity;
+          console.log("Itinerary JSON", this.itinerary);
+          for (let day in itineraryString) {
+            for (let day2 in day) {
+              console.log("day: ", day);
+              console.log("day2: ", day2);
             }
           }
 
@@ -838,7 +957,7 @@ export default {
       // Highlight entities in the line using name_entity array
       for (const entity of this.name_entity) {
         const regex = new RegExp(`\\b${entity}\\b`, "gi");
-        line = line.replace(regex, `<span style="color: yellow;text-decoration:underline;cursor: pointer; text-transform:capitalize">${entity}</span>`);
+        line = line.replace(regex, `<span style="color: rgb(94, 28, 201);text-decoration:underline;cursor: pointer; text-transform:capitalize">${entity}</span>`);
       }
       return line;
     },
@@ -846,6 +965,7 @@ export default {
     async saveToItinerarys() {
       try {
         console.log("saveToItenerarys called");
+        console.log("form", this.form);
         const response = await axiosClient.post(`user/itinerays/${this.id}/`, this.form);
         console.log("response", response);
         toast.info(`Saved To Itinerarys`, {
@@ -870,9 +990,11 @@ export default {
           if (this.activeIndex < this.progressBars.length - 1) {
             this.imageIndex = (this.imageIndex + 1) % this.items.length;
             this.activeIndex++;
+            this.card++;
           } else {
             this.imageIndex = (this.imageIndex + 1) % this.items.length;
             this.activeIndex = 0;
+            this.card = 0;
           }
         }
       }, 200);

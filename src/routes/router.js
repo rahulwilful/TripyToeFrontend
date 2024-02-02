@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
-import Home from "../pages/Home5.vue";
+import Home from "../pages/Home6.vue";
 import MyAccount from "../pages/MyAccount2.vue";
 import UserEdit from "../pages/UserEdit.vue";
 import NotFound from "../pages/NotFound.vue";
@@ -18,7 +18,7 @@ import DashboardView from "../views/DashboardView.vue";
 import FacebookSignUp from "../pages/FacebookSignUp.vue";
 import FacebookLogin from "../pages/FacebookLogin.vue";
 import MyItinerarys from "../pages/MyItinerarys.vue";
-import Itinerary from "../pages/Itinerary2.vue";
+import Itinerary from "../pages/Itinerary3.vue";
 
 const routes = [
   {
