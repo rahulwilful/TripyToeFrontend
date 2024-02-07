@@ -1,3 +1,86 @@
+<div class="edit-modal d-flex justify-content-center align-items-center">
+                <div class="bg-light border border-dark rounded-3 h-25 shadow-lg d-flex justify-content-center align-items-center" style="">
+                  <div class="edit-modal-inputs row px-2 px-sm-3 border border-primary">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                      <input class="form-control text-dark border-0 border-dark border-bottom bg-transparent" id="exampleFormControlInputDestination" v-model="form.destination" type="text" placeholder="Goa" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 d-flex align-items-end">
+                      <span class="w-100 d-flex align-items-end">
+                        <div
+                          id="exampleFormControlInputNo_of_ppl"
+                          class="d-inline-flex border-0 border-bottom border-dark rounded bg-transparent text-dark px-2 d-flex justify-content-between"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseExample"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                          style="width: 100%"
+                        >
+                          <span class="text-secondary" v-if="!form.no_of_ppl"> Couple </span>
+                          <span class="" v-else>{{ form.no_of_ppl }}</span>
+                          <span class=""><i class="bi bi-chevron-down text-dark"></i></span>
+                        </div>
+                        <div class="collapse" id="collapseExample" style="position: absolute">
+                          <div class="form1 px-2 py-2 rounded bg-dark text-light">
+                            <div @click="handleSolo" style="cursor: pointer">Solo</div>
+                            <div @click="handleCouple" style="cursor: pointer">Couple</div>
+                            <div style="cursor: pointer">
+                              <div class="row">
+                                <div @click="toggleFamily" class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl">Family</div>
+                                <div class="col-8 col-sm-5 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                  <div v-if="family == true">
+                                    <input class="form-control form-control-sm text-light border border-dark bg-transparent" v-model="members" type="number" placeholder="No. Of People" aria-label=".form-control-sm example" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div style="cursor: pointer">
+                              <div class="row">
+                                <div @click="toggleFriends" class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl">Friends</div>
+                                <div class="col-8 col-sm-5 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                  <div v-if="friends == true">
+                                    <input class="form-control form-control-sm mb-1 text-light border border-dark bg-transparent" v-model="members" type="number" placeholder="Number Of Friends" aria-label=".form-control-sm example" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                      <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.start_date" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                      <input class="form-control text-dark border-0 border-bottom border-dark bg-transparent" v-model="form.no_of_days" type="number" placeholder="5" aria-label=".form-control-sm example" />
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                      <div>
+                        <select id="exampleFormControlInputBudget" class="form-select border-0 border-dark border-bottom bg-transparent" v-model="form.budget">
+                          <option class="bg-light text-secondary" value="0">Balanced</option>
+                          <option class="bg-light text-dark" :value="item" v-for="item in budget_plans" :key="item">{{ item }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                      <div>
+                        <select id="exampleFormControlInputPreference" class="form-select text-dark border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
+                          <option class="bg-light" value="0">Night-Out</option>
+                          <option class="bg-light" :value="item" v-for="item in preference" :key="item">{{ item }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 <div class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <input class="form-control form-control-sm text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.no_of_ppl" type="number" placeholder="No Of People" aria-label=".form-control-sm example" />
                     </div>

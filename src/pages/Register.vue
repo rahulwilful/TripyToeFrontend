@@ -99,8 +99,9 @@ export default {
     };
   },
 
-  beforeCreate() {
-    const token = localStorage.getItem("token");
+  async beforeCreate() {
+    const token = await axiosClient.get("user/getcurrentuser/");
+    console.log(token);
     if (token) {
       this.$router.push("/home");
     }

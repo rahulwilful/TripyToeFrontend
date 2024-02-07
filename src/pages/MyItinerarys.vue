@@ -85,12 +85,12 @@
         <div>
           <div>
             <div class="">
-              <div class="card border border-primary shadow-lg">
+              <div v-auto-animate class="card border border-primary shadow-lg">
                 <h1 class="d-flex justify-content-center align-items-center my-3" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">My Itinerarys</h1>
                 <div class="card-body bg-transparent">
                   <div class="bg-transparent">
                     <div class="bg-transparent">
-                      <ol class="list-group bg-transparent">
+                      <ol v-auto-animate class="list-group bg-transparent">
                         <li class="list-group-item bg-transparent border border-primary mb-2 align-middle">
                           <div class="list">
                             <div class="row bg-transparent" style="height: 100%; align-items: center">
@@ -207,7 +207,7 @@ export default {
     async getItinerary(id) {
       this.itineraryId = id;
       console.log("getItinerary called");
-      this.$router.push(`/itinerary/${this.id}/${this.itineraryId}`);
+      this.$router.push(`/itinerary/${this.itineraryId}`);
     },
   },
 };

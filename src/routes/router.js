@@ -85,7 +85,7 @@ const routes = [
         component: MyItinerarys,
       },
       {
-        path: "/itinerary/:id/:itineraryid",
+        path: "/itinerary/:itineraryid",
         name: "MyItinerarys",
         component: Itinerary,
         props: (route) => ({
