@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  /* baseURL: "https://tripytoebackend.onrender.com/", */
+  /* baseURL: "https://tripytoebackend.onrender.com/"  */
   baseURL: "http://localhost:3001/",
 });
 // Add a request interceptor to set the Authorization header before each request

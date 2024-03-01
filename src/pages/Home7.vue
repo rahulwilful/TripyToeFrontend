@@ -6,7 +6,13 @@
 }
 ::placeholder {
   color: rgb(131, 131, 131);
+  font-family: "Trebuchet MS", sans-serif;
 }
+.lable {
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 20px;
+}
+
 ::-webkit-scrollbar {
   margin-bottom: 1rem;
   width: 5px; /* Set the width of the scrollbar */
@@ -392,55 +398,87 @@ input {
                 <span v-if="next > 0" class="form1 rounded shadow-lg mx-4 mx-sm-4 mx-md-4 mx-lg-5 mx-xl-5 mx-xxl-5">
                   <div v-auto-animate class="row gx-1 gx-sm-1 gx-md-2 gx-lg-2 gx-xl-3 gx-xxl-3 pt-3 pt-sm-3 pt-md-3 pt-lg-2 pt-xl-3 pt-xxl-3 px-3 px-sm-3 px-md-3 px-lg-2 px-xl-3 px-xxl-3">
                     <div v-if="next == 1" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                      <label for="exampleFormControlInputDestination" class="form-label">Where You Want To Go ?</label>
-                      <input class="form-control text-dark border-0 border-dark border-bottom bg-transparent" id="exampleFormControlInputDestination" v-model="form.destination" type="text" placeholder="Goa" aria-label=".form-control-sm example" />
+                      <label for="exampleFormControlInputDestination" class="form-label lable">Where You Want To Go ?</label>
+                      <input class="form-control text-dark border-0 border-dark border-bottom bg-transparent text-capitalize" id="exampleFormControlInputDestination" v-model="form.destination" type="text" placeholder="Goa" aria-label=".form-control-sm example" />
                     </div>
                     <div v-if="next == 2" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <div class="">
-                        <label for="exampleFormControlInputNo_of_ppl" class="form-label">Who is Going? <i class="bi bi-backpack4-fill"></i></label>
+                        <label for="exampleFormControlInputNo_of_ppl" class="form-label lable">Who is Going? <i class="bi bi-backpack4-fill"></i></label>
+                        <div v-auto-animate>
+                          <div v-if="no_of_ppl == 1" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
+                              <h5 class="">Only Me <i class="bi bi-person-walking"></i></h5>
+                              Traveling Solo ,Just You
+                            </span>
+                          </div>
+                          <div v-else @click="handleNo_of_ppl(1)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                            <span class="py-3 ps-3">
+                              <h5 class="">Only Me <i class="bi bi-person-walking"></i></h5>
+                              Traveling Solo ,Just You
+                            </span>
+                          </div>
+                        </div>
 
-                        <p
-                          id="exampleFormControlInputNo_of_ppl"
-                          class="d-inline-flex border-0 border-bottom border-dark rounded bg-transparent text-dark px-2 d-flex justify-content-between"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseExample"
-                          aria-expanded="false"
-                          aria-controls="collapseExample"
-                          style="width: 100%"
-                        >
-                          <span class="text-secondary" v-if="!form.no_of_ppl"> Couple </span>
-                          <span class="" v-else>{{ form.no_of_ppl }}</span>
-                          <span class=""><i class="bi bi-chevron-down text-dark"></i></span>
-                        </p>
-                        <div class="collapse" id="collapseExample" style="position: absolute">
-                          <div class="form1 px-2 py-2 rounded bg-dark text-light">
-                            <div @click="handleSolo" style="cursor: pointer">Solo</div>
-                            <div @click="handleCouple" style="cursor: pointer">Couple</div>
-                            <div style="cursor: pointer">
-                              <div class="row">
-                                <div @click="toggleFamily" class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl">Family</div>
-                                <div class="col-8 col-sm-5 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                  <div v-if="family == true">
-                                    <input class="form-control form-control-sm text-light border border-dark bg-transparent" v-model="members" type="number" placeholder="No. Of People" aria-label=".form-control-sm example" />
-                                  </div>
-                                </div>
-                              </div>
+                        <div v-auto-animate>
+                          <div v-if="no_of_ppl == 2" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
+                              <h5 class="">Couples <i class="bi bi-heart-fill text-danger"></i></h5>
+                              Romantic Tour For Two
+                            </span>
+                          </div>
+                          <div v-else @click="handleNo_of_ppl(2)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                            <span class="py-3 ps-3">
+                              <h5 class="">Couples <i class="bi bi-heart-fill text-danger"></i></h5>
+                              Romantic Tour For Two
+                            </span>
+                          </div>
+                        </div>
+
+                        <div v-auto-animate>
+                          <div v-auto-animate v-if="family == false">
+                            <div v-if="no_of_ppl == 3" @click="handleNo_of_ppl(3)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                              <span class="py-3 ps-3 text-light">
+                                <h5 class="">Family <i class="bi bi-person-hearts"></i></h5>
+                                Qulity Time With Your Loved Once
+                              </span>
                             </div>
-
-                            <div style="cursor: pointer">
-                              <div class="row">
-                                <div @click="toggleFriends" class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl">Friends</div>
-                                <div class="col-8 col-sm-5 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                  <div v-if="friends == true">
-                                    <input class="form-control form-control-sm mb-1 text-light border border-dark bg-transparent" v-model="members" type="number" placeholder="Number Of Friends" aria-label=".form-control-sm example" />
-                                  </div>
-                                </div>
-                              </div>
+                            <div v-else @click="handleNo_of_ppl(3)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                              <span class="py-3 ps-3">
+                                <h5 class="">Family <i class="bi bi-person-hearts"></i></h5>
+                                Qulity Time With Your Loved Ones
+                              </span>
                             </div>
-
-                            <div class="d-flex justify-content-end">
-                              <button v-if="next > 1" type="button" @click="handlePrev" class="btn btn-primary btn-sm border-0" style="background-color: #a95fe8">Prev</button>
-                              <button v-if="next < 5" type="button" @click="handleNext" class="btn btn-primary btn-sm mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
+                          </div>
+                          <div v-if="family == true && no_of_ppl == 3">
+                            <div class="rounded-3 mt-1 d-flex flex-column pe-auto" style="background-color: rgb(224, 224, 224); border: 1px solid rgba(111, 72, 170, 0.9)">
+                              <span class="py-3 px-3">
+                                <label for="exampleFormControlInputNo_of_family" class="form-label lable">Enter Number Of Loved Ones </label>
+                                <input @change="handleFamily()" class="form-control form-control-sm text-dark border border-dark bg-transparent" v-model="members" type="number" placeholder="No. Of People" aria-label=".form-control-sm example" id="exampleFormControlInputNo_of_family" />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div v-auto-animate>
+                          <div v-auto-animate v-if="friends == false">
+                            <div v-if="no_of_ppl == 4" @click="handleNo_of_ppl(4)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                              <span class="py-3 ps-3 text-light">
+                                <h5 class="">Friends <i class="bi bi-person-arms-up"></i><i class="bi bi-person-raised-hand"></i></h5>
+                                Adventure With Your Closest Path
+                              </span>
+                            </div>
+                            <div v-else @click="handleNo_of_ppl(4)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                              <span class="py-3 ps-3">
+                                <h5 class="">Friends <i class="bi bi-person-arms-up"></i><i class="bi bi-person-raised-hand"></i></h5>
+                                Adventure With Your Closest Path
+                              </span>
+                            </div>
+                          </div>
+                          <div v-if="friends == true && no_of_ppl == 4">
+                            <div class="rounded-3 mt-1 d-flex flex-column pe-auto" style="background-color: rgb(224, 224, 224); border: 1px solid rgba(111, 72, 170, 0.9)">
+                              <span class="py-3 px-3">
+                                <label for="exampleFormControlInputNo_of_friends" class="form-label lable">Enter Number Friends</label>
+                                <input @change="handleFriends()" class="form-control form-control-sm text-dark border border-dark bg-transparent" v-model="members" type="number" placeholder="Number Of Friends" aria-label=".form-control-sm example" id="exampleFormControlInputNo_of_friends" />
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -449,33 +487,75 @@ input {
                     <div v-if="next == 3" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <div class="row gx-2">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                          <label for="date" class="form-label">When You Want To Go ?</label>
+                          <label for="date" class="form-label lable">When You Want To Go ?</label>
                           <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.start_date" aria-label=".form-control-sm example" />
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0 mt-xxl-0">
-                          <label for="exampleFormControlInputNo_of_days " class="form-label">For How Many Days ?</label>
-                          <input class="form-control text-dark border-0 border-bottom border-dark bg-transparent" v-model="form.no_of_days" type="number" placeholder="5" aria-label=".form-control-sm example" />
+                          <label for="date" class="form-label lable">When Your Trip ends ?</label>
+                          <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.end_date" aria-label=".form-control-sm example" />
                         </div>
                       </div>
                     </div>
                     <!-- <div v-if="next == 4" class="d-flex mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"></div> -->
                     <div v-if="next == 4" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <!-- <input class="form-control text-light border-0 border-secondary border-bottom bg-transparent" v-model="form.budget" type="number" placeholder="Please Enter Your Budget" aria-label=".form-control-sm example" /> -->
-                      <div>
-                        <label for="exampleFormControlInputBudget" class="form-label">Please Select Your Budget</label>
-                        <select id="exampleFormControlInputBudget" class="form-select border-0 border-dark border-bottom bg-transparent" v-model="form.budget">
-                          <option class="bg-light text-secondary" value="0">Select Budget</option>
-                          <option class="bg-light text-dark" :value="item" v-for="item in budget_plans" :key="item">{{ item }}</option>
-                        </select>
+                      <div v-auto-animate class="">
+                        <label for="exampleFormControlInputBudget" class="form-label lable">Please Select Your Budget ?</label>
+                        <div v-auto-animate>
+                          <div v-if="budget == 1" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
+                              <h5 class="">Balanced <i class="bi bi-bus-front"></i></h5>
+                              Moderate Spending For Balanced Trip
+                            </span>
+                          </div>
+                          <div v-else @click="handleBudget(1)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                            <span class="py-3 ps-3">
+                              <h5 class="">Balanced <i class="bi bi-bus-front"></i></h5>
+                              Moderate Spending For Balanced Trip
+                            </span>
+                          </div>
+                        </div>
+
+                        <div v-auto-animate>
+                          <div v-if="budget == 2" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
+                              <h5 class="">Luxury <i class="bi bi-train-front"></i></h5>
+                              High-End Indulgent Experiences
+                            </span>
+                          </div>
+                          <div v-else @click="handleBudget(2)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                            <span class="py-3 ps-3">
+                              <h5 class="">Luxury <i class="bi bi-train-front"></i></h5>
+                              High-End Indulgent Experiences
+                            </span>
+                          </div>
+                        </div>
+
+                        <div v-auto-animate>
+                          <div v-if="budget == 3" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
+                              <h5 class="">Flexible <i class="bi bi-airplane-engines"></i></h5>
+                              No Budget Restrictions
+                            </span>
+                          </div>
+                          <div v-else @click="handleBudget(3)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                            <span class="py-3 ps-3">
+                              <h5 class="">Flexible <i class="bi bi-airplane-engines"></i></h5>
+                              No Budget Restrictions
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div v-if="next == 5" class="mb-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                       <div>
-                        <label for="exampleFormControlInputPreference" class="form-label">Please Select Your Preference</label>
-                        <select id="exampleFormControlInputPreference" class="form-select border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
-                          <option class="bg-light text-secondary" value="0">Select Preference</option>
-                          <option class="bg-light text-dark" :value="item" v-for="item in preference" :key="item">{{ item }}</option>
-                        </select>
+                        <label for="exampleFormControlInputPreference" class="form-label lable">Please Select Your Preference</label>
+                        <div class="d-flex justify-content-evenly flex-wrap overflow-y-scroll">
+                          <div v-auto-animate v-for="items in preference" :key="items" class="">
+                            <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == false" class="border mx-2 my-2 rounded-pill px-2 pe-auto bg-body-secondary">{{ items.name }}</button>
+                            <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == true" class="border mx-2 my-2 rounded-pill px-2 pe-auto text-light" style="background-color: rgba(111, 72, 170, 0.9)">{{ items.name }}</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -525,11 +605,8 @@ input {
                     </div>
                     <div class="h-100 w-100 py-3" style="position: absolute">
                       <div class="w-100 searched-header d-flex justify-content-center align-items-end align-items-sm-center">
-                        <span v-if="form.no_of_days == 1">
-                          <h2 class="text-light fw-semibold mb-3 mb-sm-0" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); text-transform: capitalize">{{ form.no_of_days }} Day Trip To {{ form.destination }}</h2>
-                        </span>
-                        <span v-else>
-                          <h2 class="text-light fw-semibold mb-3 mb-sm-0" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); text-transform: capitalize">{{ form.no_of_days }} Days Trip To {{ form.destination }}</h2>
+                        <span>
+                          <h2 class="text-light fw-semibold mb-3 mb-sm-0" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); text-transform: capitalize">Vacation In {{ form.destination }}</h2>
                         </span>
                       </div>
                       <div class="searched-card">
@@ -615,7 +692,7 @@ input {
 
               <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-              <div class="" style="">
+              <div style="">
                 <div>
                   <div v-for="day in itinerary" :key="day" class="itinerarys">
                     <div class="itinerary my-3 mb-sm-3 mb-md-3 mb-lg-4 mb-xl-5 mb-xxl-5 container container-sm container-md container-lg container-xl container-xxl rounded-4 d-flex justify-content-center" style="background-color: rgb(238, 233, 248)">
@@ -702,16 +779,16 @@ input {
 
               <div v-if="edit == true" class="edit-modal">
                 <div class="edit-modal-container d-flex justify-content-center align-items-center">
-                  <div v-auto-animate class="edit-modal-inputs bg-light rounded-3 p-3 flex-column d-flex justify-content-center align-items-center border border-success">
-                    <div class="row px-2 px-sm-3">
+                  <div v-auto-animate class="edit-modal-inputs bg-light rounded-3 p-3 flex-column d-flex justify-content-center align-items-center border border-primary">
+                    <div v-if="!preferenceToggler" class="row px-2 px-sm-3">
                       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                        <input class="form-control text-dark border-0 border-dark border-bottom bg-transparent" id="exampleFormControlInputDestination" v-model="form.destination" type="text" placeholder="Goa" aria-label=".form-control-sm example" />
+                        <input class="form-control text-dark border-0 border-dark border-bottom bg-transparent text-capitalize" id="exampleFormControlInputDestination" v-model="form.destination" type="text" placeholder="Goa" aria-label=".form-control-sm example" />
                       </div>
-                      <div class="mt-3 mt-sm-0 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 d-flex align-items-end">
+                      <div class="mt-2 mt-sm-0 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 d-flex align-items-end">
                         <span class="w-100">
                           <div
                             id="exampleFormControlInputNo_of_ppl"
-                            class="border-0 border-bottom border-dark rounded bg-transparent text-dark px-2 d-flex justify-content-between"
+                            class="border-0 border-bottom border-dark rounded bg-transparent text-dark px-2 d-flex justify-content-between text-capitalize"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseExample"
                             aria-expanded="false"
@@ -757,10 +834,10 @@ input {
                         </span>
                       </div>
                       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                        <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.start_date" aria-label=".form-control-sm example" />
+                        <input placeholder="Start Date" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.start_date" aria-label=".form-control-sm example" />
                       </div>
                       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                        <input class="form-control text-dark border-0 border-bottom border-dark bg-transparent" v-model="form.no_of_days" type="number" placeholder="5" aria-label=".form-control-sm example" />
+                        <input placeholder="End Date" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.end_date" aria-label=".form-control-sm example" />
                       </div>
                       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                         <div>
@@ -770,13 +847,23 @@ input {
                           </select>
                         </div>
                       </div>
-                      <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                        <div>
-                          <select id="exampleFormControlInputPreference" class="form-select text-dark border-0 border-secondary border-bottom bg-transparent" v-model="form.preference">
-                            <option class="bg-light" value="0">Select Preference</option>
-                            <option class="bg-light" :value="item" v-for="item in preference" :key="item">{{ item }}</option>
-                          </select>
+                      <div class="mt-2 mt-sm-0 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                        <div class="h-100">
+                          <button @click="preferenceToggler = true" type="button" class="w-100 bg-light h-100 border-0 border-dark border-bottom rounded">
+                            <span class="float-start"> Select Preference </span>
+                          </button>
                         </div>
+                      </div>
+                    </div>
+                    <div v-if="preferenceToggler">
+                      <div class="d-flex justify-content-evenly flex-wrap overflow-y-scroll">
+                        <div v-auto-animate v-for="items in preference" :key="items" class="">
+                          <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == false" class="border mx-2 my-2 rounded-pill px-2 pe-auto bg-body-secondary">{{ items.name }}</button>
+                          <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == true" class="border mx-2 my-2 rounded-pill px-2 pe-auto text-light" style="background-color: rgba(111, 72, 170, 0.9)">{{ items.name }}</button>
+                        </div>
+                      </div>
+                      <div>
+                        <button @click="preferenceToggler = false" type="button" class="btn btn-secondary btn-sm px-3 float-end mx-3"><i class="bi bi-arrow-left"></i></button>
                       </div>
                     </div>
                     <div class="w-100 rounded mt-2">
@@ -844,6 +931,9 @@ export default {
   },
   data() {
     return {
+      preferenceToggler: false,
+      budget: 0,
+      no_of_ppl: 0,
       button: true,
       edit: false,
       card: 0,
@@ -861,15 +951,27 @@ export default {
       members: "",
       next: 0,
       itinerary: [],
-      preference: ["nightlife", "offbeat"],
+      preference: [
+        { name: "Nightlife", selected: false },
+        { name: "Cultural Exploration", selected: false },
+        { name: "City Breaks", selected: false },
+        { name: "Adventure Travel", selected: false },
+        { name: "Offbeat", selected: false },
+        { name: "Road Trips", selected: false },
+        { name: "Wine Tours", selected: false },
+        { name: "Beach Vacations", selected: false },
+        { name: "Art Gallaries", selected: false },
+      ],
+      //preference: ["nightlife", "offbeat", "Adventure Travel", "City Breaks", "Cultural Exploration", "Nature Escapes", "Road Trips", "Art Gallaries", "Beach Vacations", "Wine Tours"],
       form: {
         id: "",
         destination: "" /* "shimla" */,
         no_of_ppl: "" /* "solo" */,
         no_of_days: "" /*  "2" */,
         start_date: "" /* "2024-01-27" */,
+        end_date: "" /* "2024-01-27" */,
         budget: "0" /* "Balanced" */,
-        preference: /* "nightlife" */ "0",
+        preference: /* "nightlife" */ [],
         itineraryDays: [],
       },
 
@@ -964,17 +1066,72 @@ export default {
   },
 
   methods: {
+    handleBudget(no) {
+      this.budget = no;
+      if (no == 1) {
+        this.form.budget = "Balanced";
+      } else if (no == 2) {
+        this.form.budget = "Luxury";
+      } else {
+        this.form.budget = "Flexible";
+      }
+    },
+    handlePreferenceSelection(item) {
+      console.log("handlePreferenceSelection called", item);
+      for (var item2 in this.preference) {
+        if (item == this.preference[item2].name) {
+          if (this.preference[item2].selected == false) {
+            this.preference[item2].selected = !this.preference[item2].selected;
+            this.form.preference.push(item);
+            console.log("preference", this.form.preference);
+          } else {
+            this.preference[item2].selected = !this.preference[item2].selected;
+            this.form.preference = this.form.preference.filter((word) => word !== item);
+            console.log("preference", this.form.preference);
+            return;
+          }
+
+          return;
+        }
+      }
+    },
+    handleNo_of_ppl(no) {
+      this.no_of_ppl = no;
+      if (no == 1) {
+        console.log("", no);
+        this.form.no_of_ppl = "solo";
+        this.family = false;
+        this.friends = false;
+      }
+      if (no == 2) {
+        console.log("", no);
+        this.form.no_of_ppl = "couple";
+        this.family = false;
+        this.friends = false;
+      }
+      if (no == 3) {
+        console.log("", no);
+        this.toggleFamily();
+      }
+      if (no == 4) {
+        console.log("", no);
+        this.toggleFriends();
+      }
+    },
+
     handleNext() {
       if (this.next == 2 && this.members != "") {
         if (this.family == true) {
           this.form.no_of_ppl = this.members + ", Family Members";
           this.members = "";
         }
-
         if (this.friends == true) {
           this.form.no_of_ppl = this.members + ", Friends";
           this.members = "";
         }
+        this.family = false;
+        this.friends = false;
+        console.log(this.form.no_of_ppl);
       }
       this.next++;
       console.log(this.next);
@@ -985,19 +1142,6 @@ export default {
     },
 
     handlePrev() {
-      /*  if (this.next == 2) {
-        if (this.family == true) {
-          this.family = false;
-          this.traveller = true;
-          return;
-        }
-        if (this.friends == true) {
-          this.friends = false;
-          this.traveller = true;
-          return;
-        }
-      } */
-
       this.next--;
       console.log(this.next);
     },
@@ -1033,11 +1177,18 @@ export default {
       this.error = [];
       for (const item in this.form) {
         if (this.form[item] == "") {
-          if (item != "itineraryDays" && item != "id") {
+          if (item != "itineraryDays" && item != "id" && item != "no_of_days") {
             /* console.log("error", item); */
             this.error.push(item);
           }
         }
+      }
+      if (this.form.start_date > this.form.end_date) {
+        toast.error(`Plzz Select End Date Properly`, {
+          autoClose: 1500,
+        });
+        this.next = 3;
+        return;
       }
       if (this.error.length == 0) {
         if (this.form.budget == "0") {
@@ -1086,7 +1237,11 @@ export default {
           this.loading = false;
           this.edit = false;
         } catch (error) {
+          this.loading = false;
           console.error("Somthing went wrong", error);
+          toast.error(`Somthing went wrong`, {
+            autoClose: 1500,
+          });
         }
       } else {
         console.log("Form Values Are ", this.form, this.error);
@@ -1103,15 +1258,15 @@ export default {
               autoClose: 1500,
             });
             break;
-          } else if (item == "no_of_days") {
-            this.next = 3;
-            toast.error(`Enter Number Of Days`, {
-              autoClose: 1500,
-            });
-            break;
           } else if (item == "start_date") {
             this.next = 3;
             toast.error(`Enter Start Date`, {
+              autoClose: 1500,
+            });
+            break;
+          } else if (item == "end_date") {
+            this.next = 3;
+            toast.error(`Enter Number Of Days`, {
               autoClose: 1500,
             });
             break;
@@ -1180,12 +1335,21 @@ export default {
     handleBack() {
       this.form.destination = "";
       this.form.no_of_ppl = "";
-      this.form.no_of_days = null;
+      this.form.end_date = "";
       this.form.start_date = "";
       this.form.budget = 0;
-      this.form.preference = 0;
+      this.form.preference = [];
+      this.no_of_ppl = 0;
+      this.budget = 0;
+
       this.searched = false;
       console.log("handleBack Called");
+
+      for (let i in this.preference) {
+        if (this.preference[i].selected == true) {
+          this.preference[i].selected = false;
+        }
+      }
     },
 
     startProgressOfBars() {

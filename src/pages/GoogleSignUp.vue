@@ -91,7 +91,12 @@ export default {
           this.token = response.data.result.token;
           console.log("userId", this.userId, ", ", this.token);
           if (this.userId) {
-            this.varifyEmail();
+            toast.success("Registerd successfully", {
+              autoClose: 1500,
+            });
+            setTimeout(() => {
+              this.$router.push(`/login`);
+            }, 1500);
           } else {
             toast.error("Something went wrong", {
               autoClose: 1500,
@@ -124,55 +129,6 @@ export default {
 
     capitalize(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
-    },
-
-    //funtion for email verification and redirect if verification email sent successfully
-    async varifyEmail() {
-      console.log("varifyEmail called");
-      (function () {
-        //function to invoke emailjs
-        emailjs.init("xFvWy_f4EAZfIazRD");
-      })();
-      //sericeId and templateId of emailjs
-      var serviceID = "service_q76t9xj";
-      var templateID = "template_uhooied";
-      var flag = 0; //flag for better notification
-
-      try {
-        var params = {
-          to: this.form.email,
-          message: `https://tripytoe.netlify.app/varifyemail/${this.userId}/${this.token}`,
-        };
-
-        await emailjs.send(serviceID, templateID, params);
-        toast.success("Varification link sent on email", {
-          autoClose: 1500,
-        });
-
-        toast.success("Registerd successfully", {
-          autoClose: 1500,
-        });
-        flag = 1;
-        setTimeout(() => {
-          this.$router.push(`/login`);
-        }, 1500);
-      } catch (err) {
-        console.error("error", err); // Log the error object, not 'object'
-        if (err.response.status == 404) {
-          toast.error("User does not exist", {
-            autoClose: 1500,
-          });
-        }
-      }
-      if (flag === 0) {
-        toast.success("Registerd successfully", {
-          autoClose: 1500,
-        });
-
-        setTimeout(() => {
-          this.$router.push(`/login`);
-        }, 1500);
-      }
     },
   },
 };

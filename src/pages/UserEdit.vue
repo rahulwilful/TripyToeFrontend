@@ -1,6 +1,6 @@
 <style scoped>
 .main {
-  margin-top: 5rem;
+  padding-top: 5rem;
 }
 
 .profile-image {
@@ -35,16 +35,16 @@
 </style>
 
 <template>
-  <div class="main">
+  <div v-auto-animate class="main">
     <div class="container-xl px-4 mt-4">
       <div class="row">
         <div class="col-xl-4">
           <!-- Profile picture card-->
-          <div class="card mb-4 mb-xl-0">
+          <div v-auto-animate class="card mb-4 mb-xl-0">
             <div class="card-header">Profile Picture</div>
-            <div class="card-body text-center">
+            <div v-auto-animate class="card-body text-center">
               <!-- Profile picture image-->
-              <img v-if="form.profile" class="img-account-profile profile-image rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" />
+              <img v-if="form.profile" class="img-account-profile profile-image rounded-circle mb-2" :src="form.profile" alt="Profile Picture" />
               <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
 
               <!-- Profile picture help block-->
@@ -68,12 +68,18 @@
                       <div class="modal-body">
                         <div class="mb-3">
                           <label for="imageInput" class="form-label">Upload Image</label>
-                          <input class="form-control" type="file" id="imageInput" accept="image/*" @change="handleFileChange" />
+                          <input class="form-control" type="file" id="imageInput" name="image" accept="image/*" @change="handleFileChange" />
                         </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="changeProfile">Save Image</button>
+                        <button type="button" class="btn btn-primary" @click="changeProfile">
+                          <div v-if="!loading">Save Image</div>
+                          <div v-if="loading" class="mx-4">
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span class="visually-hidden" role="status">Loading...</span>
+                          </div>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -95,7 +101,7 @@
                     <input class="form-control" id="inputUsername" type="text" v-model="form.name" />
                   </div>
                   <!-- Form Row -->
-                  <div class="row gx-3 mb3">
+                  <div v-auto-animate class="row gx-3 mb3">
                     <div class="col-md-6">
                       <div class="mt-1">
                         <label class="small mb-1" for="email">Email</label>
@@ -151,6 +157,11 @@ export default {
   name: "UserEdit",
   data() {
     return {
+      form2: {
+        profile_url: "",
+      },
+      loading: false,
+
       form: {
         name: "",
         mobile_no: "",
@@ -268,13 +279,23 @@ export default {
         toast.error("Please select a valid image", {
           autoClose: 1500,
         });
+
         return;
       }
+
+      this.loading = true;
       const formData = new FormData();
-      formData.append("file", this.form.newProfile);
+      formData.append("image", this.form.newProfile);
       try {
-        const response = await axiosClient.post(`user/upload/${this.id}`, formData);
-        console.log("User updated successfully", response.data);
+        // const response = await axiosClient.post(`user/upload/${this.id}`, formData);
+        const profile = await axiosClient.post(`user/updateprofile`, formData);
+
+        this.form2.profile_url = profile.data.result.secure_url;
+
+        console.log("ProfileUrl", this.form2.profile_url);
+        const updateProfile = await axiosClient.post(`user/updateprofileurl/${this.id}`, this.form2);
+        console.log("User updated successfully", updateProfile);
+        this.loading = false;
         toast.success("Profile updated successfully", {
           autoClose: 1500,
         });
@@ -282,6 +303,7 @@ export default {
           this.$router.go(0);
         }, 1500);
       } catch (error) {
+        this.loading = false;
         console.error("Error updating profile", error);
         toast.error("Something went wrong", {
           autoClose: 1500,

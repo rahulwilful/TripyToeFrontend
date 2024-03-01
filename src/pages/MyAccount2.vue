@@ -1,7 +1,8 @@
 <style scoped>
 .main {
-  margin-top: 5rem;
+  margin-top: 0px;
 }
+
 .edit-button {
   margin-right: 2px;
 }
@@ -45,101 +46,103 @@
 </style>
 
 <template>
-  <div class="main">
-    <div class="container-xl px-4 mt-4">
-      <div class="row">
-        <div class="col-xl-4">
-          <!-- Profile picture card-->
-          <div class="card mb-4 mb-xl-0">
-            <div class="card-header">Profile Picture</div>
-            <div class="card-body text-center">
-              <!-- Profile picture image-->
-              <img v-if="profile" class="img-account-profile profile-image rounded-circle mb-2" :src="profile_url + profile" alt="Profile Picture" />
-              <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
+  <div v-auto-animate class="main">
+    <div class="main2">
+      <div class="container-xl px-4">
+        <div v-auto-animate class="row" style="padding-top: 5rem">
+          <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div v-auto-animate class="card mb-4 mb-xl-0">
+              <div class="card-header">Profile Picture</div>
+              <div v-auto-animate class="card-body text-center">
+                <!-- Profile picture image-->
+                <img v-if="profile" class="img-account-profile profile-image rounded-circle mb-2" :src="profile" alt="Profile Picture" />
+                <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
 
-              <!-- Profile picture help block-->
-              <div class="small font-italic text-muted mb-4">
-                <h5>{{ name }}</h5>
+                <!-- Profile picture help block-->
+                <div class="small font-italic text-muted mb-4">
+                  <h5>{{ name }}</h5>
+                </div>
+                <!-- Profile picture upload button-->
               </div>
-              <!-- Profile picture upload button-->
             </div>
           </div>
-        </div>
-        <div class="col-xl-8">
-          <!-- Account details card-->
-          <div class="card mb-4">
-            <div class="card-header">Account Details</div>
-            <div class="card-body">
-              <div>
-                <!-- Form Group (username)-->
-                <div class="mb-3">
-                  <label class="small mb-1" for="name">Name</label>
-                  <input :disabled="true" class="form-control" id="name" type="text" v-model="name" />
-                </div>
-                <!-- Form Row        -->
-                <div class="row gx-3 mb3">
-                  <div class="col-md-6">
-                    <div class="mt-1">
-                      <div class="row">
-                        <div class="col-2"><label class="small mb-1" for="email">Email</label></div>
+          <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+              <div class="card-header">Account Details</div>
+              <div class="card-body">
+                <div v-auto-animate>
+                  <!-- Form Group (username)-->
+                  <div class="mb-3">
+                    <label class="small mb-1" for="name">Name</label>
+                    <input :disabled="true" class="form-control" id="name" type="text" v-model="name" />
+                  </div>
+                  <!-- Form Row        -->
+                  <div class="row gx-3 mb3">
+                    <div class="col-md-6">
+                      <div class="mt-1">
+                        <div v-auto-animate class="row">
+                          <div class="col-2"><label class="small mb-1" for="email">Email</label></div>
 
-                        <div class="col-4"></div>
-                        <!--  <div class="col-2">
+                          <div class="col-4"></div>
+                          <!--  <div class="col-2">
                           <div v-if="!emailVerified">
                             <button class="varify-button" @click="varifyEmail">Varify Email</button>
                           </div>
                         </div> -->
-                        <div class="col-6">
-                          <div class="float-end px-2" v-if="emailVerified">
-                            <i class="bi bi-patch-check-fill" style="color: blue"></i>
-                            <span style="color: rgb(167, 167, 167); font-size: small"> Email Varified</span>
-                          </div>
-                          <div class="float-end px-2" v-else>
-                            <span class="varify-button">
-                              <button @click="varifyEmail" style="border: none; background-color: transparent; border-radius: 5px">
-                                <i class="bi bi-patch-check-fill" style="color: red"></i>
-                                <span style="color: rgb(167, 167, 167); font-size: small"> Varify Email</span>
-                              </button>
-                            </span>
+                          <div v-auto-animate class="col-6">
+                            <div class="float-end px-2" v-if="emailVerified">
+                              <i class="bi bi-patch-check-fill" style="color: blue"></i>
+                              <span style="color: rgb(167, 167, 167); font-size: small"> Email Varified</span>
+                            </div>
+                            <div class="float-end px-2" v-else>
+                              <span class="varify-button">
+                                <button @click="varifyEmail" style="border: none; background-color: transparent; border-radius: 5px">
+                                  <i class="bi bi-patch-check-fill" style="color: red"></i>
+                                  <span style="color: rgb(167, 167, 167); font-size: small"> Varify Email</span>
+                                </button>
+                              </span>
+                            </div>
                           </div>
                         </div>
+                        <input :disabled="true" class="form-control" id="email" type="text" v-model="email" />
                       </div>
-                      <input :disabled="true" class="form-control" id="email" type="text" v-model="email" />
-                    </div>
-                    <!-- Form Group (location)-->
-                    <div class="mt-2">
-                      <label class="small mb-1" for="mobile_no">Mobile Number</label>
-                      <input :disabled="true" class="form-control" id="mobile_no" type="text" v-model="mobile_no" />
-                    </div>
-                  </div>
-
-                  <!-- ///////////////////////////////// New colunn starts //////////////////////////////////// -->
-                  <div class="col-md-6">
-                    <div class="mt-2" v-if="whatsapp_status">
-                      <label class="small mb-1" for="whatsapp_no">Whatsapp Number</label>
-                      <input :disabled="true" class="form-control" id="whatsapp_no" type="text" name="birthday" v-model="whatsapp_no" />
-                    </div>
-                    <div class="mt-2">
-                      <label class="small mb-1" for="facebook">Facebook</label>
-                      <input :disabled="true" class="form-control" id="facebook" type="text" v-model="facebook" />
+                      <!-- Form Group (location)-->
+                      <div class="mt-2">
+                        <label class="small mb-1" for="mobile_no">Mobile Number</label>
+                        <input :disabled="true" class="form-control" id="mobile_no" type="text" v-model="mobile_no" />
+                      </div>
                     </div>
 
-                    <div class="mt-2">
-                      <label class="small mb-1" for="instagram">Instagram</label>
-                      <input :disabled="true" class="form-control" id="instagram" type="text" name="instagram" v-model="instagram" />
+                    <!-- ///////////////////////////////// New colunn starts //////////////////////////////////// -->
+                    <div class="col-md-6">
+                      <div class="mt-2" v-if="whatsapp_status">
+                        <label class="small mb-1" for="whatsapp_no">Whatsapp Number</label>
+                        <input :disabled="true" class="form-control" id="whatsapp_no" type="text" name="birthday" v-model="whatsapp_no" />
+                      </div>
+                      <div class="mt-2">
+                        <label class="small mb-1" for="facebook">Facebook</label>
+                        <input :disabled="true" class="form-control" id="facebook" type="text" v-model="facebook" />
+                      </div>
+
+                      <div class="mt-2">
+                        <label class="small mb-1" for="instagram">Instagram</label>
+                        <input :disabled="true" class="form-control" id="instagram" type="text" name="instagram" v-model="instagram" />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col">
-              <div class="float-right">
-                <router-link to="useredit" class="btn btn-primary my-2" tabindex="-1" role="button" data-toggle="tooltip" title="Edit User"> <i class="bi bi-pen mx-3"></i></router-link>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col">
+                <div class="float-right">
+                  <router-link to="useredit" class="btn btn-primary my-2" tabindex="-1" role="button" data-toggle="tooltip" title="Edit User"> <i class="bi bi-pen mx-3"></i></router-link>
+                </div>
               </div>
             </div>
           </div>

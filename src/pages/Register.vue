@@ -10,7 +10,7 @@
 }
 </style>
 <template>
-  <div class="main vh-100">
+  <div v-auto-animate class="main vh-100">
     <div class="container container-md container-lg">
       <div class="row justify-content-center align-items-center">
         <div class="col-md-5 bg-light text-dark rounded shadow-lg my-5">

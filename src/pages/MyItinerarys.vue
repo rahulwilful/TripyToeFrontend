@@ -1,7 +1,7 @@
 <style scoped>
 .main {
   padding-top: 5rem;
-  height: 100vh;
+  height: 200vh;
 }
 
 .card {
@@ -118,8 +118,8 @@
                           </div>
                         </li>
                         <li id="list" @click="getItinerary(item._id)" v-for="item in itinerarys" :key="item" class="list-group-item bg-transparent border border-primary mb-2 align-middle">
-                          <div class="list">
-                            <div class="row bg-transparent" style="height: 100%; align-items: center">
+                          <div v-auto-animate class="list">
+                            <div v-auto-animate class="row bg-transparent" style="height: 100%; align-items: center">
                               <div class="col-3 col-sm-3 col-xl-3 col-lg-3 bg-transparent">
                                 <h5 class="mb-1 text-dark bg-transparent d-flex">
                                   <span> {{ item.destination }}</span>

@@ -11,7 +11,7 @@
 </style>
 
 <template>
-  <div class="main">
+  <div v-auto-animate class="main">
     <div class="container-fluid vh-100">
       <div class="row vh-100">
         <div class="col-md-8"></div>

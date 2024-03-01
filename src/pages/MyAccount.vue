@@ -25,7 +25,7 @@
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
               <!-- Profile picture image-->
-              <img v-if="profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + profile" alt="Profile Picture" style="width: 270px; height: 300px" />
+              <img v-if="profile" class="img-account-profile rounded-circle mb-2" :src="profile" alt="Profile Picture" style="width: 270px; height: 300px" />
               <img v-else class="img-account-profile rounded-circle mb-2" src="../assets/profile-circle.svg" alt="Default Profile Picture" />
 
               <!-- Profile picture help block-->
@@ -47,7 +47,7 @@
                   <label class="small mb-1" for="name">Name</label>
                   <input :disabled="true" class="form-control" id="name" type="text" v-model="name" />
                 </div>
-                <!-- Form Row        -->
+                <!-- Form Row -->
                 <div class="row gx-3 mb3">
                   <div class="col-md-6">
                     <div class="mt-1">

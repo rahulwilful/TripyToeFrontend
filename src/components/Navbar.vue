@@ -22,7 +22,7 @@ nav {
       <div class="my-profile">
         <div class="dropdown dropstart">
           <button class="btn btn-secondary dropdown-toggle bg-transparent border-transparent" id="dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="profile_url + form.profile" alt="Profile Picture" style="width: 33px; height: 33px; object-fit: cover" />
+            <img v-if="form.profile" class="img-account-profile rounded-circle mb-2" :src="form.profile" alt="Profile Picture" style="width: 33px; height: 33px; object-fit: cover" />
             <img v-else src="../assets/profile-circle copy.svg" />
           </button>
           <ul class="dropdown-menu narrow-dropdown px-2 bg-dark border border-dark">

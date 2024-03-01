@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-auto-animate>
     <router-view />
   </div>
 </template>
