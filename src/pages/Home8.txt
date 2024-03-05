@@ -221,30 +221,6 @@ input {
   width: 50vw;
 }
 
-.btn-select-item {
-  background-color: rgba(111, 72, 170, 0.9);
-  color: white;
-}
-
-.btn-select-item:hover {
-  transition: transform 0.2s ease-in-out;
-  color: rgba(111, 72, 170, 0.9);
-  background-color: white;
-  transform: scale(1.02, 1.02);
-
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-}
-
-.dropdown-item {
-  cursor: pointer;
-}
-
-.dropdown-item:hover {
-  background-color: rgb(197, 197, 197);
-  transition: transform 0.2s ease-in-out;
-  transform: scale(1.02, 1.02);
-}
-
 @media (max-width: 576px) {
   .itinery-box {
     width: 95%;
@@ -293,7 +269,6 @@ input {
     background-color: rgba(111, 72, 170, 0.9);
     height: 100%;
   }
-
   .edit-modal-inputs {
     width: 90vw;
   }
@@ -738,37 +713,23 @@ input {
                             <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-around justify-content-xl-around justify-content-xxl-around align-items-end">
                               <button v-if="!day.modify" @click="day.modify = true" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Modify</button>
                               <button v-if="day.modify" @click="day.modify = false" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Done</button>
+
                               <button type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Regenerate</button>
                             </div>
                           </div>
                         </div>
                         <div class="itinerary-day-box w-100 bg-light rounded-4 my-2 p-3 p-sm-3 p-md-3 p-lg-3 p-xl-4 p-xxl-4 my-3" style="box-shadow: 0px 5px 7px 4px rgba(0, 0, 0, 0.1)">
-                          <div v-auto-animate v-for="dayActivities in day.day.activities" :key="dayActivities" class="w-100 h-100">
-                            <div v-auto-animate class="py-1 fs-6" style="text-align: justify">
+                          <div v-for="dayActivities in day.day.activities" :key="dayActivities" class="w-100 h-100">
+                            <div class="py-1 fs-6" style="text-align: justify">
                               <span
                                 ><strong class="fw-semibold">{{ dayActivities.activity_time }} : </strong></span
-                              >
-                              <span class="fw-normal" v-html="highlightEntities(dayActivities.activity)"></span>
-                              <!-- <span v-if="day.modify" class="fw-normal"
+                              ><span v-if="!day.modify" class="fw-normal" v-html="highlightEntities(dayActivities.activity)"> </span>
+                              <span v-if="day.modify" class="fw-normal"
                                 ><input type="text" class="form-control form-control-sm border-0 border-bottom border-secondary-subtle rounded-3 shadow fw-medium" v-model="dayActivities.activity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
-                              </span> -->
-                              <div v-auto-animate v-if="day.modify">
-                                <div v-if="toggleEntity(dayActivities.activity)" class="dropdown">
-                                  <button class="btn btn-transparent btn-select-item dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ toggleEntity(dayActivities.activity) }}</button>
-                                  <ul class="dropdown-menu">
-                                    <li class="option-list" v-for="item in other_options" :key="item">
-                                      <div @click="changeEntity(item, dayActivities)" class="dropdown-item">{{ item }}</div>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <!-- ////////////////////////////////////////////////////// Carousel Options //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                              </span>
                             </div>
                           </div>
                         </div>
-
-                        <!-- ////////////////////////////////////////////////////// Carousel Days //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
                         <div class="w-100 my-3">
                           <div class="">
                             <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
@@ -978,7 +939,6 @@ export default {
   },
   data() {
     return {
-      other_options: ["Colvale Beach", "Beach Cafe", "Mountain Falls", "Big Lake"],
       modify: false,
       preferenceToggler: false,
       budget: 0,
@@ -1274,7 +1234,7 @@ export default {
           this.itinerary = response.data.result[1].itinerary;
           const itinerary = response.data.result[1].itinerary;
           const itinerary2 = [];
-          //adding modify item to each day for toggling edit modal
+
           for (let i in itinerary) {
             itinerary2.push({ day: itinerary[i], modify: false });
           }
@@ -1364,51 +1324,6 @@ export default {
         line = line.replace(regex, `<span style="color: rgb(94, 28, 201);text-decoration:underline;cursor: pointer; text-transform:capitalize">${entity}</span>`);
       }
       return line;
-    },
-
-    toggleEntity(line) {
-      if (line === undefined || line === null) {
-        console.error("Input 'line' is undefined or null.");
-        return false; // Return false for undefined or null input
-      }
-
-      // Highlight entities in the line using name_entity array
-      for (const entity of this.name_entity) {
-        const regex = new RegExp(`\\b${entity}\\b`, "gi");
-
-        // If entity is found, return true
-        if (regex.test(line)) {
-          return entity;
-        }
-      }
-
-      // If no entity is found, return false
-      return null;
-    },
-
-    changeEntity(item, activityObj) {
-      console.log("changeEntity called", activityObj.activity);
-      let replacedEntity = ""; // Variable to store the entity replaced in the activity string
-
-      // Replace the item in the activity string
-      for (const entity of this.name_entity) {
-        const regex = new RegExp(`\\b${entity}\\b`, "gi");
-        if (regex.test(activityObj.activity)) {
-          // Replace the matched entity with the new item
-          activityObj.activity = activityObj.activity.replace(regex, item);
-          replacedEntity = entity; // Store the replaced entity
-          break; // Exit loop after the first match is replaced
-        }
-      }
-
-      // Replace the item in the name_entity array
-      const index = this.name_entity.indexOf(replacedEntity);
-      if (index !== -1) {
-        // Replace the entity with the new item
-        this.name_entity.splice(index, 1, item);
-      }
-
-      console.log("modified", activityObj.activity, this.name_entity);
     },
 
     /*  highlightEntities(line) {
