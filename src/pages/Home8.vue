@@ -2,7 +2,7 @@
 .main {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 ::placeholder {
   color: rgb(131, 131, 131);
@@ -181,6 +181,7 @@ input {
   width: 57%;
   height: auto;
 }
+
 .itinery-box {
   width: 75%;
   height: auto;
@@ -188,7 +189,6 @@ input {
 
 .Itinerary-header-info {
   width: 50%;
-
   background-color: rgba(111, 72, 170, 0.9);
   height: 100%;
 }
@@ -586,6 +586,7 @@ input {
                       </div>
                     </div>
                   </div>
+
                   <!-- Next Button -->
                   <button v-if="next < 5" type="button" @click="handleNext" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
                   <!-- Go Button -->
@@ -600,7 +601,11 @@ input {
                   <button v-if="next > 1" type="button" @click="handlePrev" class="btn btn-primary btn-sm float-end my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Prev</button>
                 </span>
               </div>
-              <!-- ////////////////////////////////////////////////////////////// -->
+
+              <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+              <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+              <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
               <div class="row mb-3 px-3 w-100 position-absolute bottom-0">
                 <div class="footer1 mb-2 mb-sm-2 text-center text-sm-center text-md-start text-lg-start text-xl-start text-xxl-start col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                   <span class="text-light" style="font-weight: 500; text-shadow: 0 0 20px #000">© 2023 TRIPYTOE</span>
@@ -615,6 +620,10 @@ input {
               </div>
             </div>
 
+            <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
             <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
             <div v-auto-animate v-if="searched" class="">
@@ -651,19 +660,16 @@ input {
                               <div class="w-100 h-50 overflow-y-scroll px-2 d-flex justify-content-center text-light align-items-center">
                                 <div v-auto-animate class="">
                                   <div v-if="card == 0" class="" style="text-align: justify">
-                                    <div>Goa is known for its beautiful beaches, vibrant nightlife, and rich Portuguese heritage. It's a popular tourist destination, so be prepared for crowds, especially during peak season</div>
+                                    <div>{{ about_destination }}</div>
                                   </div>
                                   <div v-if="card == 1" class="" style="text-align: justify">
-                                    <div>
-                                      Goa has a tropical monsoon climate. The weather is hot and humid throughout the year. In the winter (November to February), temperatures range from 70-90°F (20-32°C) with little to no rainfall. In the summer (March to May), temperatures can soar above 100°F
-                                      (38°C) with high humidity. The monsoon season (June to September) brings heavy rainfall.
-                                    </div>
+                                    <div>{{ weather_destination }}</div>
                                   </div>
                                   <div v-if="card == 2" class="" style="text-align: justify">
-                                    <div>The currency in Goa is the Indian Rupee (INR). The average cost of a cup of coffee is around 100-150 INR, which is approximately $1.50-2.00 USD.</div>
+                                    <div>{{ currency_destination }}</div>
                                   </div>
                                   <div v-if="card == 3" class="" style="text-align: justify">
-                                    <div>The dominant languages spoken in Goa are Konkani and Marathi, but English is widely understood and spoken due to the tourism industry.</div>
+                                    <div>{{ language_destination }}</div>
                                   </div>
                                 </div>
                               </div>
@@ -726,19 +732,28 @@ input {
                       <div class="itinery-box rounded mx-0 mx-sm-1 mx-md-2 mx-lg-4 mx-xl-5 mx-xxl-5">
                         <div class="itinerary-heading w-100 my-2 my-3">
                           <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
-                              <h1 class="day-heading">{{ day.day.day_no }}</h1>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start align-items-center">
+                              <h3 class="day-heading fw-semibold">Day {{ day.day.day_no }}</h3>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
-                              <div class="day-heading-subject">
-                                <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.day_sub }}</h4>
-                                <h6 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.other_detail }}</h6>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start align-items-center">
+                              <div class="day-heading-subject d-flex justify-content-center aling-items-center">
+                                <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.day.day_subject }}</h4>
+                                <!-- <h6 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.other_detail }}</h6> -->
                               </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-around justify-content-xl-around justify-content-xxl-around align-items-end">
-                              <button v-if="!day.modify" @click="day.modify = true" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Modify</button>
-                              <button v-if="day.modify" @click="day.modify = false" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Done</button>
-                              <button type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Regenerate</button>
+                            <div class="d-flex col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-around justify-content-xl-around justify-content-xxl-around aling-items-center">
+                              <span class="d-flex justify-content-center align-items-center">
+                                <button v-if="!day.modify" @click="day.modify = true" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">Modify</button>
+                                <button v-if="day.modify" @click="day.modify = false" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">Done</button>
+
+                                <button type="button" @click="handleSubmit" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">
+                                  <span v-if="!loading"> Regenerate </span>
+                                  <div v-if="loading" class="mx-4">
+                                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    <span class="visually-hidden" role="status">Loading...</span>
+                                  </div>
+                                </button>
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -752,7 +767,7 @@ input {
                               <!-- <span v-if="day.modify" class="fw-normal"
                                 ><input type="text" class="form-control form-control-sm border-0 border-bottom border-secondary-subtle rounded-3 shadow fw-medium" v-model="dayActivities.activity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
                               </span> -->
-                              <div v-auto-animate v-if="day.modify">
+                              <!-- <div v-auto-animate v-if="day.modify">
                                 <div v-if="toggleEntity(dayActivities.activity)" class="dropdown">
                                   <button class="btn btn-transparent btn-select-item dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ toggleEntity(dayActivities.activity) }}</button>
                                   <ul class="dropdown-menu">
@@ -761,8 +776,39 @@ input {
                                     </li>
                                   </ul>
                                 </div>
-                              </div>
+                              </div> -->
                               <!-- ////////////////////////////////////////////////////// Carousel Options //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                              <div class="w-100" v-if="day.modify">
+                                <div v-if="toggleEntity(dayActivities.activity)" class="w-100 bg-body-secondary rounded-3 p-2">
+                                  <h5 class="fw-bolder" style="color: rgb(108, 52, 168)">Options For {{ dayActivities.activity_time }}</h5>
+                                  <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
+                                    <Slide v-for="item in other_options" :key="item" class="pe-auto">
+                                      <div class="d-flex justify-content-center">
+                                        <div @click="changeEntity(item, dayActivities)" id="card" class="card text-bg-dark option-items bg-transparent border-0 my-2" style="width: 90%; height: auto; min-height: 8rem">
+                                          <!-- border: solid 1px rgb(108, 52, 168) -->
+                                          <img :src="imgSource + item" class="img-fluid" alt="..." style="width: 100%; height: auto; min-height: 8rem; object-fit: cover" />
+
+                                          <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
+                                            <div class="position-relative">
+                                              <div class="ratings position-absolute top-0 end-0">
+                                                <div class="mx-2 mt-2">
+                                                  <span class="px-1 py-1 rounded shadow-lg" style="background-color: #a95fe8">4.4</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="mb-2" style="width: 100%; position: absolute; bottom: 0">
+                                              <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">{{ item }}</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Slide>
+                                    <template #addons>
+                                      <Navigation />
+                                    </template>
+                                  </Carousel>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -775,7 +821,7 @@ input {
                               <Slide v-for="name in name_entity" :key="name" class="pe-auto">
                                 <router-link to="#" class="">
                                   <div class="">
-                                    <div id="card" class="card text-bg-dark">
+                                    <div id="card" class="card text-bg-dark border-0">
                                       <img :src="imgSource + name" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
 
                                       <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
@@ -1000,6 +1046,11 @@ export default {
       members: "",
       next: 0,
       itinerary: [],
+      about_destination: "",
+      currency_destination: "",
+      language_destination: "",
+      weather_destination: "",
+
       preference: [
         { name: "Nightlife", selected: false },
         { name: "Cultural Exploration", selected: false },
@@ -1033,6 +1084,8 @@ export default {
       imageIndex: 0,
       name_entity: [],
       items: ["slideImg1.jpg", "slideImg2.jpg", "slideImg3.jpg", "slideImg4.jpg"],
+
+      //carousel settings
       settings: {
         itemsToShow: 1,
         snapAlign: "center",
@@ -1090,12 +1143,14 @@ export default {
       },
     };
   },
+
   async created() {
     const auth = {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     };
+
     try {
       const token = await axiosClient.get("user/getcurrentuser/", auth).catch((err) => {
         console.log(err);
@@ -1111,6 +1166,7 @@ export default {
       console.log("error: ", err);
     }
   },
+
   mounted() {
     this.startProgressOfBars();
   },
@@ -1126,6 +1182,7 @@ export default {
         this.form.budget = "Flexible";
       }
     },
+
     handlePreferenceSelection(item) {
       console.log("handlePreferenceSelection called", item);
       for (var item2 in this.preference) {
@@ -1145,6 +1202,7 @@ export default {
         }
       }
     },
+
     handleNo_of_ppl(no) {
       this.no_of_ppl = no;
       if (no == 1) {
@@ -1167,6 +1225,30 @@ export default {
         console.log("", no);
         this.toggleFriends();
       }
+    },
+
+    toggleFamily() {
+      if (this.members != "") {
+        this.handleFamily();
+      }
+      this.family = !this.family;
+      this.friends = false;
+    },
+
+    toggleFriends() {
+      if (this.members != "") {
+        this.handleFriends();
+      }
+      this.friends = !this.friends;
+      this.family = false;
+    },
+
+    handleFamily() {
+      this.form.no_of_ppl = this.members + ", Family Members";
+    },
+
+    handleFriends() {
+      this.form.no_of_ppl = this.members + ", Friends";
     },
 
     handleNext() {
@@ -1195,44 +1277,30 @@ export default {
       this.next--;
       console.log(this.next);
     },
+
     handleSolo() {
       this.form.no_of_ppl = "Solo";
       this.next++;
     },
+
     handleCouple() {
       this.form.no_of_ppl = "Couple";
       this.next++;
     },
-    toggleFamily() {
-      if (this.members != "") {
-        this.handleFamily();
-      }
-      this.family = !this.family;
-      this.friends = false;
-    },
-    toggleFriends() {
-      if (this.members != "") {
-        this.handleFriends();
-      }
-      this.friends = !this.friends;
-      this.family = false;
-    },
-    handleFamily() {
-      this.form.no_of_ppl = this.members + ", Family Members";
-    },
-    handleFriends() {
-      this.form.no_of_ppl = this.members + ", Friends";
-    },
+
     async handleSubmit() {
       this.error = [];
+
+      //check all the inputes are feild
+
       for (const item in this.form) {
         if (this.form[item] == "") {
           if (item != "itineraryDays" && item != "id" && item != "no_of_days") {
-            /* console.log("error", item); */
             this.error.push(item);
           }
         }
       }
+
       if (this.form.start_date > this.form.end_date) {
         toast.error(`Plzz Select End Date Properly`, {
           autoClose: 1500,
@@ -1240,6 +1308,7 @@ export default {
         this.next = 3;
         return;
       }
+
       if (this.error.length == 0) {
         if (this.form.budget == "0") {
           toast.error(`Please Select Your Budget`, {
@@ -1248,6 +1317,7 @@ export default {
           this.next = 4;
           return;
         }
+
         if (this.form.preference == "0") {
           toast.error(` Select Preference`, {
             autoClose: 1500,
@@ -1255,41 +1325,50 @@ export default {
           this.next = 5;
           return;
         }
-        console.log("handleSubmit called");
+
         try {
           this.loading = true;
           this.traveller = true;
           this.family = false;
           this.friends = false;
           this.members = "";
+
           const form = this.form;
-          console.log(form);
-          //const response = await axios.post(`https://expo-web-service.onrender.com/api/v1/tripytoe/get/itinerary`, this.form);
 
-          const response = await axiosClient.post(`destinations/getdestinations/${this.form.id}`, form);
-          //const response = await axios.get(`http://localhost:8000/api/v2/itinerary`, form);
+          const payload = {
+            destination: form.destination,
+            start_date: form.start_date,
+            end_date: form.end_date,
+            no_of_ppl: form.no_of_ppl,
+            budget: form.budget,
+            preference: form.preference,
+          };
+
+          const response = await axios.post("http://192.168.59.178:8000/api/get/itinerary/", payload);
           console.log(response);
+          const json_itinerary = response.data.res;
 
-          const itineraryString = response.data.result[1].itinerary;
-          this.itinerary = response.data.result[1].itinerary;
-          const itinerary = response.data.result[1].itinerary;
+          const itineraryString = json_itinerary.itinerary;
+          this.about_destination = json_itinerary.about_destination;
+          this.language_destination = json_itinerary.lang_destination;
+          this.currency_destination = json_itinerary.currency_destination;
+          this.weather_destination = json_itinerary.weather_destination;
+          this.itinerary = json_itinerary.itinerary;
+          const itinerary = json_itinerary.itinerary;
           const itinerary2 = [];
+
           //adding modify item to each day for toggling edit modal
           for (let i in itinerary) {
             itinerary2.push({ day: itinerary[i], modify: false });
           }
 
           console.log(itinerary2);
+
           this.itinerary = itinerary2;
-          this.form.itineraryDays = response.data.result[1].itinerary;
-          this.name_entity = response.data.result[1].name_entity;
+          this.form.itineraryDays = json_itinerary.itinerary;
+          this.name_entity = json_itinerary.name_entity;
+
           console.log("Itinerary JSON", this.itinerary);
-          for (let day in itineraryString) {
-            for (let day2 in day) {
-              console.log("day: ", day);
-              console.log("day2: ", day2);
-            }
-          }
 
           console.log("Itinerary", this.itinerary);
           this.searched = true;
@@ -1299,6 +1378,7 @@ export default {
         } catch (error) {
           this.loading = false;
           console.error("Somthing went wrong", error);
+
           toast.error(`Somthing went wrong`, {
             autoClose: 1500,
           });
@@ -1411,15 +1491,6 @@ export default {
       console.log("modified", activityObj.activity, this.name_entity);
     },
 
-    /*  highlightEntities(line) {
-      // Highlight entities in the line using name_entity array
-      for (const entity of this.name_entity) {
-        const regex = new RegExp(`\\b${entity}\\b`, "gi");
-        line = line.replace(regex, `<span style="color: rgb(94, 28, 201);text-decoration:underline;cursor: pointer; text-transform:capitalize">${entity}</span>`);
-      }
-      return line;
-    }, */
-
     async saveToItinerarys() {
       try {
         console.log("saveToItenerarys called");
@@ -1478,6 +1549,10 @@ export default {
           }
         }
       }, 200);
+
+      /* changeCards(){
+
+      }  */
     },
   },
 };

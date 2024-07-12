@@ -73,8 +73,8 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        password: "",
+        email: "r@gmail.com",
+        password: "111111",
       },
       error: [],
     };
