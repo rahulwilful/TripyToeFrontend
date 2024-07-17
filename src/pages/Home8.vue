@@ -386,7 +386,7 @@ input {
     scale: 0;
     opacity: 0;
   }
-  30% {
+  15% {
     scale: 1;
     opacity: 1;
   }
@@ -449,13 +449,19 @@ input {
                         <div v-auto-animate>
                           <div v-if="no_of_ppl == 2" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
                             <span class="py-3 ps-3 text-light">
-                              <h5 class="">Couples <i class="bi bi-heart-fill text-danger"></i></h5>
+                              <h5 class="">
+                                Couples
+                                <i class="bi bi-heart-fill text-danger"></i>
+                              </h5>
                               Romantic Tour For Two
                             </span>
                           </div>
                           <div v-else @click="handleNo_of_ppl(2)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
                             <span class="py-3 ps-3">
-                              <h5 class="">Couples <i class="bi bi-heart-fill text-danger"></i></h5>
+                              <h5 class="">
+                                Couples
+                                <i class="bi bi-heart-fill text-danger"></i>
+                              </h5>
                               Romantic Tour For Two
                             </span>
                           </div>
@@ -515,11 +521,18 @@ input {
                       <div class="row gx-2">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                           <label for="date" class="form-label lable">When You Want To Go ?</label>
-                          <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.start_date" aria-label=".form-control-sm example" />
+                          <!-- <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.start_date" aria-label=".form-control-sm example" /> -->
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0 mt-xxl-0">
                           <label for="date" class="form-label lable">When Your Trip ends ?</label>
-                          <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.end_date" aria-label=".form-control-sm example" />
+                          <!-- <input placeholder="2014/12/01" class="form-control text-dark border-0 border-bottom border-dark bg-transparent textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" v-model="form.end_date" aria-label=".form-control-sm example" /> -->
+                        </div>
+                      </div>
+                      <div>
+                        <div class="demo-date-picker">
+                          <div class="block d-flex justify-content-center">
+                            <el-date-picker v-model="dateRange" type="daterange" range-separator="To" start-placeholder="Start date" end-placeholder="End date" size="small" />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -531,29 +544,28 @@ input {
                         <div v-auto-animate>
                           <div v-if="budget == 1" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
                             <span class="py-3 ps-3 text-light">
-                              <h5 class="">Balanced <i class="bi bi-bus-front"></i></h5>
-                              Moderate Spending For Balanced Trip
+                              <h5 class="">Budget Freindly <i class="bi bi-wallet2"></i></h5>
+                              Pocket Freindly Trip
                             </span>
                           </div>
                           <div v-else @click="handleBudget(1)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
                             <span class="py-3 ps-3">
+                              <h5 class="">Budget Freindly<i class="bi bi-wallet2"></i></h5>
+                              Pocket Freindly Trip
+                            </span>
+                          </div>
+                        </div>
+                        <div v-auto-animate>
+                          <div v-if="budget == 2" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
                               <h5 class="">Balanced <i class="bi bi-bus-front"></i></h5>
                               Moderate Spending For Balanced Trip
                             </span>
                           </div>
-                        </div>
-
-                        <div v-auto-animate>
-                          <div v-if="budget == 2" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
-                            <span class="py-3 ps-3 text-light">
-                              <h5 class="">Luxury <i class="bi bi-train-front"></i></h5>
-                              High-End Indulgent Experiences
-                            </span>
-                          </div>
                           <div v-else @click="handleBudget(2)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
                             <span class="py-3 ps-3">
-                              <h5 class="">Luxury <i class="bi bi-train-front"></i></h5>
-                              High-End Indulgent Experiences
+                              <h5 class="">Balanced <i class="bi bi-bus-front"></i></h5>
+                              Moderate Spending For Balanced Trip
                             </span>
                           </div>
                         </div>
@@ -561,11 +573,26 @@ input {
                         <div v-auto-animate>
                           <div v-if="budget == 3" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
                             <span class="py-3 ps-3 text-light">
+                              <h5 class="">Luxury <i class="bi bi-train-front"></i></h5>
+                              High-End Indulgent Experiences
+                            </span>
+                          </div>
+                          <div v-else @click="handleBudget(3)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                            <span class="py-3 ps-3">
+                              <h5 class="">Luxury <i class="bi bi-train-front"></i></h5>
+                              High-End Indulgent Experiences
+                            </span>
+                          </div>
+                        </div>
+
+                        <div v-auto-animate>
+                          <div v-if="budget == 4" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgba(111, 72, 170, 0.9); border: 1px solid rgba(111, 72, 170, 0.9)">
+                            <span class="py-3 ps-3 text-light">
                               <h5 class="">Flexible <i class="bi bi-airplane-engines"></i></h5>
                               No Budget Restrictions
                             </span>
                           </div>
-                          <div v-else @click="handleBudget(3)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
+                          <div v-else @click="handleBudget(4)" class="rounded-3 mt-1 d-flex flex-shrink pe-auto" style="background-color: rgb(224, 224, 224)">
                             <span class="py-3 ps-3">
                               <h5 class="">Flexible <i class="bi bi-airplane-engines"></i></h5>
                               No Budget Restrictions
@@ -579,8 +606,12 @@ input {
                         <label for="exampleFormControlInputPreference" class="form-label lable">Please Select Your Preference</label>
                         <div class="d-flex justify-content-evenly flex-wrap overflow-y-scroll">
                           <div v-auto-animate v-for="items in preference" :key="items" class="">
-                            <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == false" class="border mx-2 my-2 rounded-pill px-2 pe-auto bg-body-secondary">{{ items.name }}</button>
-                            <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == true" class="border mx-2 my-2 rounded-pill px-2 pe-auto text-light" style="background-color: rgba(111, 72, 170, 0.9)">{{ items.name }}</button>
+                            <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == false" class="border mx-2 my-2 rounded-pill px-2 pe-auto bg-body-secondary">
+                              {{ items.name }}
+                            </button>
+                            <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == true" class="border mx-2 my-2 rounded-pill px-2 pe-auto text-light" style="background-color: rgba(111, 72, 170, 0.9)">
+                              {{ items.name }}
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -631,13 +662,16 @@ input {
                 <div id="carouselExampleAutoplaying" class="carousel slide" style="height: 100%" data-bs-ride="carousel">
                   <div v-auto-animate class="carousel-inner" style="height: 100%; position: relative">
                     <div class="carousel-item active" style="height: 100%">
-                      <img :src="searchedImgSource + form.destination + night + form.prefernce" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
+                      <!-- <img :src="searchedImgSource + form.destination + night + form.prefernce" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." /> -->
+                      <img :src="bannerUrl" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
                     </div>
                     <div class="carousel-item" style="height: 100%">
-                      <img :src="searchedImgSource + form.destination + morning + form.prefernce" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
+                      <!-- <img :src="searchedImgSource + form.destination + morning + form.prefernce" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." /> -->
+                      <img :src="bannerUrl" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
                     </div>
                     <div class="carousel-item" style="height: 100%">
-                      <img :src="searchedImgSource + form.destination + evening + form.prefernce" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
+                      <!-- <img :src="searchedImgSource + form.destination + evening + form.prefernce" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." /> -->
+                      <img :src="bannerUrl" class="d-block w-100" style="object-fit: cover; height: 100%" alt="..." />
                     </div>
                     <div class="h-100 w-100 py-3" style="position: absolute">
                       <div class="w-100 searched-header d-flex justify-content-center align-items-end align-items-sm-center">
@@ -737,7 +771,9 @@ input {
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start align-items-center">
                               <div class="day-heading-subject d-flex justify-content-center aling-items-center">
-                                <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.day.day_subject }}</h4>
+                                <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
+                                  {{ day.day.day_subject }}
+                                </h4>
                                 <!-- <h6 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.other_detail }}</h6> -->
                               </div>
                             </div>
@@ -746,7 +782,7 @@ input {
                                 <button v-if="!day.modify" @click="day.modify = true" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">Modify</button>
                                 <button v-if="day.modify" @click="day.modify = false" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">Done</button>
 
-                                <button type="button" @click="handleSubmit" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">
+                                <button type="button" @click="handleRegenerate" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">
                                   <span v-if="!loading"> Regenerate </span>
                                   <div v-if="loading" class="mx-4">
                                     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -780,7 +816,10 @@ input {
                               <!-- ////////////////////////////////////////////////////// Carousel Options //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
                               <div class="w-100" v-if="day.modify">
                                 <div v-if="toggleEntity(dayActivities.activity)" class="w-100 bg-body-secondary rounded-3 p-2">
-                                  <h5 class="fw-bolder" style="color: rgb(108, 52, 168)">Options For {{ dayActivities.activity_time }}</h5>
+                                  <h5 class="fw-bolder" style="color: rgb(108, 52, 168)">
+                                    Options For
+                                    {{ dayActivities.activity_time }}
+                                  </h5>
                                   <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
                                     <Slide v-for="item in other_options" :key="item" class="pe-auto">
                                       <div class="d-flex justify-content-center">
@@ -797,7 +836,9 @@ input {
                                               </div>
                                             </div>
                                             <div class="mb-2" style="width: 100%; position: absolute; bottom: 0">
-                                              <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">{{ item }}</p>
+                                              <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">
+                                                {{ item }}
+                                              </p>
                                             </div>
                                           </div>
                                         </div>
@@ -817,12 +858,12 @@ input {
 
                         <div class="w-100 my-3">
                           <div class="">
-                            <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
-                              <Slide v-for="name in name_entity" :key="name" class="pe-auto">
+                            <Carousel v-if="day.day.day_name_entity" v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
+                              <Slide v-for="name in day.day.day_name_entity" :key="name" class="pe-auto">
                                 <router-link to="#" class="">
                                   <div class="">
                                     <div id="card" class="card text-bg-dark border-0">
-                                      <img :src="imgSource + name" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+                                      <img :src="name.url" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
 
                                       <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
                                         <div class="position-relative">
@@ -833,7 +874,9 @@ input {
                                           </div>
                                         </div>
                                         <div class="mb-2" style="width: 100%; position: absolute; bottom: 0">
-                                          <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">{{ name }}</p>
+                                          <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">
+                                            {{ name.name }}
+                                          </p>
                                         </div>
                                       </div>
                                     </div>
@@ -935,7 +978,9 @@ input {
                         <div>
                           <select id="exampleFormControlInputBudget" class="form-select border-0 border-dark border-bottom bg-transparent" v-model="form.budget">
                             <option class="bg-light text-secondary" value="0">Select Budget</option>
-                            <option class="bg-light text-dark" :value="item" v-for="item in budget_plans" :key="item">{{ item }}</option>
+                            <option class="bg-light text-dark" :value="item" v-for="item in budget_plans" :key="item">
+                              {{ item }}
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -950,12 +995,18 @@ input {
                     <div v-if="preferenceToggler">
                       <div class="d-flex justify-content-evenly flex-wrap overflow-y-scroll">
                         <div v-auto-animate v-for="items in preference" :key="items" class="">
-                          <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == false" class="border mx-2 my-2 rounded-pill px-2 pe-auto bg-body-secondary">{{ items.name }}</button>
-                          <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == true" class="border mx-2 my-2 rounded-pill px-2 pe-auto text-light" style="background-color: rgba(111, 72, 170, 0.9)">{{ items.name }}</button>
+                          <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == false" class="border mx-2 my-2 rounded-pill px-2 pe-auto bg-body-secondary">
+                            {{ items.name }}
+                          </button>
+                          <button type="button" @click="handlePreferenceSelection(items.name)" v-if="items.selected == true" class="border mx-2 my-2 rounded-pill px-2 pe-auto text-light" style="background-color: rgba(111, 72, 170, 0.9)">
+                            {{ items.name }}
+                          </button>
                         </div>
                       </div>
                       <div>
-                        <button @click="preferenceToggler = false" type="button" class="btn btn-secondary btn-sm px-3 float-end mx-3"><i class="bi bi-arrow-left"></i></button>
+                        <button @click="preferenceToggler = false" type="button" class="btn btn-secondary btn-sm px-3 float-end mx-3">
+                          <i class="bi bi-arrow-left"></i>
+                        </button>
                       </div>
                     </div>
                     <div class="w-100 rounded mt-2">
@@ -1013,10 +1064,13 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import { getCuratedPhotos } from "../services/Pexels.js";
+import { ref, onMounted } from "vue";
 
 export default {
   name: "Home6",
   components: {
+    getCuratedPhotos,
     Carousel,
     Slide,
     Pagination,
@@ -1025,12 +1079,14 @@ export default {
   data() {
     return {
       other_options: ["Colvale Beach", "Beach Cafe", "Mountain Falls", "Big Lake"],
-      modify: false,
+
       preferenceToggler: false,
       budget: 0,
       no_of_ppl: 0,
       button: true,
       edit: false,
+
+      modify: false,
       card: 0,
       night: ",night",
       morning: ",morning",
@@ -1038,6 +1094,7 @@ export default {
       budget_plans: ["Balanced", "Luxury", "Flexible"],
       who_is_going: ["solo", "couple", "family", "friends"],
       tempNo_of_ppl: "0",
+
       traveller: true,
       friends: false,
       family: false,
@@ -1046,10 +1103,15 @@ export default {
       members: "",
       next: 0,
       itinerary: [],
+
+      bannerUrl: "",
+
+      json_itinerary: "",
       about_destination: "",
       currency_destination: "",
       language_destination: "",
       weather_destination: "",
+      dateRange: "",
 
       preference: [
         { name: "Nightlife", selected: false },
@@ -1058,9 +1120,10 @@ export default {
         { name: "Adventure Travel", selected: false },
         { name: "Offbeat", selected: false },
         { name: "Road Trips", selected: false },
-        { name: "Wine Tours", selected: false },
+        { name: "Surprise Me", selected: false },
+        { name: "Forest Life", selected: false },
+        { name: "Montain trecking", selected: false },
         { name: "Beach Vacations", selected: false },
-        { name: "Art Gallaries", selected: false },
       ],
 
       //preference: ["nightlife", "offbeat", "Adventure Travel", "City Breaks", "Cultural Exploration", "Nature Escapes", "Road Trips", "Art Gallaries", "Beach Vacations", "Wine Tours"],
@@ -1172,11 +1235,24 @@ export default {
   },
 
   methods: {
+    async getImage(image) {
+      try {
+        const response = await getCuratedPhotos(image);
+        this.bannerUrl = response; //.data.photos[0].src.medium; // Adjust to match your API response structure
+        console.log(" PEXELS Response ", response);
+        return;
+      } catch (error) {
+        console.error("Error fetching curated photo:", error);
+      }
+    },
+
     handleBudget(no) {
       this.budget = no;
       if (no == 1) {
-        this.form.budget = "Balanced";
+        this.form.budget = "Budget Friendly";
       } else if (no == 2) {
+        this.form.budget = "Balanced";
+      } else if (no == 3) {
         this.form.budget = "Luxury";
       } else {
         this.form.budget = "Flexible";
@@ -1288,11 +1364,29 @@ export default {
       this.next++;
     },
 
+    /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
     async handleSubmit() {
       this.error = [];
 
-      //check all the inputes are feild
+      const date = this.dateRange;
+      console.log("range: ", this.dateRange);
 
+      //check the date range and format
+      if (date.length === 2) {
+        this.form.start_date = this.formatDate(date[0]);
+        this.form.end_date = this.formatDate(date[1]);
+        console.log("Start Date: ", this.form.start_date);
+        console.log("End Date: ", this.form.end_date);
+      } else {
+        this.next = 3;
+        toast.error(`Enter Number Of Days`, {
+          autoClose: 1500,
+        });
+        return;
+      }
+
+      //check all the inputes are feild
       for (const item in this.form) {
         if (this.form[item] == "") {
           if (item != "itineraryDays" && item != "id" && item != "no_of_days") {
@@ -1344,9 +1438,11 @@ export default {
             preference: form.preference,
           };
 
-          const response = await axios.post("http://192.168.59.178:8000/api/get/itinerary/", payload);
+          const response = await axios.post("https://tripytoe-django-api-8z1w.onrender.com/api/get/itinerary/", payload);
+          console.log("itinerary");
           console.log(response);
           const json_itinerary = response.data.res;
+          this.json_itinerary = json_itinerary;
 
           const itineraryString = json_itinerary.itinerary;
           this.about_destination = json_itinerary.about_destination;
@@ -1356,6 +1452,7 @@ export default {
           this.itinerary = json_itinerary.itinerary;
           const itinerary = json_itinerary.itinerary;
           const itinerary2 = [];
+          this.getImage(this.form.destination);
 
           //adding modify item to each day for toggling edit modal
           for (let i in itinerary) {
@@ -1369,6 +1466,22 @@ export default {
           this.name_entity = json_itinerary.name_entity;
 
           console.log("Itinerary JSON", this.itinerary);
+
+          console.log("Itinerary", this.itinerary);
+
+          for (let iti in this.itinerary) {
+            let temp = [];
+            for (let entitys in this.itinerary[iti].day.day_name_entity) {
+              const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
+              console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
+              temp.push({
+                name: this.itinerary[iti].day.day_name_entity[entitys],
+                url: response,
+              });
+            }
+            console.log("tempEntitys: ", temp);
+            this.itinerary[iti].day.day_name_entity = temp;
+          }
 
           console.log("Itinerary", this.itinerary);
           this.searched = true;
@@ -1428,6 +1541,91 @@ export default {
       }
     },
 
+    async handleRegenerate() {
+      this.error = [];
+      try {
+        this.loading = true;
+        this.traveller = true;
+        this.family = false;
+        this.friends = false;
+        this.members = "";
+
+        for (let iti in this.json_itinerary.itinerary) {
+          let temp = [];
+          for (let item in this.json_itinerary.itinerary[iti].day_name_entity) {
+            temp.push(this.json_itinerary.itinerary[iti].day_name_entity[item].name);
+          }
+          this.json_itinerary.itinerary[iti].day_name_entity = temp;
+        }
+
+        const payload = {
+          old_itinerary: this.json_itinerary,
+        };
+
+        const response = await axios.post("https://tripytoe-django-api-8z1w.onrender.com/api/get/day/itinerary/", payload);
+        console.log("response: ", response.data.res);
+        console.log(response);
+        const json_itinerary = response.data.res;
+        this.json_itinerary = json_itinerary;
+
+        const itineraryString = json_itinerary.itinerary;
+        this.about_destination = json_itinerary.about_destination;
+        this.language_destination = json_itinerary.lang_destination;
+        this.currency_destination = json_itinerary.currency_destination;
+        this.weather_destination = json_itinerary.weather_destination;
+        this.itinerary = json_itinerary.itinerary;
+        const itinerary = json_itinerary.itinerary;
+        const itinerary2 = [];
+        this.getImage(this.form.destination);
+
+        console.log("Itinerary-to-modify: ", itinerary);
+
+        //adding modify item to each day for toggling edit modal
+        for (let i in itinerary) {
+          itinerary2.push({ day: itinerary[i], modify: false });
+        }
+
+        console.log("Itinerary2: ", itinerary2);
+
+        this.itinerary = itinerary2;
+        this.form.itineraryDays = json_itinerary.itinerary;
+        this.name_entity = json_itinerary.name_entity;
+
+        for (let iti in this.itinerary) {
+          let temp = [];
+          for (let entitys in this.itinerary[iti].day.day_name_entity) {
+            const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
+            console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
+            temp.push({
+              name: this.itinerary[iti].day.day_name_entity[entitys],
+              url: response,
+            });
+          }
+          console.log("tempEntitys: ", temp);
+          this.itinerary[iti].day.day_name_entity = temp;
+        }
+
+        console.log("Itinerary", this.itinerary);
+        this.searched = true;
+        this.next = 0;
+        this.loading = false;
+        this.edit = false;
+      } catch (error) {
+        this.loading = false;
+        console.error("Somthing went wrong", error);
+
+        toast.error(`Somthing went wrong`, {
+          autoClose: 1500,
+        });
+      }
+    },
+
+    //funtion to formate date range properly
+    formatDate(date) {
+      return date.toLocaleDateString("en-GB");
+    },
+
+    //function to highlight name_entity's
     highlightEntities(line) {
       // Check if 'line' is defined
       if (line === undefined || line === null) {
@@ -1466,6 +1664,7 @@ export default {
       return null;
     },
 
+    //function to edit itinerary plans
     changeEntity(item, activityObj) {
       console.log("changeEntity called", activityObj.activity);
       let replacedEntity = ""; // Variable to store the entity replaced in the activity string
@@ -1491,9 +1690,11 @@ export default {
       console.log("modified", activityObj.activity, this.name_entity);
     },
 
+    //function to save generated itinerarys itinerarys plans
     async saveToItinerarys() {
       try {
         console.log("saveToItenerarys called");
+        this.form.itineraryDays = this.itinerary;
         console.log("form", this.form);
         const response = await axiosClient.post(`user/saveitinerays`, this.form);
         console.log("response", response);
@@ -1508,6 +1709,7 @@ export default {
       }
     },
 
+    //function to go back to main form
     handleBack() {
       this.form.destination = "";
       this.form.no_of_ppl = "";

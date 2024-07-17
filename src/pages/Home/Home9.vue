@@ -100,7 +100,17 @@ export default {
   methods: {
     handleSubmit() {
       // Handle the form submission logic here
+      const date = this.dateRange;
       console.log("range: ", this.dateRange);
+      if (date.length === 2) {
+        this.start_date = this.formatDate(date[0]);
+        this.end_date = this.formatDate(date[1]);
+        console.log("Start Date: ", this.start_date);
+        console.log("End Date: ", this.end_date);
+      }
+    },
+    formatDate(date) {
+      return date.toLocaleDateString("en-GB");
     },
   },
 };
