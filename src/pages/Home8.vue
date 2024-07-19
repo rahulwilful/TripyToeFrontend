@@ -275,6 +275,9 @@ input {
   .form3 {
     width: 85vw;
   }
+  .offcanvas {
+    min-width: 99%;
+  }
 }
 
 @media (min-width: 576px) {
@@ -299,6 +302,9 @@ input {
   }
   .form3 {
     width: 45vw;
+  }
+  .offcanvas {
+    min-width: 50%;
   }
 }
 
@@ -373,6 +379,7 @@ input {
 
 .itinerarys {
   animation: fade-in linear;
+  /* Add this line to set the animation duration to 2 seconds */
 
   /* animation-timeline: view(100% 0%); */
   animation-timeline: view();
@@ -858,9 +865,9 @@ input {
 
                         <div class="w-100 my-3">
                           <div class="">
-                            <Carousel v-if="day.day.day_name_entity" v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
+                            <Carousel v-if="day.day.day_name_entity.length > 0" v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
                               <Slide v-for="name in day.day.day_name_entity" :key="name" class="pe-auto">
-                                <router-link to="#" class="">
+                                <div class="" @click="callChildMethod(name.name)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                                   <div class="">
                                     <div id="card" class="card text-bg-dark border-0">
                                       <img :src="name.url" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
@@ -881,15 +888,28 @@ input {
                                       </div>
                                     </div>
                                   </div>
-                                </router-link>
+                                </div>
                               </Slide>
                               <template #addons>
                                 <Navigation />
                               </template>
                             </Carousel>
+                            <div v-else class="my-5"></div>
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <div>
+                      <Destination :destination="tempDestination" ref="childComponent" />
                     </div>
                   </div>
                 </div>
@@ -1066,10 +1086,12 @@ import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import { getCuratedPhotos } from "../services/Pexels.js";
 import { ref, onMounted } from "vue";
+import Destination from "./Destination.vue";
 
 export default {
   name: "Home6",
   components: {
+    Destination,
     getCuratedPhotos,
     Carousel,
     Slide,
@@ -1112,6 +1134,8 @@ export default {
       language_destination: "",
       weather_destination: "",
       dateRange: "",
+
+      tempDestination: "",
 
       preference: [
         { name: "Nightlife", selected: false },
@@ -1207,6 +1231,19 @@ export default {
     };
   },
 
+  setup() {
+    const childComponent = ref(null);
+
+    const callChildMethod = (destinationName) => {
+      childComponent.value.getDestination(destinationName);
+    };
+
+    return {
+      childComponent,
+      callChildMethod,
+    };
+  },
+
   async created() {
     const auth = {
       headers: {
@@ -1235,6 +1272,10 @@ export default {
   },
 
   methods: {
+    async getDestination(destinationName) {
+      console.log("", destinationName);
+      this.tempDestination = destinationName;
+    },
     async getImage(image) {
       try {
         const response = await getCuratedPhotos(image);
@@ -1719,6 +1760,7 @@ export default {
       this.form.preference = [];
       this.no_of_ppl = 0;
       this.budget = 0;
+      this.dateRange = [];
 
       this.searched = false;
       console.log("handleBack Called");

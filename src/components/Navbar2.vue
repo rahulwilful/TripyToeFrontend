@@ -36,6 +36,16 @@ nav {
                 <router-link class="dropdown-item" to="/myitinerarys">My Itinerarys</router-link>
               </div>
             </li>
+            <li>
+              <div class="">
+                <router-link class="dropdown-item" to="/add-destination">Add Destination</router-link>
+              </div>
+            </li>
+            <li>
+              <div class="">
+                <router-link class="dropdown-item" to="/destination">Destination</router-link>
+              </div>
+            </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
               <div class="dropdown-item">

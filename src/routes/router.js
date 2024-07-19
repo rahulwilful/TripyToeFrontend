@@ -20,6 +20,8 @@ import FacebookSignUp from "../pages/FacebookSignUp.vue";
 import FacebookLogin from "../pages/FacebookLogin.vue";
 import MyItinerarys from "../pages/MyItinerarys2.vue";
 import Itinerary from "../pages/Itinerary3.vue";
+import AddDestination from "../pages/AddDestination.vue";
+import Destination from "../pages/Destination.vue";
 
 const routes = [
   {
@@ -99,12 +101,24 @@ const routes = [
         component: Home,
       },
       {
+        path: "/add-destination",
+        component: AddDestination,
+      },
+      {
         path: "/myaccount",
         component: MyAccount,
       },
       {
         path: "/useredit",
         component: UserEdit,
+      },
+      {
+        path: "/destination/:destination/",
+        //path: "/destination",
+        component: Destination,
+        props: (route) => ({
+          destination: route.params.destination,
+        }),
       },
       {
         path: "/varifyemail/:id/:token",
