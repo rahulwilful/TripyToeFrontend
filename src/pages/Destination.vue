@@ -45,7 +45,7 @@ h1 {
 <template>
   <div class="main d-flex justify-content-center align-items-center">
     <div v-if="title != ''" class="container">
-      <div class="py-3 text-center">
+      <div class="py-2 text-center">
         <h1 style="">{{ title }}</h1>
       </div>
       <div class="mb-5 mt-3">

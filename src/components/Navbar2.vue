@@ -36,16 +36,17 @@ nav {
                 <router-link class="dropdown-item" to="/myitinerarys">My Itinerarys</router-link>
               </div>
             </li>
-            <li>
+            <li v-if="role_name == 'super_admin' || role_name == 'admin'">
               <div class="">
                 <router-link class="dropdown-item" to="/add-destination">Add Destination</router-link>
               </div>
             </li>
-            <li>
+            <li v-if="role_name == 'super_admin'">
               <div class="">
-                <router-link class="dropdown-item" to="/destination">Destination</router-link>
+                <router-link class="dropdown-item" to="/getallusers">All Users</router-link>
               </div>
             </li>
+
             <li><hr class="dropdown-divider" /></li>
             <li>
               <div class="dropdown-item">
@@ -77,6 +78,7 @@ export default {
       newUsers: [],
       newUserCount: 0,
       profile_url: "",
+      role_name: "",
     };
   },
 
@@ -88,14 +90,15 @@ export default {
     };
 
     try {
-      const token = await axiosClient.get("user/getcurrentuser/").catch((err) => {
+      const user = await axiosClient.get("user/getcurrentuser/").catch((err) => {
         console.log(err);
         if (err.response.status == 401) {
           this.$router.push("/login");
         }
       });
-      if (token) {
-        this.id = token.data.data._id;
+      if (user) {
+        this.id = user.data.data._id;
+        this.role_name = user.data.data.role_type.name;
       }
 
       const userDetails = await axiosClient.get(`user/get/${this.id}`).catch((err) => {
@@ -105,6 +108,7 @@ export default {
       if (userDetails) {
         this.form.name = userDetails.data.name;
         this.form.profile = userDetails.data.profile;
+
         console.log(this.form.profile);
       }
 

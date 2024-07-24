@@ -768,7 +768,7 @@ input {
 
               <div style="">
                 <div>
-                  <div v-for="day in itinerary" :key="day" class="itinerarys">
+                  <div v-for="day in itinerary" :key="day" class="itinerarys pb-3">
                     <div class="itinerary my-3 mb-sm-3 mb-md-3 mb-lg-4 mb-xl-5 mb-xxl-5 container container-sm container-md container-lg container-xl container-xxl rounded-4 d-flex justify-content-center" style="background-color: rgb(238, 233, 248)">
                       <div class="itinery-box rounded mx-0 mx-sm-1 mx-md-2 mx-lg-4 mx-xl-5 mx-xxl-5">
                         <div class="itinerary-heading w-100 my-2 my-3">
@@ -904,7 +904,7 @@ input {
 
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                   <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                   </div>
                   <div class="offcanvas-body">
@@ -1733,11 +1733,45 @@ export default {
 
     //function to save generated itinerarys itinerarys plans
     async saveToItinerarys() {
+      let form2 = {
+        id: "",
+        destination: "",
+        no_of_ppl: "",
+        no_of_days: "",
+        start_date: "",
+        end_date: "",
+        budget: "0",
+        preference: [],
+        itineraryDays: [],
+
+        about_destination: "",
+        currency_destination: "",
+        language_destination: "",
+        weather_destination: "",
+      };
+
+      form2.about_destination = this.about_destination;
+      form2.currency_destination = this.currency_destination;
+      form2.language_destination = this.language_destination;
+      form2.weather_destination = this.weather_destination;
+
+      form2.id = this.form.id;
+      form2.destination = this.form.destination;
+      form2.no_of_ppl = this.form.no_of_ppl;
+      form2.no_of_days = this.form.no_of_days;
+      form2.start_date = this.form.start_date;
+      form2.end_date = this.form.end_date;
+      form2.budget = this.form.budget;
+      form2.preference = this.form.preference;
+      form2.itineraryDays = this.form.itineraryDays;
+
+      console.log("form2: ", form2);
+
       try {
         console.log("saveToItenerarys called");
         this.form.itineraryDays = this.itinerary;
         console.log("form", this.form);
-        const response = await axiosClient.post(`user/saveitinerays`, this.form);
+        const response = await axiosClient.post(`user/saveitinerays`, form2);
         console.log("response", response);
         toast.info(`Saved To Itinerarys`, {
           autoClose: 1500,

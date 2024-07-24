@@ -15,7 +15,7 @@
 }
 
 .main {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -82,6 +82,9 @@
   .day-heading-btn {
     height: 30%;
   }
+  .offcanvas {
+    min-width: 99%;
+  }
 }
 
 @media (min-width: 576px) {
@@ -101,6 +104,9 @@
   }
   .day-heading-btn {
     height: 40%;
+  }
+  .offcanvas {
+    min-width: 50%;
   }
 }
 
@@ -241,19 +247,16 @@
                             <div class="w-100 h-50 overflow-y-scroll px-2 d-flex justify-content-center text-light align-items-start">
                               <div v-auto-animate class="">
                                 <div v-if="card == 0" class="" style="text-align: justify">
-                                  <div>Goa is known for its beautiful beaches, vibrant nightlife, and rich Portuguese heritage. It's a popular tourist destination, so be prepared for crowds, especially during peak season</div>
+                                  <div>{{ about_destination }}</div>
                                 </div>
                                 <div v-if="card == 1" class="" style="text-align: justify">
-                                  <div>
-                                    Goa has a tropical monsoon climate. The weather is hot and humid throughout the year. In the winter (November to February), temperatures range from 70-90°F (20-32°C) with little to no rainfall. In the summer (March to May), temperatures can soar above 100°F (38°C)
-                                    with high humidity. The monsoon season (June to September) brings heavy rainfall.
-                                  </div>
+                                  <div>{{ weather_destination }}</div>
                                 </div>
                                 <div v-if="card == 2" class="" style="text-align: justify">
-                                  <div>The currency in Goa is the Indian Rupee (INR). The average cost of a cup of coffee is around 100-150 INR, which is approximately $1.50-2.00 USD.</div>
+                                  <div>{{ currency_destination }}</div>
                                 </div>
                                 <div v-if="card == 3" class="" style="text-align: justify">
-                                  <div>The dominant languages spoken in Goa are Konkani and Marathi, but English is widely understood and spoken due to the tourism industry.</div>
+                                  <div>{{ language_destination }}</div>
                                 </div>
                               </div>
                             </div>
@@ -312,42 +315,37 @@
                   <div class="itinerary-heading w-100 my-2 my-3">
                     <div class="row">
                       <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
-                        <h1 class="day-heading">{{ day.day.day_no }}</h1>
+                        <h3 class="day-heading fw-semibold">Day {{ day.day[0].day_no }}</h3>
                       </div>
-                      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
-                        <div class="day-heading-subject">
-                          <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.day_sub }}</h4>
-                          <h6 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.other_detail }}</h6>
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start align-items-center">
+                        <div class="day-heading-subject d-flex justify-content-center aling-items-center">
+                          <h4 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">
+                            {{ day.day[0].day_subject }}
+                          </h4>
+                          <!-- <h6 class="d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start">{{ day.other_detail }}</h6> -->
                         </div>
                       </div>
-                      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-around justify-content-xl-around justify-content-xxl-around align-items-end">
-                        <button v-if="!day.modify" @click="day.modify = true" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Modify</button>
-                        <button v-if="day.modify" @click="day.modify = false" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Done</button>
-
-                        <button type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 rounded-pill text-light mx-1 fw-semibold">Regenerate</button>
-                      </div>
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-around justify-content-xl-around justify-content-xxl-around align-items-end"></div>
                     </div>
                   </div>
                   <div class="itinerary-day-box w-100 bg-light rounded-4 my-2 p-3 p-sm-3 p-md-3 p-lg-3 p-xl-4 p-xxl-4 my-3" style="box-shadow: 0px 5px 7px 4px rgba(0, 0, 0, 0.1)">
-                    <div v-for="dayActivities in day.day.activities" :key="dayActivities" class="w-100 h-100">
+                    <div v-for="dayActivities in day.day[0].activities" :key="dayActivities" class="w-100 h-100">
                       <div class="py-1 fs-6" style="text-align: justify">
                         <span
                           ><strong class="fw-semibold">{{ dayActivities.activity_time }} : </strong></span
-                        ><span v-if="!day.modify" class="fw-normal" v-html="highlightEntities(dayActivities.activity)"> </span>
-                        <span v-if="day.modify" class="fw-normal"
-                          ><input type="text" class="form-control form-control-sm border-0 border-bottom border-secondary-subtle rounded-3 shadow" v-model="dayActivities.activity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
-                        </span>
+                        >
+                        <span class="fw-normal" v-html="highlightEntities(dayActivities.activity)"> </span>
                       </div>
                     </div>
                   </div>
                   <div class="w-100 my-3">
-                    <div class="">
+                    <div v-if="day.day[0].day_name_entity.length > 0" class="">
                       <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
-                        <Slide v-for="name in name_entity" :key="name" class="pe-auto">
-                          <router-link to="#" class="">
+                        <Slide v-for="name in day.day[0].day_name_entity" :key="name" class="pe-auto">
+                          <div class="pe-auto border border-danger" @click="callChildMethod(name.name)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                             <div class="">
-                              <div id="card" class="card text-bg-dark">
-                                <img :src="imgSource + name" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+                              <div id="card" class="card text-bg-dark border-0">
+                                <img :src="name.url" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
 
                                 <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
                                   <div class="position-relative">
@@ -358,19 +356,34 @@
                                     </div>
                                   </div>
                                   <div class="mb-2" style="width: 100%; position: absolute; bottom: 0">
-                                    <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">{{ name }}</p>
+                                    <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">
+                                      {{ name.name }}
+                                    </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </router-link>
+                          </div>
                         </Slide>
                         <template #addons>
                           <Navigation />
                         </template>
                       </Carousel>
                     </div>
+                    <div v-else class="py-5"></div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <!-- /////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="offcanvas offcanvas-start h-100" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <div>
+                  <Destination ref="childComponent" :destination="tempDestination" />
                 </div>
               </div>
             </div>
@@ -387,10 +400,13 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import { ref, onMounted } from "vue";
+import Destination from "./Destination.vue";
 
 export default {
   name: "Itinerary3",
   components: {
+    Destination,
     Carousel,
     Slide,
     Pagination,
@@ -398,6 +414,13 @@ export default {
   },
   data() {
     return {
+      json_itinerary: "",
+      about_destination: "",
+      currency_destination: "",
+      language_destination: "",
+      weather_destination: "",
+      tempDestination: "",
+
       modify: false,
       night: ",night",
       morning: ",morning",
@@ -484,6 +507,19 @@ export default {
     },
   },
 
+  setup() {
+    const childComponent = ref(null);
+
+    const callChildMethod = (destinationName) => {
+      childComponent.value.getDestination(destinationName);
+    };
+
+    return {
+      childComponent,
+      callChildMethod,
+    };
+  },
+
   async created() {
     console.log(" itineraryid ", this.itineraryid);
     try {
@@ -496,14 +532,21 @@ export default {
       this.preference = response.data.result.preference;
       this.budget = response.data.result.budget;
       this.form.itineraryDays = response.data.result.itineraryDays;
-      const itinerary = response.data.result.itineraryDays;
-      const itinerary2 = [];
+      this.itinerary = response.data.result.itineraryDays;
+      this.about_destination = response.data.result.about_destination;
+      this.currency_destination = response.data.result.currency_destination;
+      this.language_destination = response.data.result.language_destination;
+      this.weather_destination = response.data.result.weather_destination;
+
+      console.log("itinerary: ", this.itinerary);
+
+      /*  const itinerary2 = [];
 
       for (let i in itinerary) {
         itinerary2.push({ day: itinerary[i], modify: false });
       }
-      console.log(itinerary2);
-      this.itinerary = itinerary2;
+      console.log("itinerary: ", itinerary2);
+      this.itinerary = itinerary2; */
       const rawDate = response.data.result.start_date;
       //const formattedDate = new Date(rawDate).toLocaleDateString();
       this.start_date = date.slice(0, 10);

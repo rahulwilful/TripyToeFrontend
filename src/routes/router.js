@@ -22,6 +22,9 @@ import MyItinerarys from "../pages/MyItinerarys2.vue";
 import Itinerary from "../pages/Itinerary3.vue";
 import AddDestination from "../pages/AddDestination.vue";
 import Destination from "../pages/Destination.vue";
+import GetAllUsers from "../pages/GetAllUsers.vue";
+import GetUser from "../pages/GetUserById.vue";
+import GetItinerarysByUser from "../pages/GetItinerarysByUser.vue";
 
 const routes = [
   {
@@ -113,11 +116,28 @@ const routes = [
         component: UserEdit,
       },
       {
+        path: "/getallusers",
+        component: GetAllUsers,
+      },
+      {
         path: "/destination/:destination/",
-        //path: "/destination",
         component: Destination,
         props: (route) => ({
           destination: route.params.destination,
+        }),
+      },
+      {
+        path: "/getuser/:userId",
+        component: GetUser,
+        props: (route) => ({
+          userId: route.params.userId,
+        }),
+      },
+      {
+        path: "/get-itinerarysbyuser/:userId",
+        component: GetItinerarysByUser,
+        props: (route) => ({
+          userId: route.params.userId,
         }),
       },
       {
