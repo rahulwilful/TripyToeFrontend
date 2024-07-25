@@ -2,7 +2,7 @@ import router from "./routes/router.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import vue3GoogleLogin from "vue3-google-login";
 import { createApp } from "vue";
-import { MotionPlugin } from "@vueuse/motion";
+
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
@@ -15,7 +15,7 @@ const CLIENT_ID = "871528412959-42luo4kpnifun9fj0coig2qb27bnni8i.apps.googleuser
 createApp(App)
   .use(router)
   .use(ElementPlus)
-  .use(MotionPlugin)
+
   .use(vue3GoogleLogin, {
     clientId: CLIENT_ID,
   })

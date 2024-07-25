@@ -3,6 +3,13 @@
   padding-top: 4.5rem;
 }
 
+.para {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
 @media (max-width: 576px) {
   .img {
     height: 40vh;

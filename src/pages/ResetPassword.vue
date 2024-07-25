@@ -81,12 +81,15 @@ export default {
     async handleSubmit(e) {
       e.preventDefault();
       this.error = [];
+
       for (const item in this.form) {
         if (this.form[item] === "" || this.form[item].length === 0) {
           this.error.push(item);
         }
       }
+
       console.log(this.form.email);
+
       if (this.error.length === 0 && this.form.password == this.form.confirmPassword) {
         const response = await axiosClient.post("user/resetpassword", this.form).catch((err) => {
           console.error("Error , Somthing went wrong", err);

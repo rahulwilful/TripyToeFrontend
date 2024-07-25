@@ -27,8 +27,10 @@
   /* box-shadow: 0px 20px 20px 10px rgba(0, 0, 0, 0.1); */
 }
 .itinerary-day-box {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
-  font-family: "__Sora_5b1d51", "__Sora_Fallback_5b1d51";
+  font-style: normal;
   font-size: 0.7rem;
 }
 .day-heading {
@@ -342,7 +344,7 @@
                     <div v-if="day.day[0].day_name_entity.length > 0" class="">
                       <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
                         <Slide v-for="name in day.day[0].day_name_entity" :key="name" class="pe-auto">
-                          <div class="pe-auto border border-danger" @click="callChildMethod(name.name)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                          <div class="pe-auto" @click="callChildMethod(name.name)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                             <div class="">
                               <div id="card" class="card text-bg-dark border-0">
                                 <img :src="name.url" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />

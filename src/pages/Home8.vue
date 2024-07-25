@@ -76,6 +76,17 @@ input {
   height: 100%;
 }
 
+.displayInfo {
+  background: rgba(0, 0, 0, 0.377);
+  backdrop-filter: blur(1px);
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  max-width: 900px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .form1 {
   border: 1px solid rgba(111, 72, 170, 0.9);
   background: rgba(255, 255, 255, 0.795);
@@ -107,7 +118,19 @@ input {
   backdrop-filter: blur(10px);
 }
 
+.itinerary-day-box {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 0.3rem;
+}
+
 @media (max-width: 400px) {
+  .displayInfo {
+    width: 90vw;
+  }
+
   .form1 {
     width: 90vw;
   }
@@ -117,6 +140,10 @@ input {
 }
 
 @media (min-width: 401px) {
+  .displayInfo {
+    width: 70vw;
+  }
+
   .form1 {
     width: 70vw;
   }
@@ -135,6 +162,10 @@ input {
 }
 
 @media (min-width: 992px) {
+  .displayInfo {
+    width: 40vw;
+  }
+
   .form1 {
     width: 40vw;
   }
@@ -163,11 +194,7 @@ input {
   overflow: hidden;
   /* box-shadow: 0px 20px 20px 10px rgba(0, 0, 0, 0.1); */
 }
-.itinerary-day-box {
-  font-weight: 700;
-  font-family: "__Sora_5b1d51", "__Sora_Fallback_5b1d51";
-  font-size: 0.7rem;
-}
+
 .day-heading {
   color: rgb(94, 28, 201);
   font-weight: 10;
@@ -628,6 +655,7 @@ input {
                   <!-- Next Button -->
                   <button v-if="next < 5" type="button" @click="handleNext" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Next</button>
                   <!-- Go Button -->
+
                   <button v-if="next == 5" type="button" @click="handleSubmit" class="btn btn-primary btn-sm float-end mx-2 mx-sm-2 mx-md-2 mx-lg-2 mx-xl-3 mx-xxl-3 my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">
                     <span v-if="!loading"> Go <i class="bi bi-arrow-right"></i> </span>
                     <div v-if="loading" class="mx-2">
@@ -638,6 +666,11 @@ input {
                   <!-- Previous Button -->
                   <button v-if="next > 1" type="button" @click="handlePrev" class="btn btn-primary btn-sm float-end my-2 my-sm-2 my-md-2 my-lg-2 my-xl-3 my-xxl-3 border-0" style="background-color: #a95fe8">Prev</button>
                 </span>
+              </div>
+              <div v-auto-animate v-if="loading" class="displayInfo bg-transparent rounded d-flex align-items-center justify-content-center text-light fw-bold mt-4" style="min-height: 40px">
+                <span v-if="card == 0"> Just a moment! Your trip details are on their way. </span>
+                <span v-if="card == 1 || card == 2"> Sit tight! Your adventure is being mapped out.</span>
+                <span v-if="card == 3"> Almost there! Crafting the perfect journey for you.</span>
               </div>
 
               <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -789,7 +822,7 @@ input {
                                 <button v-if="!day.modify" @click="day.modify = true" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">Modify</button>
                                 <button v-if="day.modify" @click="day.modify = false" type="button" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">Done</button>
 
-                                <button type="button" @click="handleRegenerate" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">
+                                <button type="button" @click="handleRegenerate(day.day.day_no)" style="background-color: rgb(141, 97, 187); border: none" class="px-2 btn btn-sm rounded-pill text-light mx-1 fw-semibold">
                                   <span v-if="!loading"> Regenerate </span>
                                   <div v-if="loading" class="mx-4">
                                     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -1046,7 +1079,6 @@ input {
                   </div>
                 </div>
               </div>
-
               <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
             </div>
           </div>
@@ -1436,8 +1468,12 @@ export default {
         }
       }
 
-      if (this.form.start_date > this.form.end_date) {
-        toast.error(`Plzz Select End Date Properly`, {
+      const startDate = new Date(this.form.start_date);
+      const endDate = new Date(this.form.end_date);
+
+      // Check if start date is after end date
+      if (startDate > endDate) {
+        toast.error(`Please Select End Date Properly`, {
           autoClose: 1500,
         });
         this.next = 3;
@@ -1479,9 +1515,11 @@ export default {
             preference: form.preference,
           };
 
+          console.log("payload: ", payload);
+
           const response = await axios.post("https://tripytoe-django-api-8z1w.onrender.com/api/get/itinerary/", payload);
           console.log("itinerary");
-          console.log(response);
+          console.log("Response: ", response);
           const json_itinerary = response.data.res;
           this.json_itinerary = json_itinerary;
 
@@ -1510,11 +1548,17 @@ export default {
 
           console.log("Itinerary", this.itinerary);
 
+          console.log("Itinerary", this.itinerary);
+          this.searched = true;
+          this.next = 0;
+          this.loading = false;
+          this.edit = false;
+
           for (let iti in this.itinerary) {
             let temp = [];
             for (let entitys in this.itinerary[iti].day.day_name_entity) {
               const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
-              console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
+              //console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
               temp.push({
                 name: this.itinerary[iti].day.day_name_entity[entitys],
                 url: response,
@@ -1524,11 +1568,9 @@ export default {
             this.itinerary[iti].day.day_name_entity = temp;
           }
 
-          console.log("Itinerary", this.itinerary);
-          this.searched = true;
-          this.next = 0;
-          this.loading = false;
-          this.edit = false;
+          payload.id = this.form.id;
+
+          await axiosClient.post(`./user/searched`, payload);
         } catch (error) {
           this.loading = false;
           console.error("Somthing went wrong", error);
@@ -1582,7 +1624,8 @@ export default {
       }
     },
 
-    async handleRegenerate() {
+    async handleRegenerate(day_no) {
+      console.log("day_no: ", day_no);
       this.error = [];
       try {
         this.loading = true;
@@ -1591,32 +1634,48 @@ export default {
         this.friends = false;
         this.members = "";
 
+        const payload = {
+          day_no: day_no,
+          old_itinerary: this.json_itinerary,
+        };
+
+        var tempItinerary = [];
+        console.log("json_itinerary", this.json_itinerary);
         for (let iti in this.json_itinerary.itinerary) {
           let temp = [];
           for (let item in this.json_itinerary.itinerary[iti].day_name_entity) {
             temp.push(this.json_itinerary.itinerary[iti].day_name_entity[item].name);
           }
-          this.json_itinerary.itinerary[iti].day_name_entity = temp;
+          payload.old_itinerary.itinerary[iti].day_name_entity = temp;
+          //this.json_itinerary.itinerary[iti].day_name_entity = temp;
         }
 
-        const payload = {
-          old_itinerary: this.json_itinerary,
-        };
+        console.log("payload: ", payload);
 
         const response = await axios.post("https://tripytoe-django-api-8z1w.onrender.com/api/get/day/itinerary/", payload);
         console.log("response: ", response.data.res);
-        console.log(response);
         const json_itinerary = response.data.res;
         this.json_itinerary = json_itinerary;
+        console.log("json_itinerary: ", json_itinerary);
 
-        const itineraryString = json_itinerary.itinerary;
         this.about_destination = json_itinerary.about_destination;
         this.language_destination = json_itinerary.lang_destination;
         this.currency_destination = json_itinerary.currency_destination;
         this.weather_destination = json_itinerary.weather_destination;
-        this.itinerary = json_itinerary.itinerary;
-        const itinerary = json_itinerary.itinerary;
-        const itinerary2 = [];
+
+        let itineraryString = [];
+        let itinerary = [];
+        if (json_itinerary.itinerary) {
+          itineraryString = json_itinerary.itinerary;
+          this.itinerary = json_itinerary.itinerary;
+          itinerary = json_itinerary.itinerary;
+        } else {
+          itineraryString = json_itinerary;
+          this.itinerary = json_itinerary;
+          itinerary = json_itinerary;
+        }
+
+        let itinerary2 = [];
         this.getImage(this.form.destination);
 
         console.log("Itinerary-to-modify: ", itinerary);
@@ -1630,13 +1689,13 @@ export default {
 
         this.itinerary = itinerary2;
         this.form.itineraryDays = json_itinerary.itinerary;
-        this.name_entity = json_itinerary.name_entity;
+        //this.name_entity = json_itinerary.name_entity;
 
         for (let iti in this.itinerary) {
           let temp = [];
           for (let entitys in this.itinerary[iti].day.day_name_entity) {
             const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
-            console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
+            //console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
             temp.push({
               name: this.itinerary[iti].day.day_name_entity[entitys],
               url: response,

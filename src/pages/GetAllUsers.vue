@@ -28,7 +28,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.delete-button:hover {
+.hover-icon:hover {
   transition: transform 0.3s ease-in-out;
   transform: translateY(-5px);
 }
@@ -156,7 +156,7 @@
 
                     <div class="w-25 d-flex justify-content-center">
                       <h5 class="mb-1 text-dark d-flex bg-transparent">
-                        <strong><i class="bi bi-trash3"></i> Delete</strong>
+                        <strong><i class="bi bi-tools fw-bold"></i> Action</strong>
                       </h5>
                     </div>
                   </div>
@@ -171,13 +171,13 @@
                           <span v-else> <img src="../assets/profile-circle copy.svg" style="width: 33px; height: 33px; object-fit: cover" /> </span>
                         </h5>
                       </div>
-                      <div @click="getItinerarysByUser(item._id)" class="w-25 d-flex justify-content-center">
+                      <div @click="getUser(item._id)" class="w-25 d-flex justify-content-center">
                         <h5 class="mb-1 text-dark bg-transparent d-flex text-capitalize">
                           <span> {{ item.name }}</span>
                         </h5>
                       </div>
 
-                      <div @click="getItinerarysByUser(item._id)" class="w-25 d-flex justify-content-center">
+                      <div @click="getUser(item._id)" class="w-25 d-flex justify-content-center">
                         <p class="mb-1 text-dark d-flex bg-transparent text-capitalize">
                           <span v-if="item.email"> {{ item.email }}</span>
                           <span v-else> </span>
@@ -185,27 +185,29 @@
                       </div>
 
                       <div class="w-25 d-flex justify-content-center">
-                        <p class="mb-1 text-dark d-flex bg-transparent">
-                          <span @click="deleteUser(item._id)" class="pe-auto delete-button"> <i class="bi bi-trash3"></i> </span>
+                        <p class="mb-1 text-dark d-flex bg-transparent gap-2">
+                          <span @click="deleteUser(item._id)" class="pe-auto hover-icon"> <i class="bi bi-trash3"></i> </span>
+                          <span @click="getItinerarysByUser(item._id)" class="pe-auto hover-icon"><i class="bi bi-body-text"></i></span>
                         </p>
                       </div>
                     </div>
                   </div>
+                  <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
                   <div v-else v-auto-animate class="card card-hover bg-danger shadow-lg mt-2 pe-auto" style="cursor: pointer">
                     <div v-auto-animate class="card-body d-flex justify-content-around w-100">
-                      <div @click="getItinerarysByUser(item._id)" class="w-25 d-flex justify-content-center">
+                      <div @click="getUser(item._id)" class="w-25 d-flex justify-content-center">
                         <h5 class="mb-1 text-dark bg-transparent d-flex text-capitalize">
                           <span v-if="item.profile"> <img :src="item.profile" class="img-account-profile rounded-circle" alt="" style="width: 33px; height: 33px; object-fit: cover" /></span>
                           <span v-else> <img src="../assets/profile-circle copy.svg" style="width: 33px; height: 33px; object-fit: cover" /> </span>
                         </h5>
                       </div>
-                      <div @click="getItinerarysByUser(item._id)" class="w-25 d-flex justify-content-center">
+                      <div @click="getUser(item._id)" class="w-25 d-flex justify-content-center">
                         <h5 class="mb-1 text-dark bg-transparent d-flex text-capitalize">
                           <span> {{ item.name }}</span>
                         </h5>
                       </div>
 
-                      <div @click="getItinerarysByUser(item._id)" class="w-25 d-flex justify-content-center">
+                      <div @click="getUser(item._id)" class="w-25 d-flex justify-content-center">
                         <p class="mb-1 text-dark d-flex bg-transparent text-capitalize">
                           <span v-if="item.email"> {{ item.email }}</span>
                           <span v-else> </span>
@@ -214,7 +216,8 @@
 
                       <div class="w-25 d-flex justify-content-center">
                         <p class="mb-1 text-dark d-flex bg-transparent">
-                          <span @click="deleteUser(item._id)" class="pe-auto delete-button"> <i class="bi bi-arrow-counterclockwise"></i> </span>
+                          <span @click="deleteUser(item._id)" class="pe-auto hover-icon"> <i class="bi bi-arrow-counterclockwise"></i> </span>
+                          <span @click="getItinerarysByUser(item._id)" class="pe-auto hover-icon"><i class="bi bi-body-text"></i></span>
                         </p>
                       </div>
                     </div>
@@ -276,9 +279,14 @@ export default {
 
       const response = await axiosClient.get(`user/getallusers`);
       console.log(response);
+      for (let i in response.data) {
+        if (response.data[i]._id != this.id) {
+          this.users.push(response.data[i]);
+        }
+      }
 
-      this.users = response.data;
-      this.uers = this.users.filter((user) => (user._id = this.id));
+      /*  this.users = response.data;
+      this.uers = this.users.filter((user) => user._id == this.id); */
       this.tempUsers = this.users;
       console.log(this.users);
       if (this.users.length == 0) {
@@ -312,9 +320,16 @@ export default {
           toast.info(`No user found with name "${this.searchName}"`, {
             autoClose: 1500,
           });
-          (this.searchName = ""), (this.users = this.tempUsers);
-        } else {
-          this.users = response.data.result;
+          this.searchName = "";
+          this.users = this.tempUsers;
+          return;
+        }
+        this.users = [];
+
+        for (let i in response.data.result) {
+          if (response.data.result[i]._id != this.id) {
+            this.users.push(response.data.result[i]);
+          }
         }
       } catch (err) {
         toast.error(`something went wrong`, {

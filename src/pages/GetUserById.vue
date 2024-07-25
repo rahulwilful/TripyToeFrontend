@@ -87,8 +87,8 @@
                       <div class="dropdown">
                         <a class="btn btn-light border dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> {{ role.value }} </a>
 
-                        <ul class="dropdown-menu">
-                          <li v-for="roles in role_types" :key="roles">
+                        <ul class="dropdown-menu dropdown-menu-light">
+                          <li v-for="roles in role_types" :key="roles" style="cursor: pointer">
                             <span @click="changeRole(roles._id)" v-if="roles.name != role.name" class="dropdown-item pe-auto">{{ roles.value }}</span>
                           </li>
                         </ul>
@@ -116,7 +116,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <!--  <div class="row">
             <div class="col"></div>
             <div class="col"></div>
             <div class="col"></div>
@@ -125,7 +125,7 @@
                 <router-link to="useredit" class="btn btn-primary my-2" tabindex="-1" role="button" data-toggle="tooltip" title="Edit User"> <i class="bi bi-pen mx-3"></i></router-link>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
