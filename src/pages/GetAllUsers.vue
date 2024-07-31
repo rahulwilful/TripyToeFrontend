@@ -124,7 +124,7 @@
               <div v-auto-animate class="">
                 <div v-auto-animate class="card shadow-lg">
                   <div class="w-100">
-                    <h1 class="d-flex justify-content-center align-items-center my-3" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">My Itinerarys</h1>
+                    <h1 class="d-flex justify-content-center align-items-center my-3" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">All Users</h1>
                   </div>
                   <div>
                     <div class="row gap-2 px-3">
@@ -188,6 +188,7 @@
                         <p class="mb-1 text-dark d-flex bg-transparent gap-2">
                           <span @click="deleteUser(item._id)" class="pe-auto hover-icon"> <i class="bi bi-trash3"></i> </span>
                           <span @click="getItinerarysByUser(item._id)" class="pe-auto hover-icon"><i class="bi bi-body-text"></i></span>
+                          <span @click="getSearchedByUser(item._id)" class="pe-auto hover-icon"><i class="bi bi-search"></i></span>
                         </p>
                       </div>
                     </div>
@@ -218,6 +219,7 @@
                         <p class="mb-1 text-dark d-flex bg-transparent">
                           <span @click="deleteUser(item._id)" class="pe-auto hover-icon"> <i class="bi bi-arrow-counterclockwise"></i> </span>
                           <span @click="getItinerarysByUser(item._id)" class="pe-auto hover-icon"><i class="bi bi-body-text"></i></span>
+                          <span @click="getSearchedByUser(item._id)" class="pe-auto hover-icon"><i class="bi bi-search"></i></span>
                         </p>
                       </div>
                     </div>
@@ -345,6 +347,11 @@ export default {
     async getItinerarysByUser(userId) {
       console.log("getItinerarysByUser called", userId);
       this.$router.push(`/get-itinerarysbyuser/${userId}`);
+    },
+
+    async getSearchedByUser(userId) {
+      console.log("getSearchedByUser called", userId);
+      this.$router.push(`/get-searched/${userId}`);
     },
 
     async deleteUser(id) {

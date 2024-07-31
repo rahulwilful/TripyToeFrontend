@@ -25,6 +25,7 @@ import Destination from "../pages/Destination.vue";
 import GetAllUsers from "../pages/GetAllUsers.vue";
 import GetUser from "../pages/GetUserById.vue";
 import GetItinerarysByUser from "../pages/GetItinerarysByUser.vue";
+import Searched from "../pages/Searched.vue";
 
 const routes = [
   {
@@ -136,6 +137,13 @@ const routes = [
       {
         path: "/get-itinerarysbyuser/:userId",
         component: GetItinerarysByUser,
+        props: (route) => ({
+          userId: route.params.userId,
+        }),
+      },
+      {
+        path: "/get-searched/:userId",
+        component: Searched,
         props: (route) => ({
           userId: route.params.userId,
         }),

@@ -87,6 +87,19 @@ input {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.other_options {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.103);
+}
+
+.other_options:hover {
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(-5px);
+}
+
 .form1 {
   border: 1px solid rgba(111, 72, 170, 0.9);
   background: rgba(255, 255, 255, 0.795);
@@ -801,7 +814,7 @@ input {
 
               <div style="">
                 <div>
-                  <div v-for="day in itinerary" :key="day" class="itinerarys pb-3">
+                  <div v-for="(day, dayIndex) in itinerary" :key="dayIndex" class="itinerarys pb-3">
                     <div class="itinerary my-3 mb-sm-3 mb-md-3 mb-lg-4 mb-xl-5 mb-xxl-5 container container-sm container-md container-lg container-xl container-xxl rounded-4 d-flex justify-content-center" style="background-color: rgb(238, 233, 248)">
                       <div class="itinery-box rounded mx-0 mx-sm-1 mx-md-2 mx-lg-4 mx-xl-5 mx-xxl-5">
                         <div class="itinerary-heading w-100 my-2 my-3">
@@ -834,60 +847,23 @@ input {
                           </div>
                         </div>
                         <div class="itinerary-day-box w-100 bg-light rounded-4 my-2 p-3 p-sm-3 p-md-3 p-lg-3 p-xl-4 p-xxl-4 my-3" style="box-shadow: 0px 5px 7px 4px rgba(0, 0, 0, 0.1)">
-                          <div v-auto-animate v-for="dayActivities in day.day.activities" :key="dayActivities" class="w-100 h-100">
+                          <div v-auto-animate v-for="(dayActivities, dayActivitiesIndex) in day.day.activities" :key="dayActivitiesIndex" class="w-100 h-100">
                             <div v-auto-animate class="py-1 fs-6" style="text-align: justify">
                               <span
                                 ><strong class="fw-semibold">{{ dayActivities.activity_time }} : </strong></span
                               >
                               <span class="fw-normal" v-html="highlightEntities(dayActivities.activity)"></span>
-                              <!-- <span v-if="day.modify" class="fw-normal"
-                                ><input type="text" class="form-control form-control-sm border-0 border-bottom border-secondary-subtle rounded-3 shadow fw-medium" v-model="dayActivities.activity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
-                              </span> -->
-                              <!-- <div v-auto-animate v-if="day.modify">
-                                <div v-if="toggleEntity(dayActivities.activity)" class="dropdown">
-                                  <button class="btn btn-transparent btn-select-item dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ toggleEntity(dayActivities.activity) }}</button>
-                                  <ul class="dropdown-menu">
-                                    <li class="option-list" v-for="item in other_options" :key="item">
-                                      <div @click="changeEntity(item, dayActivities)" class="dropdown-item">{{ item }}</div>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div> -->
+
                               <!-- ////////////////////////////////////////////////////// Carousel Options //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-                              <div class="w-100" v-if="day.modify">
-                                <div v-if="toggleEntity(dayActivities.activity)" class="w-100 bg-body-secondary rounded-3 p-2">
-                                  <h5 class="fw-bolder" style="color: rgb(108, 52, 168)">
+                              <div class="w-100" v-if="day.modify && dayActivities.other_options.length > 0">
+                                <div class="w-100 pb-3 bg-body-secondary rounded-3 p-2">
+                                  <h5 class="fw-bolder mb-2" style="color: rgb(108, 52, 168)">
                                     Options For
                                     {{ dayActivities.activity_time }}
                                   </h5>
-                                  <Carousel v-bind="settings" :breakpoints="breakpoints" :wrap-around="true">
-                                    <Slide v-for="item in other_options" :key="item" class="pe-auto">
-                                      <div class="d-flex justify-content-center">
-                                        <div @click="changeEntity(item, dayActivities)" id="card" class="card text-bg-dark option-items bg-transparent border-0 my-2" style="width: 90%; height: auto; min-height: 8rem">
-                                          <!-- border: solid 1px rgb(108, 52, 168) -->
-                                          <img :src="imgSource + item" class="img-fluid" alt="..." style="width: 100%; height: auto; min-height: 8rem; object-fit: cover" />
-
-                                          <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
-                                            <div class="position-relative">
-                                              <div class="ratings position-absolute top-0 end-0">
-                                                <div class="mx-2 mt-2">
-                                                  <span class="px-1 py-1 rounded shadow-lg" style="background-color: #a95fe8">4.4</span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="mb-2" style="width: 100%; position: absolute; bottom: 0">
-                                              <p class="card-text text-center" style="overflow: hidden; text-transform: capitalize">
-                                                {{ item }}
-                                              </p>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </Slide>
-                                    <template #addons>
-                                      <Navigation />
-                                    </template>
-                                  </Carousel>
+                                  <div class="w-100 px-1 px-sm-3" v-for="(options, optionIndex) in dayActivities.other_options" :key="optionIndex">
+                                    <div @click="changeOption(options, optionIndex, dayActivitiesIndex, dayIndex)" class="rounded w-100 other_options px-2 px-sm-4 py-2 d-flex justify-content-start align-items-center mt-3" style="cursor: pointer">{{ options }}</div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -903,8 +879,8 @@ input {
                                 <div class="" @click="callChildMethod(name.name)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                                   <div class="">
                                     <div id="card" class="card text-bg-dark border-0">
-                                      <img :src="name.url" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
-
+                                      <img v-if="name.url != ''" :src="name.url" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
+                                      <img v-else src="../assets/ImgsAndIcons/noImg.jpg" class="img-fluid" alt="..." style="width: 100%; height: 100%; object-fit: cover" />
                                       <div class="" style="width: 100%; height: 100%; position: absolute; bottom: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, 0.77) 100%)">
                                         <div class="position-relative">
                                           <div class="ratings position-absolute top-0 end-0">
@@ -1089,16 +1065,16 @@ input {
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
                 <div v-if="activeIndex == 0" class="carousel-item active carousel-images">
-                  <img src="../assets/slideImg15.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                  <img src="../assets/street_in_goa.webp" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
                 <div v-if="activeIndex == 1" class="carousel-item active carousel-images">
-                  <img src="../assets/slideImg11.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                  <img src="../assets/waterfalls-in-goa.webp" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
                 <div v-if="activeIndex == 2" class="carousel-item active carousel-images">
-                  <img src="../assets/slideImg13.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                  <img src="../assets/seasideland-goa.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
                 <div v-if="activeIndex == 3" class="carousel-item active carousel-images">
-                  <img src="../assets/slideImg14.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
+                  <img src="../assets/goa-beach.jpg" class="d-block w-100 img-fluid1" alt="..." style="width: 100%; height: 100vh; object-fit: cover; transition: transform 2s ease-in-out" />
                 </div>
               </div>
             </div>
@@ -1304,6 +1280,14 @@ export default {
   },
 
   methods: {
+    changeOption(options, optionIndex, dayActivitiesIndex, dayIndex) {
+      console.log("options: ", options, " dayIndex: ", dayIndex, " dayActivitiesIndex: ", dayActivitiesIndex, " optionIndex: ", optionIndex);
+      //swap
+      const temp = this.itinerary[dayIndex].day.activities[dayActivitiesIndex].activity;
+      this.itinerary[dayIndex].day.activities[dayActivitiesIndex].activity = this.itinerary[dayIndex].day.activities[dayActivitiesIndex].other_options[optionIndex];
+      this.itinerary[dayIndex].day.activities[dayActivitiesIndex].other_options[optionIndex] = temp;
+    },
+
     async getDestination(destinationName) {
       console.log("", destinationName);
       this.tempDestination = destinationName;
@@ -1557,12 +1541,23 @@ export default {
           for (let iti in this.itinerary) {
             let temp = [];
             for (let entitys in this.itinerary[iti].day.day_name_entity) {
-              const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
+              //const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
               //console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
-              temp.push({
-                name: this.itinerary[iti].day.day_name_entity[entitys],
-                url: response,
-              });
+              const response = await axiosClient.get(`destinations/get-destination/${this.itinerary[iti].day.day_name_entity[entitys]}`);
+              console.log("response", response, " length: ", response.data.length);
+              if (response && response.data.result) {
+                console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response.data.result.imageUrl);
+                temp.push({
+                  name: this.itinerary[iti].day.day_name_entity[entitys],
+                  url: response.data.result.imageUrl,
+                });
+              } else {
+                console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: null");
+                temp.push({
+                  name: this.itinerary[iti].day.day_name_entity[entitys],
+                  url: "",
+                });
+              }
             }
             console.log("tempEntitys: ", temp);
             this.itinerary[iti].day.day_name_entity = temp;
@@ -1689,17 +1684,28 @@ export default {
 
         this.itinerary = itinerary2;
         this.form.itineraryDays = json_itinerary.itinerary;
-        //this.name_entity = json_itinerary.name_entity;
+        this.name_entity = json_itinerary.name_entity;
 
         for (let iti in this.itinerary) {
           let temp = [];
           for (let entitys in this.itinerary[iti].day.day_name_entity) {
-            const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
+            //const response = await getCuratedPhotos(this.itinerary[iti].day.day_name_entity[entitys]);
             //console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response);
-            temp.push({
-              name: this.itinerary[iti].day.day_name_entity[entitys],
-              url: response,
-            });
+            const response = await axiosClient.get(`destinations/get-destination/${this.itinerary[iti].day.day_name_entity[entitys]}`);
+            console.log("response", response, " length: ", response.data.length);
+            if (response && response.data.result) {
+              console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: ", response.data.result.imageUrl);
+              temp.push({
+                name: this.itinerary[iti].day.day_name_entity[entitys],
+                url: response.data.result.imageUrl,
+              });
+            } else {
+              console.log("entitys: ", this.itinerary[iti].day.day_name_entity[entitys], " url: null");
+              temp.push({
+                name: this.itinerary[iti].day.day_name_entity[entitys],
+                url: "",
+              });
+            }
           }
           console.log("tempEntitys: ", temp);
           this.itinerary[iti].day.day_name_entity = temp;
@@ -1742,26 +1748,6 @@ export default {
         line = line.replace(regex, `<span style="color: rgb(94, 28, 201);text-decoration:underline;cursor: pointer; text-transform:capitalize">${entity}</span>`);
       }
       return line;
-    },
-
-    toggleEntity(line) {
-      if (line === undefined || line === null) {
-        console.error("Input 'line' is undefined or null.");
-        return false; // Return false for undefined or null input
-      }
-
-      // Highlight entities in the line using name_entity array
-      for (const entity of this.name_entity) {
-        const regex = new RegExp(`\\b${entity}\\b`, "gi");
-
-        // If entity is found, return true
-        if (regex.test(line)) {
-          return entity;
-        }
-      }
-
-      // If no entity is found, return false
-      return null;
     },
 
     //function to edit itinerary plans
